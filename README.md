@@ -24,6 +24,8 @@ let package = Package(
 
 ## Usage
 
+[Read the full documentation here](https://jordanbaird.github.io/Prism/documentation/prism/)
+
 Start by creating an instance of the `Prism` type. Its initializer accepts a closure, which you populate with various attributes.
 
 ```swift
