@@ -1,5 +1,10 @@
 [![Prism](https://user-images.githubusercontent.com/90936861/167498476-bd8a4192-679c-4a53-ac87-b15dd1aaa769.png)](https://github.com/jordanbaird/Prism)
 
+![Continuous Integration](https://img.shields.io/github/workflow/status/jordanbaird/Prism/Swift)
+![Release](https://img.shields.io/github/v/release/jordanbaird/Prism)
+![Swift](https://img.shields.io/badge/dynamic/json?color=orange&label=Swift&query=Swift&suffix=%2B&url=https%3A%2F%2Frunkit.io%2Fjordanbaird%2F627c27d5c44b1b0008980644%2Fbranches%2Fmaster)
+![License](https://img.shields.io/github/license/jordanbaird/Prism)
+
 `Prism` is a simple DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it is meant to be easy to use, it is also quite powerful. It works on both macOS and Linux.
 
 ## Install
