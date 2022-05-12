@@ -61,7 +61,15 @@ public struct Color {
     self.rgbCode = rgbCode
   }
   
+  public init(color: Self) {
+    self = color
+  }
+  
   /// Creates a color with the given RGB code.
+  ///
+  /// Valid RGB values are floating point values between 0.0 and 1.0, or integer
+  /// values between 0 and 255. If the code is not valid, the color will be
+  /// initialized to the ``default`` value.
   public init(rgbCode: RGBCode) {
     if rgbCode.isValid {
       self.init(0, .default, rgbCode)
@@ -69,9 +77,82 @@ public struct Color {
       self.init(color: .default)
     }
   }
+  
+  /// Creates a color with the given hexadecimal code.
+  ///
+  /// The hexadecimal code will be validated before the color is created. A
+  /// valid hexadecimal string consists of 6 characters. Valid characters are
+  /// number 0-9 and letters A-F. The string may be prefixed with a pound sign
+  /// (`#`). Whitespace is ignored, as are additional pound signs.
+  ///
+  /// If the code is not valid, the color will be initialized to the ``default``
+  /// value.
+  public init(hexadecimal: Hexadecimal) {
+    self.init(color: hexadecimal.color)
+  }
+  
+  /// Creates a color from the given string.
+  ///
+  /// The string provided can either be a valid hexadecimal value, or an
+  /// RGB-formatted string. If an invalid string is provided, the color
+  /// will be initialized to the ``default`` value.
+  ///
+  /// ```swift
+  /// let color = Color(string: "26AB2A") // Valid
+  /// let color = Color(string: "#9B69B9") // Valid
+  /// let color = Color(string: "5,88,247") // Valid
+  /// let color = Color(string: "0.3,0.77,0.14") // Valid
+  /// let color = Color(string: "r:109,g:34,b:232") // Valid
+  /// ```
+  public init(string: String) {
+    let hexadecimal = Hexadecimal(string: string)
+    let split = string.split(separator: ",")
+    
+    if hexadecimal.isValid {
+      self.init(hexadecimal: hexadecimal)
+    } else if split.count == 3 {
+      let strings = split.map {
+        $0
+          .lowercased(with: .current)
+          .replacingOccurrences(of: "r:", with: "")
+          .replacingOccurrences(of: "g:", with: "")
+          .replacingOccurrences(of: "b:", with: "")
+          .replacingOccurrences(of: "red:", with: "")
+          .replacingOccurrences(of: "green:", with: "")
+          .replacingOccurrences(of: "blue:", with: "")
+          .trimmingCharacters(in: .whitespacesAndNewlines)
+      }
+      
+      if
+        let r = Int(strings[0]),
+        let g = Int(strings[1]),
+        let b = Int(strings[2])
+      {
+        self.init(red: r, green: g, blue: b)
+      } else if
+        let r = Double(strings[0]),
+        let g = Double(strings[1]),
+        let b = Double(strings[2])
+      {
+        self.init(red: r, green: g, blue: b)
+      } else {
+        self.init(color: .default)
+      }
+    } else {
+      self.init(color: .default)
+    }
   }
   
   /// Creates a color with the given red, green, and blue values.
+  ///
+  /// These values must be integer values between 0 and 255.
+  public init(red: Int, green: Int, blue: Int) {
+    self.init(rgbCode: .init(red: red, green: green, blue: blue))
+  }
+  
+  /// Creates a color with the given red, green, and blue values.
+  ///
+  /// These values must be floating point values between 0.0 and 1.0.
   public init(red: Double, green: Double, blue: Double) {
     self.init(rgbCode: .init(red: red, green: green, blue: blue))
   }
@@ -148,5 +229,21 @@ extension Color {
   /// The ANSI white color, in either a default or bright style.
   public static func white(style: Style = .default) -> Self {
     .init(7, style, nil)
+  }
+}
+
+extension Color: Equatable {
+  public static func == (lhs: Self, rhs: Self) -> Bool {
+    lhs.rawValue == rhs.rawValue &&
+    lhs.rgbCode == rhs.rgbCode &&
+    lhs.style == rhs.style
+  }
+}
+
+extension Color: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(rawValue)
+    hasher.combine(rgbCode)
+    hasher.combine(style)
   }
 }

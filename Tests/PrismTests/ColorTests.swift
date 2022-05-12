@@ -63,4 +63,22 @@ final class ColorTests: XCTestCase {
     XCTAssertEqual(fgCode, color.foregroundCode)
     XCTAssertEqual(bgCode, color.backgroundCode)
   }
+  
+  func testInitializationByString() {
+    // These should be valid.
+    let c1 = Color(string: "26AB2A")
+    let c2 = Color(string: "0.3,0.77,0.14")
+    let c3 = Color(string: "5,88,247")
+    let c4 = Color(string: "r:10,g:35,b:200")
+    XCTAssertNotEqual(c1, .default)
+    XCTAssertNotEqual(c2, .default)
+    XCTAssertNotEqual(c3, .default)
+    XCTAssertNotEqual(c4, .default)
+    
+    // These should be invalid.
+    let c5 = Color(string: "ZX0L8M")
+    let c6 = Color(string: "2,0.1,45")
+    XCTAssertEqual(c5, .default)
+    XCTAssertEqual(c6, .default)
+  }
 }
