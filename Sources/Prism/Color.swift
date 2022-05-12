@@ -28,29 +28,6 @@ public struct Color {
     }
   }
   
-  /// A type that contains a red, a green, and a blue value, that can
-  /// be used to construct a ``Color`` instance.
-  public struct RGBCode {
-    /// The red value of this code.
-    public let red: Double
-    /// The green value of this code.
-    public let green: Double
-    /// The blue value of this code.
-    public let blue: Double
-    
-    var rawValue: String {
-      "2;\(Int(red * 255));\(Int(green * 255));\(Int(blue * 255))"
-    }
-    
-    var foregroundCode: String {
-      "38;\(rawValue)"
-    }
-    
-    var backgroundCode: String {
-      "48;\(rawValue)"
-    }
-  }
-  
   // MARK: - Properties
   
   // This value is not used when `rgbCode` has a value.
@@ -86,7 +63,12 @@ public struct Color {
   
   /// Creates a color with the given RGB code.
   public init(rgbCode: RGBCode) {
-    self.init(0, .default, rgbCode)
+    if rgbCode.isValid {
+      self.init(0, .default, rgbCode)
+    } else {
+      self.init(color: .default)
+    }
+  }
   }
   
   /// Creates a color with the given red, green, and blue values.
