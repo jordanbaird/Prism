@@ -16,14 +16,6 @@ final class MiscTests: XCTestCase {
     XCTAssertNotEqual(a1.id, a2.id)
   }
   
-  func testRNGPerformance() {
-    measure {
-      let a = Bold.rng.next()
-      let b = Bold.rng.next()
-      XCTAssertNotEqual(a, b)
-    }
-  }
-  
   func testStorageIntegrity() {
     let value = Storage(0).get("test", backup: "Hello")
     let storage = Storage.allStorage[0]
