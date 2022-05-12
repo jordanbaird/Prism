@@ -1,6 +1,7 @@
 [![Prism](https://user-images.githubusercontent.com/90936861/167498476-bd8a4192-679c-4a53-ac87-b15dd1aaa769.png)](https://github.com/jordanbaird/Prism)
 
 ![Continuous Integration](https://img.shields.io/github/workflow/status/jordanbaird/Prism/Swift)
+[![Code Coverage](https://codecov.io/gh/jordanbaird/Prism/branch/main/graph/badge.svg?token=C60OOWRYQ2)](https://codecov.io/gh/jordanbaird/Prism)
 ![Release](https://img.shields.io/github/v/release/jordanbaird/Prism)
 ![Swift](https://img.shields.io/badge/dynamic/json?color=orange&label=Swift&query=Swift&suffix=%2B&url=https%3A%2F%2Frunkit.io%2Fjordanbaird%2F627c27d5c44b1b0008980644%2Fbranches%2Fmaster)
 ![License](https://img.shields.io/github/license/jordanbaird/Prism)
