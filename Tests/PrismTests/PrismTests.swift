@@ -83,6 +83,15 @@ final class PrismTests: XCTestCase {
     XCTAssertEqual(customSpacing.escapedDescription, managedSpacing.escapedDescription)
   }
   
+  func testNonStandardInitialization() {
+    let prism1 = Prism(spacing: .managed(.newlines), elements: Bold("Bold"), Blink("Blink"))
+    let prism2 = Prism(spacing: .managed(.newlines)) {
+      Bold("Bold")
+      Blink("Blink")
+    }
+    XCTAssertEqual(prism1, prism2)
+  }
+  
   func testConcatenate() {
     let prismStandard = Prism {
       Bold("Bold")
