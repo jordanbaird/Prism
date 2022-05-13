@@ -12,22 +12,10 @@
 
 ## Install
 
-Add the following to your `Package.swift` file:
+Add the following dependency to your `Package.swift` file:
 
 ```swift
-import PackageDescription
-let package = Package(
-    name: "PackageName",
-    dependencies: [
-        .package(url: "https://github.com/jordanbaird/Prism", from: "0.0.1")
-    ],
-    targets: [
-        .target(
-            name: "PackageName",
-            dependencies: ["Prism"]
-        )
-    ]
-)
+.package(url: "https://github.com/jordanbaird/Prism", from: "0.0.1")
 ```
 
 ## Usage
@@ -38,17 +26,12 @@ Start by creating an instance of the `Prism` type. Its initializer accepts a clo
 
 ```swift
 let prism = Prism(spacing: .managed(.lineBreaks)) {
-    ForegroundColor(.green, "This text's foreground is green.")
-    BackgroundColor(.blue, "This text's background is blue.")
+    ForegroundColor(.green, "This text's color is green.")
     Bold("This text is bold.")
-    Dim("This text is dim.")
     Italic("This text is italic.")
     Underline("This text is underlined.")
-    Blink("This text blinks.")
-    Swap("This text has its foreground and background colors swapped.")
     Strikethrough("This text has a strikethrough.")
 }
-print(prism)
 ```
 
 Each attribute functions similarly to `Prism` itself, in that you can nest other elements inside of them. The `String` type conforms to `PrismElement`, so you can use string literals inline with other elements and attributes.
@@ -60,7 +43,7 @@ let prism = Prism {
         Italic {
             "This text is bold and italic."
         }
-        Italic("This text is also bold and italic.")
+        Underline("This text is bold and underlined.")
         BackgroundColor(.cyan) {
             Underline {
                 "This text is bold, underlined, and has a cyan background."
@@ -70,6 +53,6 @@ let prism = Prism {
 }
 ```
 
-The `Prism` type can be directly used in a `print()` function, and the formatted string will be printed directly to the terminal. If the terminal does not support formatted text, the unformatted version of the string will be printed instead.
+The `Prism` type can be directly used in a `print()` function, and the formatted string will be printed directly to the terminal or console. If the terminal or console does not support formatted text, the unformatted version of the string will be printed instead.
 
-> Things may show up differently, depending on which terminal client is being used. It is up to the terminal to determine how it will display the control codes `Prism` provides it.
+> Things may show up differently, depending on which terminal client is being used. It is up to the terminal to determine how it will display the control codes that `Prism` provides it.
