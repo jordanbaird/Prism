@@ -12,15 +12,16 @@ import XCTest
 final class PrismTests: XCTestCase {
   func testStringConversion() {
     let correctString = """
-      \u{001B}[1mBold\u{001B}[22m \
-      \u{001B}[2mDim\u{001B}[22m \
-      \u{001B}[3mItalic\u{001B}[23m \
-      \u{001B}[4mUnderline\u{001B}[24m \
-      \u{001B}[53mOverline\u{001B}[55m \
-      \u{001B}[5mBlink\u{001B}[25m \
-      \u{001B}[7mSwap\u{001B}[27m \
-      \u{001B}[8mHide\u{001B}[28m \
-      \u{001B}[9mStrikethrough\u{001B}[29m
+      \\u{001B}[1mBold\\u{001B}[22m \
+      \\u{001B}[2mDim\\u{001B}[22m \
+      \\u{001B}[3mItalic\\u{001B}[23m \
+      \\u{001B}[4mUnderline\\u{001B}[24m \
+      \\u{001B}[53mOverline\\u{001B}[55m \
+      \\u{001B}[5mBlink\\u{001B}[25m \
+      \\u{001B}[7mSwap\\u{001B}[27m \
+      \\u{001B}[8mHide\\u{001B}[28m \
+      \\u{001B}[9mStrikethrough\\u{001B}[29m\
+      \\u{001B}[0m
       """
     let prism = Prism {
       Bold("Bold")

@@ -36,6 +36,7 @@ final class ControlSequenceTests: XCTestCase {
   
   func testConstructors() {
     let s1 = ControlSequence(for: Bold("Bold"))
+    print(s1.mapped)
     XCTAssertEqual(s1.mapped, "\u{001B}[1mBold\u{001B}[22m")
     
     let s2 = Prism {
@@ -49,7 +50,8 @@ final class ControlSequenceTests: XCTestCase {
     let s2CorrectString = """
       \u{001B}[1mBold\u{001B}[22m \
       \u{001B}[4mUnderline\u{001B}[24m \
-      \u{001B}[3m\u{001B}[7mSwap\u{001B}[27m\u{001B}[23m
+      \u{001B}[3m\u{001B}[7mSwap\u{001B}[27m\u{001B}[23m\
+      \u{001B}[0m
       """
     XCTAssertEqual(s2.mapped, s2CorrectString)
   }
