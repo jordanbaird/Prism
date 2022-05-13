@@ -25,7 +25,8 @@ extension PrismElement {
   // MARK: - Instance Properties
   
   var controlSequence: ControlSequence {
-    .init(for: self)
+    get { Storage(id).get("controlSequence") ?? .init(for: self) }
+    set { Storage(id).set(newValue, forKey: "controlSequence") }
   }
   
   /// A textual representation of the element.
