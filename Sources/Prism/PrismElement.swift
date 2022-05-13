@@ -24,6 +24,16 @@ extension PrismElement {
   
   // MARK: - Instance Properties
   
+  var colorCompatibleDescription: String {
+    if Destination.current == .colorCompatible {
+      return controlSequence.mapped
+    } else if rawValue.isEmpty {
+      return nestedElements.map(\.description).joined()
+    } else {
+      return rawValue
+    }
+  }
+  
   var controlSequence: ControlSequence {
     get { Storage(id).get("controlSequence") ?? .init(for: self) }
     set { Storage(id).set(newValue, forKey: "controlSequence") }
