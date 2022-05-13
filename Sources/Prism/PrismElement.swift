@@ -40,7 +40,17 @@ extension PrismElement {
   
   /// A textual representation of the element that shows its control characters.
   public var escapedDescription: String {
-    controlSequence.base.map(\.rawValue).joined()
+    controlSequence.base.map {
+      var buffer = ""
+      for char in $0.rawValue {
+        if char == "\u{001B}" {
+          buffer.append("\\u{001B}")
+        } else {
+          buffer.append(char)
+        }
+      }
+      return buffer
+    }.joined()
   }
   
   var nestedElements: [PrismElement] {
