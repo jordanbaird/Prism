@@ -42,6 +42,22 @@ public struct LineBreak: SpacerElement {
   }
 }
 
+// MARK: - Reset
+
+/// A prism element that resets the entire sequence.
+public struct Reset: PrismElement {
+  public let id = rng.next()
+  
+  public var description: String {
+    colorCompatibleDescription
+  }
+  
+  /// Creates a reset element.
+  public init() {
+    controlSequence = .reset
+  }
+}
+
 // MARK: - Bold
 
 /// A prism element that renders its text in a bold font, in terminals that
