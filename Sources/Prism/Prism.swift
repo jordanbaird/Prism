@@ -56,7 +56,7 @@ public struct Prism:
     _elements.reduce(into: [PrismElement]()) {
       $1.prism = self
       $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-    }
+    } + [Reset()]
   }
   
   /// A textual representation of the prism.
