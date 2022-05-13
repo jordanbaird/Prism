@@ -22,13 +22,7 @@ extension Attribute {
   
   /// A textual representation of the attribute.
   public var description: String {
-    if Destination.current == .colorCompatible {
-      return controlSequence.mapped
-    } else if rawValue.isEmpty {
-      return nestedElements.map(\.description).joined()
-    } else {
-      return rawValue
-    }
+    colorCompatibleDescription
   }
   
   /// A textual representation of the attribute that is suitable for debugging.
