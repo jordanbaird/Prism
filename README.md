@@ -6,7 +6,9 @@
 ![Swift](https://img.shields.io/badge/dynamic/json?color=orange&label=Swift&query=Swift&suffix=%2B&url=https%3A%2F%2Ftinyurl.com%2Fprism-swift-version)
 ![License](https://img.shields.io/github/license/jordanbaird/Prism)
 
-`Prism` is a simple DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it is meant to be easy to use, it is also quite powerful. It works on both macOS and Linux.
+`Prism` is a simple DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it's meant to be easy to use, it is quite powerful, and works on both macOS and Linux.
+
+![Styles](https://user-images.githubusercontent.com/90936861/168344731-0f4e6f33-0d76-434c-b567-865e39274f7b.svg)
 
 ## Install
 
@@ -49,14 +51,25 @@ let prism = Prism(spacing: .managed(.lineBreaks)) {
 print(prism)
 ```
 
-The result will look something like this:
+Each attribute functions similarly to `Prism` itself, in that you can nest other elements inside of them. The `String` type conforms to `PrismElement`, so you can use string literals inline with other elements and attributes.
 
-<div align="center">
-    <a href="https://github.com/jordanbaird/Prism">
-        <img width="671" src="https://user-images.githubusercontent.com/90936861/167680957-bbf0caa8-9e7a-407f-98c1-ac52fe46f531.png">
-    </a>
-</div>
+```swift
+let prism = Prism {
+    Bold {
+        "This text is bold."
+        Italic {
+            "This text is bold and italic."
+        }
+        Italic("This text is also bold and italic.")
+        BackgroundColor(.cyan) {
+            Underline {
+                "This text is bold, underlined, and has a cyan background."
+            }
+        }
+    }
+}
+```
 
-Each attribute functions similarly to `Prism` itself, in that you can nest other elements inside of them.
+The `Prism` type can be directly used in a `print()` function, and the formatted string will be printed directly to the terminal. If the terminal does not support formatted text, the unformatted version of the string will be printed instead.
 
 > Things may show up differently, depending on which terminal client is being used. It is up to the terminal to determine how it will display the control codes `Prism` provides it.
