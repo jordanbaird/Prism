@@ -10,6 +10,7 @@
 public protocol PrismElement: CustomStringConvertible, CustomDebugStringConvertible {
   /// The element's identifying value.
   var id: UInt64 { get }
+  var rawValue: String { get }
 }
 
 extension PrismElement {
