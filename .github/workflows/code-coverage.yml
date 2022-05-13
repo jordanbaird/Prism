@@ -3,14 +3,10 @@ on: push
 
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Set Up Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '13.3'
       - name: Test
         run: swift test --enable-code-coverage
       - name: Generate
