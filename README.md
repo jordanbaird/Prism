@@ -8,7 +8,7 @@
 
 `Prism` is a simple DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it's meant to be easy to use, it is quite powerful, and works on both macOS and Linux.
 
-![Styles](https://user-images.githubusercontent.com/90936861/168344731-0f4e6f33-0d76-434c-b567-865e39274f7b.svg)
+[![Styles](/media/styles.svg)](https://github.com/jordanbaird/Prism)
 
 ## Install
 
@@ -25,7 +25,7 @@ Add the following dependency to your `Package.swift` file:
 Start by creating an instance of the `Prism` type. Its initializer accepts a closure, which you populate with various attributes.
 
 ```swift
-let prism = Prism(spacing: .managed(.lineBreaks)) {
+let prism = Prism {
     ForegroundColor(.green, "This text's color is green.")
     Bold("This text is bold.")
     Italic("This text is italic.")
