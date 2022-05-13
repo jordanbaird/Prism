@@ -3,13 +3,13 @@ on: push
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Install Swift
         uses: sersoft-gmbh/SwiftyActions@v1
         with:
           release-version: 5.6
-          platform: ubuntu-latest
+          platform: ubuntu-18.04
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test
