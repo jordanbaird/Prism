@@ -11,13 +11,13 @@ import XCTest
 
 final class DestinationTests: XCTestCase {
   func testCorrectDestination() {
-    setenv("TERM", "xterm-256color", 1)
+    EnvironmentVariable("TERM").set("xterm-256color")
     XCTAssert(Destination.current == .formattingCompatible)
     
-    setenv("TERM", "dumb", 1)
+    EnvironmentVariable("TERM").set("dumb")
     XCTAssert(Destination.current == .formattingIncompatible)
     
-    unsetenv("TERM")
+    EnvironmentVariable("TERM").unset()
     XCTAssert(Destination.current == .unknown)
   }
 }

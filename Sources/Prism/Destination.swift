@@ -6,30 +6,19 @@
 //
 //===----------------------------------------------------------------------===//
 
-#if canImport(CoreFoundation)
-import CoreFoundation
-#endif
-
 enum Destination {
   case formattingCompatible
   case formattingIncompatible
   case unknown
   
   static var current: Self {
-    #if canImport(CoreFoundation)
-    if
-      let envVar = getenv("TERM"),
-      let terminal = String(validatingUTF8: envVar)?.lowercased()
-    {
-      guard terminal != "dumb" else {
-      }
-    } else {
+    let env = EnvironmentVariable("TERM")
+    if env.status == .unset {
       return .unknown
+    } else if env == "dumb" {
       return .formattingIncompatible
+    } else {
       return .formattingCompatible
     }
-    #else
-    return .unknown
-    #endif
   }
 }
