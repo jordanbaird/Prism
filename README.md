@@ -1,4 +1,4 @@
-[![Prism](https://user-images.githubusercontent.com/90936861/167498476-bd8a4192-679c-4a53-ac87-b15dd1aaa769.png)](https://github.com/jordanbaird/Prism)
+[![Prism](/media/header.svg)](https://github.com/jordanbaird/Prism)
 
 ![Continuous Integration](https://img.shields.io/github/workflow/status/jordanbaird/Prism/Swift)
 [![Code Coverage](https://codecov.io/gh/jordanbaird/Prism/branch/main/graph/badge.svg?token=C60OOWRYQ2)](https://codecov.io/gh/jordanbaird/Prism)
