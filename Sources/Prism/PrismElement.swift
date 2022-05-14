@@ -102,6 +102,10 @@ extension PrismElement {
     set { Storage(id).set(newValue, forKey: "spacing") }
   }
   
+  var testableDescription: String {
+    controlSequence.base.map(\.rawValue).joined()
+  }
+  
   // MARK: - Methods
   
   func maybePrependSpacer(with spacing: Prism.Spacing) -> [PrismElement] {

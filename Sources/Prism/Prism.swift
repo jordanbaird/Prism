@@ -80,6 +80,10 @@ public struct Prism:
     }
   }
   
+  var testableDescription: String {
+    elements.map(\.testableDescription).joined()
+  }
+  
   // MARK: - Initializers
   
   /// Creates a prism with the given elements and spacing.
