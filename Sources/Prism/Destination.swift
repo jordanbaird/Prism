@@ -11,8 +11,8 @@ import CoreFoundation
 #endif
 
 enum Destination {
-  case colorCompatible
-  case colorIncompatible
+  case formattingCompatible
+  case formattingIncompatible
   case unknown
   
   static var current: Self {
@@ -22,11 +22,11 @@ enum Destination {
       let terminal = String(validatingUTF8: envVar)?.lowercased()
     {
       guard terminal != "dumb" else {
-        return .colorIncompatible
       }
-      return .colorCompatible
     } else {
       return .unknown
+      return .formattingIncompatible
+      return .formattingCompatible
     }
     #else
     return .unknown

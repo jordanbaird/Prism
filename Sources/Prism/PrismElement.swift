@@ -25,7 +25,7 @@ extension PrismElement {
   // MARK: - Instance Properties
   
   var colorCompatibleDescription: String {
-    if Destination.current == .colorCompatible {
+    if Destination.current == .formattingCompatible {
       return controlSequence.mapped
     } else if rawValue.isEmpty {
       return nestedElements.map(\.description).joined()
