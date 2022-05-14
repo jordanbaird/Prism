@@ -140,21 +140,3 @@ extension PrismElement {
     Prism([lhs]) + rhs
   }
 }
-
-// MARK: - Extension where Self == String
-
-extension PrismElement where Self == String {
-  public var id: UInt64 { .init() }
-  public var rawValue: String { self }
-}
-
-// MARK: - SpacerElement
-
-protocol SpacerElement: PrismElement { }
-
-extension SpacerElement {
-  public var debugDescription: String { "\(Self.self)()" }
-  public var id: UInt64 {
-    .init("\(Self.self)".hashValue.magnitude)
-  }
-}

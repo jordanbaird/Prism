@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-extension String: PrismElement {
+extension String {
   
   // MARK: - Properties
   
@@ -64,4 +64,9 @@ extension String: PrismElement {
   public func backgroundColor(_ color: Color) -> Self {
     BackgroundColor(color, self).string()
   }
+}
+
+extension String: PrismElement {
+  public var id: UInt64 { .init() }
+  public var rawValue: String { self }
 }

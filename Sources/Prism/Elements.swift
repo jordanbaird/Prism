@@ -10,19 +10,10 @@
 
 /// A prism element that adds a single space or tab to a control sequence.
 public struct Spacer: SpacerElement {
-  /// The possible types of elements that a spacer can contain.
-  public enum SpacerType: String {
-    /// A space `(" ")` element.
-    case space = " "
-    /// A tab `("\t")` element.
-    case tab = "\t"
-  }
+  let type: SpacerType
   
-  public let rawValue: String
-  
-  /// Creates a spacer element of the given type.
   public init(type: SpacerType = .space) {
-    rawValue = type.rawValue
+    self.type = type
   }
 }
 
@@ -30,19 +21,10 @@ public struct Spacer: SpacerElement {
 
 /// A prism element that adds a single line break to a control sequence.
 public struct LineBreak: SpacerElement {
-  /// The possible types of elements that a line break can contain.
-  public enum LineBreakType: String {
-    /// A newline `("\n")` element.
-    case newline = "\n"
-    /// A return `("\r")` element.
-    case `return` = "\r"
-  }
+  let type: LineBreakType
   
-  public let rawValue: String
-  
-  /// Creates a line break element of the given type.
   public init(type: LineBreakType = .newline) {
-    rawValue = type.rawValue
+    self.type = type
   }
 }
 
