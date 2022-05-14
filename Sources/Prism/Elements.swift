@@ -122,7 +122,7 @@ public struct Underline: Attribute {
 
 /// A prism element that renders its text with an overline, in terminals that
 /// support it.
-public struct Overlineline: Attribute {
+public struct Overline: Attribute {
   public let id = rng.next()
   public let onSequence = ControlSequence.overlineOn
   public let offSequence = ControlSequence.overlineOff

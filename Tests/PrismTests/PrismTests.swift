@@ -28,7 +28,7 @@ final class PrismTests: XCTestCase {
       Dim("Dim")
       Italic("Italic")
       Underline("Underline")
-      Overlineline("Overline")
+      Overline("Overline")
       Blink("Blink")
       Swap("Swap")
       Hide("Hide")
