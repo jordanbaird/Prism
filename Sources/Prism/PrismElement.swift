@@ -145,11 +145,7 @@ extension PrismElement {
 
 extension PrismElement where Self == String {
   public var id: UInt64 { .init() }
-  
-  public internal(set) var rawValue: String {
-    get { self }
-    set { self = newValue }
-  }
+  public var rawValue: String { self }
 }
 
 // MARK: - SpacerElement
