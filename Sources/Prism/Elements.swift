@@ -18,6 +18,8 @@ public struct Spacer: SpacerElement {
     case tab = "\t"
   }
   
+  public let rawValue: String
+  
   /// Creates a spacer element of the given type.
   public init(type: SpacerType = .space) {
     rawValue = type.rawValue
@@ -35,6 +37,8 @@ public struct LineBreak: SpacerElement {
     /// A return `("\r")` element.
     case `return` = "\r"
   }
+  
+  public let rawValue: String
   
   /// Creates a line break element of the given type.
   public init(type: LineBreakType = .newline) {
