@@ -254,3 +254,35 @@ public struct BackgroundColor: Attribute {
     self.init(.default, string, nestedElements: nestedElements)
   }
 }
+
+// MARK: - IgnoreFormatting
+
+/// A prism element that removes all formatting from any elements nested inside it.
+public struct IgnoreFormatting: Attribute {
+  public let id = rng.next()
+  
+  public var onSequence: ControlSequence {
+    var sequence = ControlSequence()
+    var currentParent = parentElement
+    while let _currentParent = currentParent as? Attribute {
+      sequence += _currentParent.offSequence
+      currentParent = _currentParent.parentElement
+    }
+    return sequence
+  }
+  
+  public var offSequence: ControlSequence {
+    var sequence = ControlSequence()
+    var currentParent = parentElement
+    while let _currentParent = currentParent as? Attribute {
+      sequence += _currentParent.onSequence
+      currentParent = _currentParent.parentElement
+    }
+    return sequence
+  }
+  
+  public init(_ string: String, nestedElements: [PrismElement] = []) {
+    rawValue = string
+    self.nestedElements = nestedElements
+  }
+}
