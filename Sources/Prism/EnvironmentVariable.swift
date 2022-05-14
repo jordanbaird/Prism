@@ -50,16 +50,13 @@ public struct EnvironmentVariable {
   
   /// Sets the value of the environment variable.
   public func set(_ value: String?) {
-    if value == nil {
-      unsetenv(name)
-    } else {
-      setenv(name, value, 1)
-    }
+    guard let value = value else { return unset() }
+    setenv(name, value, 1)
   }
   
   /// Unsets the environment variable.
   public func unset() {
-    set(nil)
+    unsetenv(name)
   }
 }
 
