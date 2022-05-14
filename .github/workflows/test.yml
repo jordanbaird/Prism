@@ -3,13 +3,12 @@ on: [ push, pull_request ]
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Install Swift
-        uses: sersoft-gmbh/SwiftyActions@v1
+        uses: sersoft-gmbh/swifty-linux-action@v1.3.0
         with:
           release-version: 5.6
-          platform: ubuntu-18.04
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test
