@@ -1,12 +1,8 @@
-name: Upload Code Coverage
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+name: Test and Upload Code Coverage
+on: [ push, pull_request ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-18.04
     steps:
       - name: Install Swift
@@ -17,10 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test
-        run: swift test --enable-code-coverage
-      - name: Generate
+        run: swift test -v --enable-code-coverage
+      - name: Generate Code Coverage
         run: ./.github/scripts/generate-code-coverage.sh
-      - name: Upload
+      - name: Upload Code Coverage
         uses: codecov/codecov-action@v3.1.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
