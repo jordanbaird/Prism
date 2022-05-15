@@ -22,7 +22,7 @@ public struct ControlSequence {
   }
   
   var mapped: String {
-    base.mapToString()
+    base.map(\.rawValue).joined()
   }
   
   // MARK: - Initializers
@@ -35,8 +35,8 @@ public struct ControlSequence {
     self.init(base)
   }
   
-  init(withCodeComponent component: Component) {
-    self.init(.introducer, component, .closer)
+  init(withCodeComponent component: Any) {
+    self.init(.introducer, .init("\(component)"), .closer)
   }
   
   init(for element: PrismElement) {
@@ -92,11 +92,11 @@ extension ControlSequence {
   static let strikethroughOff = Self(withCodeComponent: 29)
   
   static func foregroundColor(_ color: Color) -> Self {
-    Self(withCodeComponent: "\(color.foregroundCode)")
+    Self(withCodeComponent: color.foregroundCode)
   }
   
   static func backgroundColor(_ color: Color) -> Self {
-    Self(withCodeComponent: "\(color.backgroundCode)")
+    Self(withCodeComponent: color.backgroundCode)
   }
   
   static func string(_ str: String) -> Self {

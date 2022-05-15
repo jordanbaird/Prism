@@ -74,26 +74,8 @@ extension ControlSequence.Component: CustomStringConvertible, CustomDebugStringC
   }
 }
 
-extension ControlSequence.Component: ExpressibleByIntegerLiteral {
-  public init(integerLiteral value: IntegerLiteralType) {
-    self.init("\(value)")
-  }
-}
-
-extension ControlSequence.Component: ExpressibleByStringInterpolation {
-  public init(stringLiteral value: StringLiteralType) {
-    self.init(value)
-  }
-}
-
 extension ControlSequence.Component: Codable { }
 
 extension ControlSequence.Component: Equatable { }
 
 extension ControlSequence.Component: Hashable { }
-
-extension Array where Element == ControlSequence.Component {
-  func mapToString() -> String {
-    map(\.rawValue).joined()
-  }
-}
