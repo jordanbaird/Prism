@@ -17,7 +17,6 @@ protocol SpacerElement: PrismElement {
 
 extension SpacerElement {
   public var debugDescription: String { "\(Self.self)(type: \(type))" }
-  public var description: String { "\(Self.self)" }
   public var id: UInt64 { .init(debugDescription.hashValue.magnitude) }
   public var rawValue: String { type.rawValue }
 }

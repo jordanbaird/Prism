@@ -43,12 +43,12 @@ final class MiscTests: XCTestCase {
   func testSpacerElementDescriptions() {
     let s1 = Spacer(type: .space)
     let s2 = Spacer(type: .tab)
-    XCTAssertEqual(s1.description, s2.description)
+    XCTAssertNotEqual(s1.description, s2.description)
     XCTAssertNotEqual(s1.debugDescription, s2.debugDescription)
     
     let l1 = LineBreak(type: .newline)
     let l2 = LineBreak(type: .return)
-    XCTAssertEqual(l1.description, l2.description)
+    XCTAssertNotEqual(l1.description, l2.description)
     XCTAssertNotEqual(l1.debugDescription, l2.debugDescription)
   }
 }
