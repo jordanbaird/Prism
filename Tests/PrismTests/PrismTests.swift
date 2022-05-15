@@ -108,11 +108,12 @@ final class PrismTests: XCTestCase {
       Bold("Bold")
       Italic("Italic")
       Underline("Underline")
+      Dim("Dim")
     }
     
     var prismConcat = Prism(Bold("Bold"))
     prismConcat += Italic("Italic")
-    prismConcat += Underline("Underline")
+    prismConcat += [Underline("Underline"), Dim("Dim")]
     
     XCTAssertEqual(prismStandard, prismConcat)
   }
