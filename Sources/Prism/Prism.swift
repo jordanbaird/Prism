@@ -74,12 +74,6 @@ public struct Prism:
     elements.map(\.escapedDescription).joined()
   }
   
-  var controlSequence: ControlSequence {
-    elements.reduce(into: .init()) {
-      $0 += $1.controlSequence
-    }
-  }
-  
   var testableDescription: String {
     elements.map(\.testableDescription).joined()
   }
