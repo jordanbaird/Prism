@@ -61,7 +61,7 @@ extension Attribute {
   
   /// The generated string of this attribute.
   ///
-  /// Accessing this property is equivalent to accessing the ``description`` property.
+  /// Accessing this property is equivalent to accessing the `description` property.
   public func string() -> String {
     description
   }
