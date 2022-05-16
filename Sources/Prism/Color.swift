@@ -34,12 +34,15 @@ public struct Color {
   let rawValue: Int
   
   let rgbCode: RGBCode?
+  let ecma256: ECMA256?
   
   let style: Style
   
   var foregroundCode: String {
     if let rgbCode = rgbCode {
       return rgbCode.foregroundCode
+    } else if let ecma256 = ecma256 {
+      return ecma256.foregroundCode
     } else {
       return "\(rawValue + style.rawValue.foreground)"
     }
@@ -48,6 +51,8 @@ public struct Color {
   var backgroundCode: String {
     if let rgbCode = rgbCode {
       return rgbCode.backgroundCode
+    } else if let ecma256 = ecma256 {
+      return ecma256.backgroundCode
     } else {
       return "\(rawValue + style.rawValue.background)"
     }
@@ -55,12 +60,14 @@ public struct Color {
   
   // MARK: - Initializers
   
-  init(_ rawValue: Int, _ style: Style, _ rgbCode: RGBCode?) {
+  init(_ rawValue: Int, _ style: Style, _ rgbCode: RGBCode?, _ ecma256: ECMA256?) {
     self.rawValue = rawValue
     self.style = style
     self.rgbCode = rgbCode
+    self.ecma256 = ecma256
   }
   
+  /// Creates a color from the given color.
   public init(color: Self) {
     self = color
   }
@@ -72,10 +79,15 @@ public struct Color {
   /// initialized to the ``default`` value.
   public init(rgbCode: RGBCode) {
     if rgbCode.isValid {
-      self.init(0, .default, rgbCode)
+      self.init(0, .default, rgbCode, nil)
     } else {
       self.init(color: .default)
     }
+  }
+  
+  /// Creates a color with the given ECMA256 color code.
+  public init(ecma256: ECMA256) {
+    self.init(0, .default, nil, ecma256)
   }
   
   /// Creates a color with the given hexadecimal code.
@@ -187,48 +199,48 @@ extension Color {
   public static let white = white(style: .default)
   
   /// The default text color of the terminal.
-  public static let `default` = Self(9, .default, nil)
+  public static let `default` = Self(9, .default, nil, nil)
   
   // MARK: - Static Methods
   
   /// The ANSI black color, in either a default or bright style.
   public static func black(style: Style = .default) -> Self {
-    .init(0, style, nil)
+    .init(0, style, nil, nil)
   }
   
   /// The ANSI red color, in either a default or bright style.
   public static func red(style: Style = .default) -> Self {
-    .init(1, style, nil)
+    .init(1, style, nil, nil)
   }
   
   /// The ANSI green color, in either a default or bright style.
   public static func green(style: Style = .default) -> Self {
-    .init(2, style, nil)
+    .init(2, style, nil, nil)
   }
   
   /// The ANSI yellow color, in either a default or bright style.
   public static func yellow(style: Style = .default) -> Self {
-    .init(3, style, nil)
+    .init(3, style, nil, nil)
   }
   
   /// The ANSI blue color, in either a default or bright style.
   public static func blue(style: Style = .default) -> Self {
-    .init(4, style, nil)
+    .init(4, style, nil, nil)
   }
   
   /// The ANSI magenta color, in either a default or bright style.
   public static func magenta(style: Style = .default) -> Self {
-    .init(5, style, nil)
+    .init(5, style, nil, nil)
   }
   
   /// The ANSI cyan color, in either a default or bright style.
   public static func cyan(style: Style = .default) -> Self {
-    .init(6, style, nil)
+    .init(6, style, nil, nil)
   }
   
   /// The ANSI white color, in either a default or bright style.
   public static func white(style: Style = .default) -> Self {
-    .init(7, style, nil)
+    .init(7, style, nil, nil)
   }
 }
 

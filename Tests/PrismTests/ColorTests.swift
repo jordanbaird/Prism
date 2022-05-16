@@ -64,6 +64,14 @@ final class ColorTests: XCTestCase {
     XCTAssertEqual(bgCode, color.backgroundCode)
   }
   
+  func testECMA256Codes() {
+    let fgCode = "38;5;238"
+    let bgCode = "48;5;238"
+    let color = Color(ecma256: .grayscale(0.3))
+    XCTAssertEqual(fgCode, color.foregroundCode)
+    XCTAssertEqual(bgCode, color.backgroundCode)
+  }
+  
   func testInitializationByString() {
     // These should be valid.
     let c1 = Color(string: "26AB2A")
@@ -80,5 +88,10 @@ final class ColorTests: XCTestCase {
     let c6 = Color(string: "2,0.1,45")
     XCTAssertEqual(c5, .default)
     XCTAssertEqual(c6, .default)
+  }
+  
+  func testHashable() {
+    XCTAssertEqual(Color.green.hashValue, Color.green.hashValue)
+    XCTAssertNotEqual(Color.green.hashValue, Color.green(style: .bright).hashValue)
   }
 }
