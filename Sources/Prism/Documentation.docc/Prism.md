@@ -46,3 +46,31 @@ The `Prism` type can be directly used in a `print()` function, and the formatted
 ### Creating a Prism
 
 - ``Prism/Prism``
+
+### Attributes
+
+- ``Bold``
+- ``Dim``
+- ``Italic``
+- ``Underline``
+- ``Overline``
+- ``Blink``
+- ``Swap``
+- ``Hide``
+- ``Strikethrough``
+- ``ForegroundColor``
+- ``BackgroundColor``
+- ``IgnoreFormatting``
+
+### Other Elements
+
+- ``Spacer``
+- ``LineBreak``
+- ``Reset``
+
+### Colors
+
+- ``Color``
+- ``Color/RGBCode``
+- ``Color/Hexadecimal``
+- ``Color/ECMA256``

@@ -6,15 +6,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-/// A color code that produces one of the ECMA-48 standard's 256 colors.
-///
-/// Due to the difficult nature of the ECMA-48 256-color mode standard, the codes
-/// have been broken up into smaller "subcodes", such as ``ECMA256/Grayscale``.
-/// An instance of ``ECMA256`` can be created by passing a value of one of
-/// these subcodes, or by accessing one of the static convenience methods.
-///
-/// Alternatively, if you know the exact numeric code you wish to use, you can
-/// construct an instance using the ``init(numericCode:)`` initializer.
 public typealias ECMA256 = Color.ECMA256
 
 /// A code that conforms to the ECMA-48 standard.
@@ -24,15 +15,6 @@ public protocol ECMACode: Hashable {
 }
 
 extension Color {
-  /// A color code that produces one of the ECMA-48 standard's 256 colors.
-  ///
-  /// Due to the difficult nature of the ECMA-48 256-color mode standard, the codes
-  /// have been broken up into smaller "subcodes", such as ``ECMA256/Grayscale``.
-  /// An instance of ``ECMA256`` can be created by passing a value of one of
-  /// these subcodes, or by accessing one of the static convenience methods.
-  ///
-  /// Alternatively, if you know the exact numeric code you wish to use, you can
-  /// construct an instance using the ``init(numericCode:)`` initializer.
   public struct ECMA256: Hashable, Equatable {
     let subcode: AnySubcode
     
@@ -59,7 +41,7 @@ extension Color {
     }
     
     /// Creates an ECMA256 color from the given subcode.
-    /// - Parameter subcode: An ``ECMASubcode`` type that will be used to
+    /// - Parameter subcode: An ``ECMACode`` type that will be used to
     /// construct the color.
     public init<C: ECMACode>(subcode: C) {
       self.init(subcode: .init(subcode))
