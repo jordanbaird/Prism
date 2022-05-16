@@ -99,7 +99,7 @@ extension ECMA256 {
 
 // MARK: - StandardColor
 
-extension ECMA256 {
+extension Color.ECMA256 {
   /// An ECMA-48-compliant code that produces one of sixteen standard colors.
   public struct StandardColor: ECMACode {
     /// The ECMA256 standard black color.
@@ -151,7 +151,7 @@ extension ECMA256 {
 
 // MARK: - Grayscale
 
-extension ECMA256 {
+extension Color.ECMA256 {
   /// An ECMA-48-compliant code that produces grayscale colors.
   public struct Grayscale: ECMACode, ExpressibleByFloatLiteral {
     /// The raw value associated with the code.
@@ -178,7 +178,7 @@ extension ECMA256 {
   }
 }
 
-extension ECMA256 {
+extension Color.ECMA256 {
   /// A type that wraps the raw value of another subcode.
   public struct AnySubcode: ECMACode {
     public let numericCode: UInt8
