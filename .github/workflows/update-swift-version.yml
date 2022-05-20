@@ -13,4 +13,3 @@ jobs:
           author_name: update-swift-version
           message: 'Update Swift version'
           add: 'README.md'
-          
