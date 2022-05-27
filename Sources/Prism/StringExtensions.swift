@@ -30,6 +30,11 @@ extension String {
     Underline(self).string()
   }
   
+  /// A version of the string whose text will have a line above it when displayed in a terminal.
+  public var overline: Self {
+    Overline(self).string()
+  }
+  
   /// A version of the string whose text will blink when displayed in a terminal.
   public var blink: Self {
     Blink(self).string()
