@@ -15,8 +15,11 @@ final class StringTests: XCTestCase {
     XCTAssertEqual(Dim("").string(), "".dim)
     XCTAssertEqual(Italic("").string(), "".italic)
     XCTAssertEqual(Underline("").string(), "".underline)
+    XCTAssertEqual(Overline("").string(), "".overline)
     XCTAssertEqual(Blink("").string(), "".blink)
     XCTAssertEqual(Swap("").string(), "".swap)
     XCTAssertEqual(Strikethrough("").string(), "".strikethrough)
+    XCTAssertEqual(ForegroundColor(.blue, "").string(), "".foregroundColor(.blue))
+    XCTAssertEqual(BackgroundColor(.blue, "").string(), "".backgroundColor(.blue))
   }
 }
