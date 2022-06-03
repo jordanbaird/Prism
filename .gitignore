@@ -9,3 +9,4 @@ DerivedData/
 .swiftpm/xcode/xcshareddata/xcschemes/
 .netrc
 Package.resolved
+.vscode/
