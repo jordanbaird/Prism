@@ -123,16 +123,12 @@ public struct Color {
     if hexadecimal.isValid {
       self.init(hexadecimal: hexadecimal)
     } else if split.count == 3 {
-      let strings = split.map {
-        $0
-          .lowercased(with: .current)
-          .replacingOccurrences(of: "r:", with: "")
-          .replacingOccurrences(of: "g:", with: "")
-          .replacingOccurrences(of: "b:", with: "")
-          .replacingOccurrences(of: "red:", with: "")
-          .replacingOccurrences(of: "green:", with: "")
-          .replacingOccurrences(of: "blue:", with: "")
-          .trimmingCharacters(in: .whitespacesAndNewlines)
+      let strings: [String] = split.map {
+        var manipulator = StringManipulator(string: $0.lowercased())
+        manipulator.removeOccurrences(of: ["r:", "g:", "b:", "red:", "green:", "blue:"])
+        manipulator.trimWhitespace()
+        manipulator.trimNewlines()
+        return manipulator.finalize()
       }
       
       if

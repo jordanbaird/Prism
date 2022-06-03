@@ -6,10 +6,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-#if canImport(Foundation)
-import Foundation
-#endif
-
 /// A type that constructs a color from a hexadecimal string.
 public typealias Hexadecimal = Color.Hexadecimal
 
@@ -20,12 +16,19 @@ extension Color {
     // MARK: - Nested Types
     
     /// An error that can be thrown during the validation of a hexadecimal value.
-    public struct ValidationError: Error {
+    public struct ValidationError: Error, CustomStringConvertible {
       /// An alias for the message type of an error.
       public typealias Message = String
       
       /// The message associated with the error.
       public let message: Message
+      
+      /// A textual representation of the error.
+      public var description: String { message }
+      
+      /// A description of the error.
+      @available(*, deprecated, message: "Use the description property instead.")
+      public var errorDescription: String? { message }
       
       /// Creates an error with the given message.
       public init(_ message: Message) {
@@ -124,9 +127,3 @@ extension Color {
     }
   }
 }
-
-#if canImport(Foundation)
-extension Hexadecimal.ValidationError: LocalizedError {
-  public var errorDescription: String? { message }
-}
-#endif

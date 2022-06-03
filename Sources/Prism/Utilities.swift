@@ -60,3 +60,48 @@ struct Storage {
     storage[key] = value
   }
 }
+
+struct StringManipulator {
+  private var string: String
+  
+  init(string: String) {
+    self.string = string
+  }
+  
+  mutating func removeOccurrences(of occurrences: [String]) {
+    for occurrence in occurrences {
+      var buffer = ""
+      for char in string {
+        buffer.append(char)
+        if buffer.hasSuffix(occurrence) {
+          buffer.removeLast(occurrence.count)
+        }
+      }
+      string = buffer
+    }
+  }
+  
+  mutating func trimWhitespace() {
+    while string.hasPrefix(" ") || string.hasPrefix("\t") {
+      string.removeFirst()
+    }
+    while string.hasSuffix(" ") || string.hasSuffix("\t") {
+      string.removeLast()
+    }
+  }
+  
+  mutating func trimNewlines() {
+    while string.hasPrefix("\n") || string.hasPrefix("\r") {
+      string.removeFirst()
+    }
+    while string.hasSuffix("\n") || string.hasPrefix("\r") {
+      string.removeLast()
+    }
+  }
+  
+  mutating func finalize() -> String {
+    let s = string
+    self.string = ""
+    return s
+  }
+}
