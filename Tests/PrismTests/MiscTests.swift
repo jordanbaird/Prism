@@ -16,15 +16,6 @@ final class MiscTests: XCTestCase {
     XCTAssertNotEqual(a1.id, a2.id)
   }
   
-  func testStorageIntegrity() {
-    let value = Storage(0).get("test", backup: "Hello")
-    let storage = Storage.allStorage[0]
-    XCTAssertNotNil(storage)
-    let stored = storage!["test"] as? String
-    XCTAssertNotNil(stored)
-    XCTAssertEqual(value, stored)
-  }
-  
   func testAttributeDescriptions() {
     let b1 = Bold("Foo")
     let b2 = Bold("Foo")
