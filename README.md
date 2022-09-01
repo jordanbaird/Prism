@@ -15,7 +15,7 @@
 Add the following dependency to your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/jordanbaird/Prism", from: "0.0.3")
+.package(url: "https://github.com/jordanbaird/Prism", from: "0.0.4")
 ```
 
 ## Usage
