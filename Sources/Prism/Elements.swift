@@ -12,8 +12,54 @@
 public struct Spacer: SpacerElement {
   let type: SpacerType
   
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(type: SpacerType = .space) {
     self.type = type
+    _prism.initialize(to: nil)
   }
 }
 
@@ -23,8 +69,54 @@ public struct Spacer: SpacerElement {
 public struct LineBreak: SpacerElement {
   let type: LineBreakType
   
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(type: LineBreakType = .newline) {
     self.type = type
+    _prism.initialize(to: nil)
   }
 }
 
@@ -34,13 +126,58 @@ public struct LineBreak: SpacerElement {
 public struct Reset: PrismElement {
   public let id = rng.next()
   
+  public let rawValue = ""
+  
+  public var controlSequence: ControlSequence { .reset }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public var description: String {
     colorCompatibleDescription
   }
   
   /// Creates a reset element.
   public init() {
-    controlSequence = .reset
+    _prism.initialize(to: nil)
   }
 }
 
@@ -53,8 +190,56 @@ public struct Bold: Attribute {
   public let onSequence = ControlSequence.boldOn
   public let offSequence = ControlSequence.boldOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -68,8 +253,56 @@ public struct Dim: Attribute {
   public let onSequence = ControlSequence.dimOn
   public let offSequence = ControlSequence.dimOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -83,8 +316,56 @@ public struct Italic: Attribute {
   public let onSequence = ControlSequence.italicOn
   public let offSequence = ControlSequence.italicOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -98,8 +379,56 @@ public struct Underline: Attribute {
   public let onSequence = ControlSequence.underlineOn
   public let offSequence = ControlSequence.underlineOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -113,8 +442,56 @@ public struct Overline: Attribute {
   public let onSequence = ControlSequence.overlineOn
   public let offSequence = ControlSequence.overlineOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -127,8 +504,56 @@ public struct Blink: Attribute {
   public let onSequence = ControlSequence.blinkOn
   public let offSequence = ControlSequence.blinkOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -142,8 +567,56 @@ public struct Swap: Attribute {
   public let onSequence = ControlSequence.swapOn
   public let offSequence = ControlSequence.swapOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -156,8 +629,56 @@ public struct Hide: Attribute {
   public let onSequence = ControlSequence.hideOn
   public let offSequence = ControlSequence.hideOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -171,8 +692,56 @@ public struct Strikethrough: Attribute {
   public let onSequence = ControlSequence.strikethroughOn
   public let offSequence = ControlSequence.strikethroughOff
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -186,10 +755,58 @@ public struct ForegroundColor: Attribute {
   public let onSequence: ControlSequence
   public let offSequence = ControlSequence.foregroundColor(.default)
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   /// Creates an attribute with the given color, string, and nested elements.
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
     onSequence = .foregroundColor(color)
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
   
@@ -218,10 +835,58 @@ public struct BackgroundColor: Attribute {
   public let onSequence: ControlSequence
   public let offSequence = ControlSequence.backgroundColor(.default)
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   /// Creates an attribute with the given color, string, and nested elements.
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
     onSequence = .backgroundColor(color)
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
   
@@ -247,6 +912,53 @@ public struct BackgroundColor: Attribute {
 public struct IgnoreFormatting: Attribute {
   public let id = rng.next()
   
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  private var _spacing: Prism.Spacing?
+  public var spacing: Prism.Spacing {
+    get {
+      _spacing ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      _spacing = newValue
+    }
+  }
+  
+  private var _nestedElements = [PrismElement]()
+  public var nestedElements: [PrismElement] {
+    get {
+      _nestedElements.reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      _nestedElements = newValue
+      updateNestedElements()
+    }
+  }
+  
+  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
+  public var parentElement: PrismElement? {
+    get { _parentElement.pointee }
+    nonmutating set {
+      _parentElement.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
+  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
+  public var prism: Prism? {
+    get { _prism.pointee }
+    nonmutating set {
+      _prism.initialize(to: newValue)
+      updateNestedElements()
+    }
+  }
+  
   public var onSequence: ControlSequence {
     var sequence = ControlSequence()
     var currentParent = parentElement
@@ -269,6 +981,7 @@ public struct IgnoreFormatting: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }

@@ -69,6 +69,54 @@ extension String {
 // MARK: - Extensions
 
 extension String: PrismElement {
+  private enum Storage {
+    static var spacing = [String: Prism.Spacing]()
+    static var nestedElements = [String: [PrismElement]]()
+    static var parentElement = [String: PrismElement]()
+    static var prism = [String: Prism]()
+  }
+  
   public var id: UInt64 { .init() }
   public var rawValue: String { self }
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  public var spacing: Prism.Spacing {
+    get {
+      Storage.spacing[self] ?? prism?.spacing ?? .managed(.spaces)
+    }
+    set {
+      Storage.spacing[self] = newValue
+    }
+  }
+  
+  public var nestedElements: [PrismElement] {
+    get {
+      (Storage.nestedElements[self] ?? []).reduce(into: []) {
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      }
+    }
+    set {
+      Storage.nestedElements[self] = newValue
+      updateNestedElements()
+    }
+  }
+  
+  public var parentElement: PrismElement? {
+    get { Storage.parentElement[self] }
+    nonmutating set {
+      Storage.parentElement[self] = newValue
+      updateNestedElements()
+    }
+  }
+  
+  public var prism: Prism? {
+    get { Storage.prism[self] }
+    nonmutating set {
+      Storage.prism[self] = newValue
+      updateNestedElements()
+    }
+  }
 }

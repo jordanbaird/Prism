@@ -9,7 +9,19 @@
 /// A type that can be combined with other elements to make up a ``Prism``.
 public protocol PrismElement: CustomStringConvertible, CustomDebugStringConvertible {
   /// The element's identifying value.
+  @available(*, deprecated, message: "`id` is no longer applicable")
   var id: UInt64 { get }
+  /// The control sequence at the base of the element.
+  var controlSequence: ControlSequence { get }
+  /// The elements nested inside the element.
+  var nestedElements: [PrismElement] { get set }
+  /// The element's parent.
+  var parentElement: PrismElement? { get nonmutating set }
+  /// The element's enclosing ``Prism`` object.
+  var prism: Prism? { get nonmutating set }
+  /// The spacing that the element's prism imposes upon it.
+  var spacing: Prism.Spacing { get set }
+  /// The raw value of the element.
   var rawValue: String { get }
 }
 
@@ -32,11 +44,6 @@ extension PrismElement {
     } else {
       return rawValue
     }
-  }
-  
-  var controlSequence: ControlSequence {
-    get { Storage(id).get("controlSequence") ?? .init(for: self) }
-    set { Storage(id).set(newValue, forKey: "controlSequence") }
   }
   
   /// A textual representation of the element.
@@ -62,44 +69,6 @@ extension PrismElement {
       }
       return buffer
     }.joined()
-  }
-  
-  var nestedElements: [PrismElement] {
-    get {
-      Storage(id).get("nestedElements", backup: []).reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      Storage(id).set(newValue, forKey: "nestedElements")
-      updateNestedElements()
-    }
-  }
-  
-  var parentElement: PrismElement? {
-    get { Storage(id).get("parentElement") }
-    nonmutating set {
-      Storage(id).set(newValue, forKey: "parentElement")
-      updateNestedElements()
-    }
-  }
-  
-  var prism: Prism? {
-    get { Storage(id).get("prism") }
-    nonmutating set {
-      Storage(id).set(newValue, forKey: "prism")
-      updateNestedElements()
-    }
-  }
-  
-  public internal(set) var rawValue: String {
-    get { Storage(id).get("rawValue", backup: "") }
-    set { Storage(id).set(newValue, forKey: "rawValue") }
-  }
-  
-  var spacing: Prism.Spacing {
-    get { Storage(id).get("spacing") ?? prism?.spacing ?? .managed(.spaces) }
-    set { Storage(id).set(newValue, forKey: "spacing") }
   }
   
   var testableDescription: String {

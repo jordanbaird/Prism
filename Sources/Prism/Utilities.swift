@@ -19,48 +19,6 @@ public struct ElementBuilder {
   public static func buildEither(second component: PrismElement) -> PrismElement { component }
 }
 
-struct Storage {
-  static var allStorage = [UInt64: [String: Any]]()
-  
-  private let id: UInt64
-  
-  private var storage: [String: Any] {
-    get {
-      if let storage = Self.allStorage[id] {
-        return storage
-      } else {
-        Self.allStorage[id] = [:]
-        return [:]
-      }
-    }
-    nonmutating set {
-      Self.allStorage[id] = newValue
-    }
-  }
-  
-  init(_ id: UInt64) {
-    self.id = id
-  }
-  
-  func get<T>(_ key: String) -> T? {
-    storage[key] as? T
-  }
-  
-  func get<T>(_ key: String, backup: T) -> T {
-    let value: T? = get(key)
-    if let value = value {
-      return value
-    } else {
-      set(backup, forKey: key)
-      return backup
-    }
-  }
-  
-  func set<T>(_ value: T, forKey key: String) {
-    storage[key] = value
-  }
-}
-
 struct StringManipulator {
   private var string: String
   
