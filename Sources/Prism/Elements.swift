@@ -59,6 +59,7 @@ public struct Spacer: SpacerElement {
   
   public init(type: SpacerType = .space) {
     self.type = type
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
   }
 }
@@ -116,6 +117,7 @@ public struct LineBreak: SpacerElement {
   
   public init(type: LineBreakType = .newline) {
     self.type = type
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
   }
 }
@@ -177,6 +179,7 @@ public struct Reset: PrismElement {
   
   /// Creates a reset element.
   public init() {
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
   }
 }
@@ -239,6 +242,7 @@ public struct Bold: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -302,6 +306,7 @@ public struct Dim: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -365,6 +370,7 @@ public struct Italic: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -428,6 +434,7 @@ public struct Underline: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -491,6 +498,7 @@ public struct Overline: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -553,6 +561,7 @@ public struct Blink: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -616,6 +625,7 @@ public struct Swap: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -678,6 +688,7 @@ public struct Hide: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -741,6 +752,7 @@ public struct Strikethrough: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -806,6 +818,7 @@ public struct ForegroundColor: Attribute {
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
     onSequence = .foregroundColor(color)
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -886,6 +899,7 @@ public struct BackgroundColor: Attribute {
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
     onSequence = .backgroundColor(color)
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
@@ -981,6 +995,7 @@ public struct IgnoreFormatting: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    _parentElement.initialize(to: nil)
     _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
