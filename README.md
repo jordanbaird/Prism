@@ -20,7 +20,7 @@ Add the following dependency to your `Package.swift` file:
 
 ## Usage
 
-[Read the full documentation here](https://jordanbaird.github.io/Prism/documentation/prism/)
+[Read the full documentation here](https://swiftpackageindex.com/jordanbaird/Prism/main/documentation/prism)
 
 Start by creating an instance of the `Prism` type. Its initializer accepts a closure, which you populate with various attributes.
 
