@@ -10,8 +10,10 @@
 public protocol Attribute: PrismElement {
   /// The control sequence that indicates the start of the attribute.
   var onSequence: ControlSequence { get }
+  
   /// The control sequence that indicates the end of the attribute.
   var offSequence: ControlSequence { get }
+  
   /// Creates an attribute with the given string and nested attributes.
   init(_ string: String, nestedElements: [PrismElement])
 }

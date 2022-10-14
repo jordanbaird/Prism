@@ -74,10 +74,6 @@ public struct Prism:
     elements.map(\.escapedDescription).joined()
   }
   
-  var testableDescription: String {
-    elements.map(\.testableDescription).joined()
-  }
-  
   // MARK: - Initializers
   
   /// Creates a prism with the given elements and spacing.
@@ -156,5 +152,13 @@ extension Prism {
   
   public static func += (lhs: inout Self, rhs: PrismElement) {
     lhs = lhs + rhs
+  }
+}
+
+// MARK: - Test Helpers
+
+extension Prism {
+  var testableDescription: String {
+    elements.map(\.testableDescription).joined()
   }
 }

@@ -18,12 +18,8 @@ public struct Spacer: SpacerElement {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -76,12 +72,8 @@ public struct LineBreak: SpacerElement {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -134,12 +126,8 @@ public struct Reset: PrismElement {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -201,12 +189,8 @@ public struct Bold: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -265,12 +249,8 @@ public struct Dim: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -329,12 +309,8 @@ public struct Italic: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -393,12 +369,8 @@ public struct Underline: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -457,12 +429,8 @@ public struct Overline: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -520,12 +488,8 @@ public struct Blink: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -584,12 +548,8 @@ public struct Swap: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -647,12 +607,8 @@ public struct Hide: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -711,12 +667,8 @@ public struct Strikethrough: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -775,12 +727,8 @@ public struct ForegroundColor: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -856,12 +804,8 @@ public struct BackgroundColor: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()
@@ -934,12 +878,8 @@ public struct IgnoreFormatting: Attribute {
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
-    get {
-      _spacing ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      _spacing = newValue
-    }
+    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+    set { _spacing = newValue }
   }
   
   private var _nestedElements = [PrismElement]()

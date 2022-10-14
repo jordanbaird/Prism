@@ -23,6 +23,16 @@ extension ControlSequence {
       : _nestedComponents.mapped
     }
     
+    var escapedDescription: String {
+      rawValue.reduce(into: "") {
+        if $1 == "\u{001B}" {
+          $0.append("\\u{001B}")
+        } else {
+          $0.append($1)
+        }
+      }
+    }
+    
     init(_ rawValue: String) {
       _nestedComponents = .init()
       _rawValue = rawValue

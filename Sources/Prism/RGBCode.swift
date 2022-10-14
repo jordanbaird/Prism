@@ -18,8 +18,10 @@ extension Color {
     
     /// The red value of this code.
     public let red: Double
+    
     /// The green value of this code.
     public let green: Double
+    
     /// The blue value of this code.
     public let blue: Double
     

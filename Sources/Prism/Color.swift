@@ -30,7 +30,7 @@ public struct Color {
   
   // MARK: - Properties
   
-  // This value is not used when `rgbCode` has a value.
+  // This value is not used when either `rgbCode` or `ecma256` have values.
   let rawValue: Int
   
   let rgbCode: RGBCode?

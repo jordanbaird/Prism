@@ -11,16 +11,22 @@ public protocol PrismElement: CustomStringConvertible, CustomDebugStringConverti
   /// The element's identifying value.
   @available(*, deprecated, message: "`id` is no longer applicable")
   var id: UInt64 { get }
+  
   /// The control sequence at the base of the element.
   var controlSequence: ControlSequence { get }
+  
   /// The elements nested inside the element.
   var nestedElements: [PrismElement] { get set }
+  
   /// The element's parent.
   var parentElement: PrismElement? { get nonmutating set }
+  
   /// The element's enclosing ``Prism`` object.
   var prism: Prism? { get nonmutating set }
+  
   /// The spacing that the element's prism imposes upon it.
   var spacing: Prism.Spacing { get set }
+  
   /// The raw value of the element.
   var rawValue: String { get }
 }
@@ -58,21 +64,7 @@ extension PrismElement {
   
   /// A textual representation of the element that shows its control characters.
   public var escapedDescription: String {
-    controlSequence.base.map {
-      var buffer = ""
-      for char in $0.rawValue {
-        if char == "\u{001B}" {
-          buffer.append("\\u{001B}")
-        } else {
-          buffer.append(char)
-        }
-      }
-      return buffer
-    }.joined()
-  }
-  
-  var testableDescription: String {
-    controlSequence.base.map(\.rawValue).joined()
+    controlSequence.base.map(\.escapedDescription).joined()
   }
   
   // MARK: - Methods
@@ -107,5 +99,13 @@ extension PrismElement {
   
   public static func + (lhs: Self, rhs: Prism) -> Prism {
     Prism([lhs]) + rhs
+  }
+}
+
+// MARK: - Test Helpers
+
+extension PrismElement {
+  var testableDescription: String {
+    controlSequence.base.map(\.rawValue).joined()
   }
 }
