@@ -55,4 +55,8 @@ let prism = Prism {
 
 The `Prism` type can be directly used in a `print()` function, and the formatted string will be printed directly to the terminal or console. If the terminal or console does not support formatted text, the unformatted version of the string will be printed instead.
 
-NOTE: Things may show up differently, depending on which terminal client is being used. It is up to the terminal to determine how it will display the control codes that `Prism` provides it.
+- NOTE: Things may show up differently, depending on which terminal client is being used. It is up to the terminal to determine how it will display the control codes that `Prism` provides it.
+
+## License
+
+Prism is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license).
