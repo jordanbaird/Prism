@@ -8,7 +8,7 @@ Due to the difficult nature of the ECMA-48 256-color mode standard, the codes ha
 
 Alternatively, if you know the exact numeric code you wish to use, you can construct an instance using the ``init(numericCode:)`` initializer. All possible numeric codes, along with their colors are displayed in the grid below.
 
-![ECMA256 Colors](ecma-colors-grid.svg)
+![ECMA256 Colors](ecma-colors-grid.png)
 
 ## Topics
 
