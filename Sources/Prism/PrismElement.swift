@@ -9,7 +9,7 @@
 /// A type that can be combined with other elements to make up a ``Prism``.
 public protocol PrismElement: CustomStringConvertible, CustomDebugStringConvertible {
   /// The element's identifying value.
-  @available(*, deprecated, message: "`id` is no longer applicable")
+  @available(*, deprecated, message: "no longer used")
   var id: UInt64 { get }
   
   /// The control sequence at the base of the element.
