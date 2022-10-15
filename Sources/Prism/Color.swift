@@ -157,6 +157,12 @@ extension Color {
   /// The ANSI black color.
   public static let black = black(style: .default)
   
+  /// The ANSI gray color.
+  ///
+  /// - Note: This color is equivalent to calling ``black(style:)`` and
+  ///   passing in the ``Style/bright`` style.
+  public static let gray = black(style: .bright)
+  
   /// The ANSI red color.
   public static let red = red(style: .default)
   
