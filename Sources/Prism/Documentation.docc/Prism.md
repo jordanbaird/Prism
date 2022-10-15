@@ -73,4 +73,4 @@ The `Prism` type can be directly used in a `print()` function, and the formatted
 - ``Color``
 - ``Color/RGBCode``
 - ``Color/Hexadecimal``
-- ``Color/ECMA256``
+- ``Color/EightBit``

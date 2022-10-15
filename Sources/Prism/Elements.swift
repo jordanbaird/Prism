@@ -10,6 +10,8 @@
 
 /// A prism element that adds a single space or tab to a control sequence.
 public struct Spacer: SpacerElement {
+  public let id: UInt64 = 0
+  
   let type: SpacerType
   
   public var controlSequence: ControlSequence {
@@ -64,6 +66,8 @@ public struct Spacer: SpacerElement {
 
 /// A prism element that adds a single line break to a control sequence.
 public struct LineBreak: SpacerElement {
+  public let id: UInt64 = 1
+  
   let type: LineBreakType
   
   public var controlSequence: ControlSequence {

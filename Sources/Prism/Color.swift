@@ -30,41 +30,19 @@ public struct Color {
   
   // MARK: - Properties
   
-  // This value is not used when either `rgbCode` or `ecma256` have values.
-  let rawValue: Int
-  
-  let rgbCode: RGBCode?
-  let ecma256: ECMA256?
-  
-  let style: Style
-  
-  var foregroundCode: String {
-    if let rgbCode = rgbCode {
-      return rgbCode.foregroundCode
-    } else if let ecma256 = ecma256 {
-      return ecma256.foregroundCode
-    } else {
-      return "\(rawValue + style.rawValue.foreground)"
-    }
-  }
-  
-  var backgroundCode: String {
-    if let rgbCode = rgbCode {
-      return rgbCode.backgroundCode
-    } else if let ecma256 = ecma256 {
-      return ecma256.backgroundCode
-    } else {
-      return "\(rawValue + style.rawValue.background)"
-    }
-  }
+  let foregroundCode: String
+  let backgroundCode: String
   
   // MARK: - Initializers
   
-  init(_ rawValue: Int, _ style: Style, _ rgbCode: RGBCode?, _ ecma256: ECMA256?) {
-    self.rawValue = rawValue
-    self.style = style
-    self.rgbCode = rgbCode
-    self.ecma256 = ecma256
+  init(_ rawValue: Int, _ style: Style, _ rgbCode: RGBCode?, _ eightBit: EightBit?) {
+    foregroundCode = rgbCode?.foregroundCode
+    ?? eightBit?.foregroundCode
+    ?? "\(rawValue + style.rawValue.foreground)"
+    
+    backgroundCode = rgbCode?.backgroundCode
+    ?? eightBit?.backgroundCode
+    ?? "\(rawValue + style.rawValue.background)"
   }
   
   /// Creates a color from the given color.
@@ -85,9 +63,15 @@ public struct Color {
     }
   }
   
-  /// Creates a color with the given ECMA256 color code.
+  /// Creates a color with the given 8-bit color code.
+  @available(*, deprecated, renamed: "init(eightBit:)")
   public init(ecma256: ECMA256) {
     self.init(0, .default, nil, ecma256)
+  }
+  
+  /// Creates a color with the given 8-bit color code.
+  public init(eightBit: EightBit) {
+    self.init(0, .default, nil, eightBit)
   }
   
   /// Creates a color with the given hexadecimal code.
@@ -192,6 +176,10 @@ extension Color {
   public static let cyan = cyan(style: .default)
   
   /// The ANSI white color.
+  ///
+  /// - Note: Most terminals will actually render this color as light gray.
+  ///   For a pure white color, use the ``white(style:)`` method and pass in
+  ///   the ``Style/bright`` style.
   public static let white = white(style: .default)
   
   /// The default text color of the terminal.
@@ -200,6 +188,9 @@ extension Color {
   // MARK: - Static Methods
   
   /// The ANSI black color, in either a default or bright style.
+  ///
+  /// - Note: In most terminals, passing the ``Style/bright`` style into
+  ///   this method produces a color equivalent to ``gray``.
   public static func black(style: Style = .default) -> Self {
     .init(0, style, nil, nil)
   }
@@ -235,6 +226,10 @@ extension Color {
   }
   
   /// The ANSI white color, in either a default or bright style.
+  ///
+  /// - Note: In most terminals, passing the ``Style/default`` style into
+  ///   this method produces a light gray color, while the ``Style/bright``
+  ///   style produces pure white.
   public static func white(style: Style = .default) -> Self {
     .init(7, style, nil, nil)
   }
@@ -242,16 +237,14 @@ extension Color {
 
 extension Color: Equatable {
   public static func == (lhs: Self, rhs: Self) -> Bool {
-    lhs.rawValue == rhs.rawValue &&
-    lhs.rgbCode == rhs.rgbCode &&
-    lhs.style == rhs.style
+    lhs.foregroundCode == rhs.foregroundCode &&
+    lhs.backgroundCode == rhs.backgroundCode
   }
 }
 
 extension Color: Hashable {
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(rawValue)
-    hasher.combine(rgbCode)
-    hasher.combine(style)
+    hasher.combine(foregroundCode)
+    hasher.combine(backgroundCode)
   }
 }

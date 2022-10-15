@@ -6,60 +6,63 @@
 //
 //===----------------------------------------------------------------------===//
 
-public typealias ECMA256 = Color.ECMA256
+@available(*, deprecated, renamed: "EightBit")
+public typealias ECMA256 = Color.EightBit
 
-/// A code that conforms to the ECMA-48 standard.
+public typealias EightBit = Color.EightBit
+
+/// A color code that conforms to the ECMA-48 standard.
 public protocol ECMACode: Hashable {
-  /// The numeric value of the code.
+  /// The raw value associated with the code.
   var numericCode: UInt8 { get }
 }
 
 extension Color {
-  public struct ECMA256: Hashable, Equatable {
+  public struct EightBit: Hashable, Equatable {
     let subcode: AnySubcode
     
     var numericCode: UInt8 {
       subcode.numericCode
     }
     
-    var rawValue: String {
+    var rawColorCode: String {
       "5;\(numericCode)"
     }
     
     var foregroundCode: String {
-      "38;\(rawValue)"
+      "38;\(rawColorCode)"
     }
     
     var backgroundCode: String {
-      "48;\(rawValue)"
+      "48;\(rawColorCode)"
     }
     
-    /// Creates an ECMA256 color from the given subcode.
-    /// - Parameter subcode: An instance of the ``AnySubcode`` subcode type.
+    /// Creates an 8-bit color from the given subcode.
+    /// - Parameter subcode: A type-erased subcode that produces a
+    ///   color value.
     public init(subcode: AnySubcode) {
       self.subcode = subcode
     }
     
-    /// Creates an ECMA256 color from the given subcode.
-    /// - Parameter subcode: An ``ECMACode`` type that will be used to
-    /// construct the color.
+    /// Creates an 8-bit color from the given subcode.
+    /// - Parameter subcode: A subcode that produces a color value.
     public init<C: ECMACode>(subcode: C) {
       self.init(subcode: .init(subcode))
     }
     
-    /// Creates an ECMA256 color from the given grayscale subcode.
-    /// - Parameter subcode: An instance of the ``Grayscale`` subcode type.
+    /// Creates an 8-bit color from the given grayscale subcode.
+    /// - Parameter subcode: A subcode that produces a grayscale value.
     public init(grayscale subcode: Grayscale) {
       self.init(subcode: subcode)
     }
     
-    /// Creates an ECMA256 color from the given standard subcode.
-    /// - Parameter subcode: An instance of the ``StandardColor`` subcode type.
+    /// Creates an 8-bit color from the given standard subcode.
+    /// - Parameter subcode: A subcode that produces a standard color value.
     public init(standard subcode: StandardColor) {
       self.init(subcode: subcode)
     }
     
-    /// Creates an ECMA256 color from the given numeric value.
+    /// Creates an 8-bit color from the given numeric value.
     /// - Parameter numericCode: A numeric value between 0 and 255.
     public init(numericCode: UInt8) {
       self.init(subcode: AnySubcode(numericCode: numericCode))
@@ -67,13 +70,15 @@ extension Color {
   }
 }
 
-extension ECMA256 {
-  /// Returns an ECMA code that produces a grayscale color.
+extension Color.EightBit {
+  /// Returns an 8-bit code that produces a grayscale color.
+  /// - Parameter subcode: A subcode that produces a grayscale value.
   public static func grayscale(_ subcode: Grayscale) -> Self {
     .init(grayscale: subcode)
   }
   
-  /// Returns an ECMA code that produces one of eight standard colors.
+  /// Returns an 8-bit code that produces one of sixteen standard colors.
+  /// - Parameter subcode: A subcode that produces a standard color value.
   public static func standardColor(_ subcode: StandardColor) -> Self {
     .init(standard: subcode)
   }
@@ -81,10 +86,10 @@ extension ECMA256 {
 
 // MARK: - StandardColor
 
-extension Color.ECMA256 {
-  /// An ECMA-48-compliant code that produces one of sixteen standard colors.
+extension Color.EightBit {
+  /// An ECMA-48 compliant code that produces one of sixteen standard colors.
   public struct StandardColor: ECMACode {
-    /// The ECMA256 standard black color.
+    /// The ECMA standard black color.
     public static let black = Self(0)
     
     /// The ECMA standard red color.
@@ -108,7 +113,7 @@ extension Color.ECMA256 {
     /// The ECMA standard light gray color.
     public static let lightGray = Self(7)
     
-    /// The ECMA256 standard dark gray color.
+    /// The ECMA standard dark gray color.
     public static let darkGray = Self(8)
     
     /// The ECMA standard bright red color.
@@ -134,10 +139,10 @@ extension Color.ECMA256 {
     
     /// The raw value associated with the code.
     ///
-    /// The possible values of this property are integers between 0 and 15. Codes
-    /// 0 through 7 produce medium-intensity versions of the colors, while codes
-    /// 8 through 15 produce high-intensity versions of the colors. Each of these
-    /// codes is associated with one of `StandardColor`'s static constants.
+    /// The possible values of this property are unsigned integers between 0
+    /// and 15. Codes 0 through 7 produce standard-intensity colors, while
+    /// codes 8 through 15 produce high-intensity colors. Each code matches
+    /// one of ``Color/EightBit/StandardColor``'s static constants.
     public let numericCode: UInt8
     
     private init(_ numericCode: UInt8) {
@@ -148,14 +153,14 @@ extension Color.ECMA256 {
 
 // MARK: - Grayscale
 
-extension Color.ECMA256 {
+extension Color.EightBit {
   /// An ECMA-48 compliant code that produces grayscale colors.
   public struct Grayscale: ECMACode, ExpressibleByFloatLiteral {
     /// The raw value associated with the code.
     ///
-    /// The possible values of this property are integers between 232 and 255,
-    /// with 232 producing a near-black color, and 255 producing a near-white
-    /// color.
+    /// The possible values of this property are unsigned integers between 232
+    /// and 255, with 232 producing a near-black color, and 255 producing a
+    /// near-white color.
     public let numericCode: UInt8
     
     /// Creates a grayscale ECMA code with the given intensity.
@@ -186,9 +191,12 @@ extension Color.ECMA256 {
   }
 }
 
-extension Color.ECMA256 {
+// MARK: - AnySubcode
+
+extension Color.EightBit {
   /// A type that wraps the raw value of another subcode.
   public struct AnySubcode: ECMACode {
+    /// The raw value associated with the code.
     public let numericCode: UInt8
     
     init(numericCode: UInt8) {
@@ -200,4 +208,9 @@ extension Color.ECMA256 {
       self.init(numericCode: base.numericCode)
     }
   }
+}
+
+extension Color {
+  @available(*, deprecated, renamed: "EightBit")
+  public typealias ECMA256 = EightBit
 }

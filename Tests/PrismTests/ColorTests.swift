@@ -64,10 +64,10 @@ final class ColorTests: XCTestCase {
     XCTAssertEqual(bgCode, color.backgroundCode)
   }
   
-  func testECMA256Codes() {
+  func testEightBitCodes() {
     let fgCode = "38;5;238"
     let bgCode = "48;5;238"
-    let color = Color(ecma256: .grayscale(0.3))
+    let color = Color(eightBit: .grayscale(0.3))
     XCTAssertEqual(fgCode, color.foregroundCode)
     XCTAssertEqual(bgCode, color.backgroundCode)
   }

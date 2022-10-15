@@ -14,8 +14,6 @@ extension Color {
   /// A type that contains a red, a green, and a blue value, that can be used to
   /// construct a ``Color`` instance.
   public struct RGBCode {
-    typealias ValidNumber = Numeric & Comparable
-    
     /// The red value of this code.
     public let red: Double
     
@@ -38,7 +36,7 @@ extension Color {
       blue >= 0
     }
     
-    var rawValue: String {
+    var rawColorCode: String {
       if isValid {
         return "2;\(Int(red * 255));\(Int(green * 255));\(Int(blue * 255))"
       } else {
@@ -48,7 +46,7 @@ extension Color {
     
     var foregroundCode: String {
       if isValid {
-        return "38;\(rawValue)"
+        return "38;\(rawColorCode)"
       } else {
         return ""
       }
@@ -56,13 +54,13 @@ extension Color {
     
     var backgroundCode: String {
       if isValid {
-        return "48;\(rawValue)"
+        return "48;\(rawColorCode)"
       } else {
         return ""
       }
     }
     
-    private init?<N: ValidNumber>(_ r: N, _ g: N, _ b: N) {
+    private init?<N: Numeric & Comparable>(_ r: N, _ g: N, _ b: N) {
       if
         let r = Self.validate(r, as: Double.self),
         let g = Self.validate(g, as: Double.self),
@@ -110,7 +108,13 @@ extension Color {
       }
     }
     
-    private static func validate<I: ValidNumber, O: ValidNumber>(_ number: I, as type: O.Type) -> O? {
+    private static func validate<
+      I: Numeric & Comparable,
+      O: Numeric & Comparable
+    >(
+      _ number: I,
+      as type: O.Type
+    ) -> O? {
       if
         O.self is Double.Type,
         let number = number as? O,
