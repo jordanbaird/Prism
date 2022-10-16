@@ -55,7 +55,7 @@ public struct Prism:
   public var elements: [PrismElement] {
     _elements.reduce(into: [PrismElement]()) {
       $1.prism = self
-      $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+      $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
     } + [Reset()]
   }
   

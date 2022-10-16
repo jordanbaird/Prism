@@ -58,7 +58,7 @@ extension PrismElement {
   
   // MARK: - Methods
   
-  func maybePrependSpacer(with spacing: Prism.Spacing) -> [PrismElement] {
+  func maybePrependSpacer() -> [PrismElement] {
     switch spacing {
     case .managed(.spaces):
       return [Spacer(type: .space), self]

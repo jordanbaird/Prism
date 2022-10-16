@@ -26,7 +26,7 @@ class ElementRef {
   var nestedElements: [PrismElement] {
     get {
       _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
       }
     }
     set { _nestedElements = newValue }

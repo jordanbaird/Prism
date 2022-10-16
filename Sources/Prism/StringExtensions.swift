@@ -90,7 +90,7 @@ extension String: PrismElement {
   public var nestedElements: [PrismElement] {
     get {
       (Storage.nestedElements[self] ?? []).reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
+        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
       }
     }
     set {
