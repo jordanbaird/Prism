@@ -11,16 +11,16 @@ import XCTest
 
 final class EnvironmentVariableTests: XCTestCase {
   override func setUp() {
-    EnvironmentVariable("TEST_VAR").unset()
+    EnvironmentVariable("TEST_VAR").value = nil
   }
   
   func testSetAndUnset() {
     let envVar = EnvironmentVariable("TEST_VAR")
-    XCTAssertNil(envVar.get())
-    envVar.set("Foo")
-    XCTAssertNotNil(envVar.get())
-    envVar.unset()
-    XCTAssertNil(envVar.get())
+    XCTAssertNil(envVar.value)
+    envVar.value = "Foo"
+    XCTAssertNotNil(envVar.value)
+    envVar.value = nil
+    XCTAssertNil(envVar.value)
   }
   
   func testEquatable() {
@@ -29,8 +29,8 @@ final class EnvironmentVariableTests: XCTestCase {
     let envVar3 = EnvironmentVariable("TEST_VAR2")
     XCTAssertEqual(envVar1, envVar2)
     XCTAssertNotEqual(envVar1, envVar3)
-    envVar1.set("Bar")
-    envVar3.set("Bar")
+    envVar1.value = "Bar"
+    envVar3.value = "Bar"
     XCTAssertEqual(envVar1, envVar2)
     XCTAssertNotEqual(envVar1, envVar3)
   }
@@ -38,7 +38,7 @@ final class EnvironmentVariableTests: XCTestCase {
   func testHashValue() {
     let envVar = EnvironmentVariable("TEST_VAR")
     let h1 = envVar.hashValue
-    envVar.set("Baz")
+    envVar.value = "Baz"
     let h2 = envVar.hashValue
     XCTAssertNotEqual(h1, h2)
   }

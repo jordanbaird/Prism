@@ -26,16 +26,31 @@ public struct EnvironmentVariable {
   /// The name of the environment variable.
   public let name: String
   
-  public var status: Status {
-    value == nil ? .unset : .set
-  }
-  
   /// The value of the environment variable.
   ///
-  /// If the environment variable does not exist, `nil` is returned.
+  /// If the environment variable has not been set, `nil` is returned.
+  /// Likewise, setting this property to `nil` unsets the environment
+  /// variable.
   public var value: String? {
-    guard let raw = getenv(name) else { return nil }
-    return .init(validatingUTF8: raw)
+    get {
+      guard let raw = getenv(name) else {
+        return nil
+      }
+      return .init(validatingUTF8: raw)
+    }
+    nonmutating set {
+      guard let newValue = newValue else {
+        unsetenv(name)
+        return
+      }
+      setenv(name, newValue, 1)
+    }
+  }
+  
+  /// The current status of the environment variable, that is, whether
+  /// it is set or unset.
+  public var status: Status {
+    value == nil ? .unset : .set
   }
   
   /// Creates an environment variable with the given value.
@@ -44,19 +59,21 @@ public struct EnvironmentVariable {
   }
   
   /// Gets the value of the environment variable.
+  @available(*, deprecated, message: "Access the 'value' property directly.")
   public func get() -> String? {
     value
   }
   
   /// Sets the value of the environment variable.
+  @available(*, deprecated, message: "Set the 'value' property directly.")
   public func set(_ value: String?) {
-    guard let value = value else { return unset() }
-    setenv(name, value, 1)
+    self.value = value
   }
   
   /// Unsets the environment variable.
+  @available(*, deprecated, message: "Set the 'value' property to 'nil'.")
   public func unset() {
-    unsetenv(name)
+    value = nil
   }
 }
 
