@@ -9,48 +9,13 @@
 // MARK: - Spacer
 
 /// A prism element that adds a single space or tab to a control sequence.
-public struct Spacer: SpacerElement {
+public struct Spacer: SpacerElement, HasElementRef {
   let elementRef = ElementRef()
   
   let type: SpacerType
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(type: SpacerType = .space) {
@@ -61,48 +26,13 @@ public struct Spacer: SpacerElement {
 // MARK: - LineBreak
 
 /// A prism element that adds a single line break to a control sequence.
-public struct LineBreak: SpacerElement {
+public struct LineBreak: SpacerElement, HasElementRef {
   let elementRef = ElementRef()
   
   let type: LineBreakType
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(type: LineBreakType = .newline) {
@@ -113,47 +43,12 @@ public struct LineBreak: SpacerElement {
 // MARK: - Reset
 
 /// A prism element that resets the entire sequence.
-public struct Reset: PrismElement {
+public struct Reset: PrismElement, HasElementRef {
   let elementRef = ElementRef()
   
   public let rawValue = ""
   
   public let controlSequence = ControlSequence.reset
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
-  }
   
   public var description: String {
     colorCompatibleDescription
@@ -167,7 +62,7 @@ public struct Reset: PrismElement {
 
 /// A prism element that renders its text in a bold font, in terminals that
 /// support it.
-public struct Bold: Attribute {
+public struct Bold: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.boldOn
@@ -177,41 +72,6 @@ public struct Bold: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
@@ -224,7 +84,7 @@ public struct Bold: Attribute {
 
 /// A prism element that renders its text in a dim color, in terminals that
 /// support it.
-public struct Dim: Attribute {
+public struct Dim: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.dimOn
@@ -234,41 +94,6 @@ public struct Dim: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
@@ -281,7 +106,7 @@ public struct Dim: Attribute {
 
 /// A prism element that renders its text in italics, in terminals that
 /// support it.
-public struct Italic: Attribute {
+public struct Italic: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.italicOn
@@ -291,41 +116,6 @@ public struct Italic: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
@@ -338,7 +128,7 @@ public struct Italic: Attribute {
 
 /// A prism element that renders its text with an underline, in terminals that
 /// support it.
-public struct Underline: Attribute {
+public struct Underline: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.underlineOn
@@ -348,41 +138,6 @@ public struct Underline: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
@@ -395,7 +150,7 @@ public struct Underline: Attribute {
 
 /// A prism element that renders its text with an overline, in terminals that
 /// support it.
-public struct Overline: Attribute {
+public struct Overline: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.overlineOn
@@ -407,41 +162,6 @@ public struct Overline: Attribute {
     .init(for: self)
   }
   
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
-  }
-  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
     self.nestedElements = nestedElements
@@ -451,7 +171,7 @@ public struct Overline: Attribute {
 // MARK: - Blink
 
 /// A prism element that renders its text to blink, in terminals that support it.
-public struct Blink: Attribute {
+public struct Blink: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.blinkOn
@@ -461,41 +181,6 @@ public struct Blink: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
@@ -508,7 +193,7 @@ public struct Blink: Attribute {
 
 /// A prism element that swaps the foreground and background colors of its text,
 /// in terminals that support it.
-public struct Swap: Attribute {
+public struct Swap: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.swapOn
@@ -520,41 +205,6 @@ public struct Swap: Attribute {
     .init(for: self)
   }
   
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
-  }
-  
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
     self.nestedElements = nestedElements
@@ -564,7 +214,7 @@ public struct Swap: Attribute {
 // MARK: - Hide
 
 /// A prism element that hides its text, in terminals that support it.
-public struct Hide: Attribute {
+public struct Hide: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.hideOn
@@ -574,41 +224,6 @@ public struct Hide: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
@@ -621,7 +236,7 @@ public struct Hide: Attribute {
 
 /// A prism element that renders its text with a strikethrough, in terminals
 /// that support it.
-public struct Strikethrough: Attribute {
+public struct Strikethrough: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence = ControlSequence.strikethroughOn
@@ -631,41 +246,6 @@ public struct Strikethrough: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
@@ -678,7 +258,7 @@ public struct Strikethrough: Attribute {
 
 /// A prism element that renders its text in a given color, in terminals that
 /// support it.
-public struct ForegroundColor: Attribute {
+public struct ForegroundColor: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence: ControlSequence
@@ -688,41 +268,6 @@ public struct ForegroundColor: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   /// Creates an attribute with the given color, string, and nested elements.
@@ -752,7 +297,7 @@ public struct ForegroundColor: Attribute {
 
 /// A prism element that renders the background of its text in a given color,
 /// in terminals that support it.
-public struct BackgroundColor: Attribute {
+public struct BackgroundColor: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let onSequence: ControlSequence
@@ -762,41 +307,6 @@ public struct BackgroundColor: Attribute {
   
   public var controlSequence: ControlSequence {
     .init(for: self)
-  }
-  
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
   }
   
   /// Creates an attribute with the given color, string, and nested elements.
@@ -825,7 +335,7 @@ public struct BackgroundColor: Attribute {
 // MARK: - IgnoreFormatting
 
 /// A prism element that removes all formatting from any elements nested inside it.
-public struct IgnoreFormatting: Attribute {
+public struct IgnoreFormatting: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
   public let rawValue: String
@@ -834,57 +344,22 @@ public struct IgnoreFormatting: Attribute {
     .init(for: self)
   }
   
-  private var _spacing: Prism.Spacing?
-  public var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
-    set { _spacing = newValue }
-  }
-  
-  private var _nestedElements = [PrismElement]()
-  public var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer(with: spacing)
-      }
-    }
-    set {
-      _nestedElements = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
-  public var prism: Prism? {
-    get { elementRef.prism }
-    nonmutating set {
-      elementRef.prism = newValue
-      updateNestedElements()
-    }
-  }
-  
   public var onSequence: ControlSequence {
     var sequence = ControlSequence()
-    var currentParent = parentElement
-    while let _currentParent = currentParent as? Attribute {
-      sequence += _currentParent.offSequence
-      currentParent = _currentParent.parentElement
+    var visitedElement = parentElement
+    while let element = visitedElement as? Attribute {
+      sequence += element.offSequence
+      visitedElement = element.parentElement
     }
     return sequence
   }
   
   public var offSequence: ControlSequence {
     var sequence = ControlSequence()
-    var currentParent = parentElement
-    while let _currentParent = currentParent as? Attribute {
-      sequence += _currentParent.onSequence
-      currentParent = _currentParent.parentElement
+    var visitedElement = parentElement
+    while let element = visitedElement as? Attribute {
+      sequence += element.onSequence
+      visitedElement = element.parentElement
     }
     return sequence
   }
