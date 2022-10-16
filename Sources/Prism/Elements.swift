@@ -10,6 +10,8 @@
 
 /// A prism element that adds a single space or tab to a control sequence.
 public struct Spacer: SpacerElement {
+  let elementRef = ElementRef()
+  
   public let id: UInt64 = 0
   
   let type: SpacerType
@@ -37,28 +39,24 @@ public struct Spacer: SpacerElement {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(type: SpacerType = .space) {
     self.type = type
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
   }
 }
 
@@ -66,6 +64,8 @@ public struct Spacer: SpacerElement {
 
 /// A prism element that adds a single line break to a control sequence.
 public struct LineBreak: SpacerElement {
+  let elementRef = ElementRef()
+  
   public let id: UInt64 = 1
   
   let type: LineBreakType
@@ -93,28 +93,24 @@ public struct LineBreak: SpacerElement {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(type: LineBreakType = .newline) {
     self.type = type
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
   }
 }
 
@@ -122,6 +118,8 @@ public struct LineBreak: SpacerElement {
 
 /// A prism element that resets the entire sequence.
 public struct Reset: PrismElement {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   
   public let rawValue = ""
@@ -147,20 +145,18 @@ public struct Reset: PrismElement {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
@@ -170,10 +166,7 @@ public struct Reset: PrismElement {
   }
   
   /// Creates a reset element.
-  public init() {
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
-  }
+  public init() { }
 }
 
 // MARK: - Bold
@@ -181,6 +174,8 @@ public struct Reset: PrismElement {
 /// A prism element that renders its text in a bold font, in terminals that
 /// support it.
 public struct Bold: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.boldOn
   public let offSequence = ControlSequence.boldOff
@@ -210,28 +205,24 @@ public struct Bold: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -241,6 +232,8 @@ public struct Bold: Attribute {
 /// A prism element that renders its text in a dim color, in terminals that
 /// support it.
 public struct Dim: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.dimOn
   public let offSequence = ControlSequence.dimOff
@@ -270,28 +263,24 @@ public struct Dim: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -301,6 +290,8 @@ public struct Dim: Attribute {
 /// A prism element that renders its text in italics, in terminals that
 /// support it.
 public struct Italic: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.italicOn
   public let offSequence = ControlSequence.italicOff
@@ -330,28 +321,24 @@ public struct Italic: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -361,6 +348,8 @@ public struct Italic: Attribute {
 /// A prism element that renders its text with an underline, in terminals that
 /// support it.
 public struct Underline: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.underlineOn
   public let offSequence = ControlSequence.underlineOff
@@ -390,28 +379,24 @@ public struct Underline: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -421,6 +406,8 @@ public struct Underline: Attribute {
 /// A prism element that renders its text with an overline, in terminals that
 /// support it.
 public struct Overline: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.overlineOn
   public let offSequence = ControlSequence.overlineOff
@@ -450,28 +437,24 @@ public struct Overline: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -480,6 +463,8 @@ public struct Overline: Attribute {
 
 /// A prism element that renders its text to blink, in terminals that support it.
 public struct Blink: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.blinkOn
   public let offSequence = ControlSequence.blinkOff
@@ -509,28 +494,24 @@ public struct Blink: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -540,6 +521,8 @@ public struct Blink: Attribute {
 /// A prism element that swaps the foreground and background colors of its text,
 /// in terminals that support it.
 public struct Swap: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.swapOn
   public let offSequence = ControlSequence.swapOff
@@ -569,28 +552,24 @@ public struct Swap: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -599,6 +578,8 @@ public struct Swap: Attribute {
 
 /// A prism element that hides its text, in terminals that support it.
 public struct Hide: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.hideOn
   public let offSequence = ControlSequence.hideOff
@@ -628,28 +609,24 @@ public struct Hide: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -659,6 +636,8 @@ public struct Hide: Attribute {
 /// A prism element that renders its text with a strikethrough, in terminals
 /// that support it.
 public struct Strikethrough: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence = ControlSequence.strikethroughOn
   public let offSequence = ControlSequence.strikethroughOff
@@ -688,28 +667,24 @@ public struct Strikethrough: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
@@ -719,6 +694,8 @@ public struct Strikethrough: Attribute {
 /// A prism element that renders its text in a given color, in terminals that
 /// support it.
 public struct ForegroundColor: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence: ControlSequence
   public let offSequence = ControlSequence.foregroundColor(.default)
@@ -748,20 +725,18 @@ public struct ForegroundColor: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
@@ -770,8 +745,6 @@ public struct ForegroundColor: Attribute {
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
     onSequence = .foregroundColor(color)
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
   
@@ -796,6 +769,8 @@ public struct ForegroundColor: Attribute {
 /// A prism element that renders the background of its text in a given color,
 /// in terminals that support it.
 public struct BackgroundColor: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   public let onSequence: ControlSequence
   public let offSequence = ControlSequence.backgroundColor(.default)
@@ -825,20 +800,18 @@ public struct BackgroundColor: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
@@ -847,8 +820,6 @@ public struct BackgroundColor: Attribute {
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
     onSequence = .backgroundColor(color)
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
   
@@ -872,6 +843,8 @@ public struct BackgroundColor: Attribute {
 
 /// A prism element that removes all formatting from any elements nested inside it.
 public struct IgnoreFormatting: Attribute {
+  let elementRef = ElementRef()
+  
   public let id = rng.next()
   
   public let rawValue: String
@@ -899,20 +872,18 @@ public struct IgnoreFormatting: Attribute {
     }
   }
   
-  private var _parentElement: UnsafeMutablePointer<PrismElement?> = .allocate(capacity: 1)
   public var parentElement: PrismElement? {
-    get { _parentElement.pointee }
+    get { elementRef.parentElement }
     nonmutating set {
-      _parentElement.initialize(to: newValue)
+      elementRef.parentElement = newValue
       updateNestedElements()
     }
   }
   
-  private var _prism: UnsafeMutablePointer<Prism?> = .allocate(capacity: 1)
   public var prism: Prism? {
-    get { _prism.pointee }
+    get { elementRef.prism }
     nonmutating set {
-      _prism.initialize(to: newValue)
+      elementRef.prism = newValue
       updateNestedElements()
     }
   }
@@ -939,8 +910,6 @@ public struct IgnoreFormatting: Attribute {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
-    _parentElement.initialize(to: nil)
-    _prism.initialize(to: nil)
     self.nestedElements = nestedElements
   }
 }
