@@ -76,7 +76,6 @@ extension String: PrismElement {
     static var prism = [String: Prism]()
   }
   
-  public var id: UInt64 { .init() }
   public var rawValue: String { self }
   
   public var controlSequence: ControlSequence {
@@ -84,12 +83,8 @@ extension String: PrismElement {
   }
   
   public var spacing: Prism.Spacing {
-    get {
-      Storage.spacing[self] ?? prism?.spacing ?? .managed(.spaces)
-    }
-    set {
-      Storage.spacing[self] = newValue
-    }
+    get { Storage.spacing[self] ?? prism?.spacing ?? .managed(.spaces) }
+    set { Storage.spacing[self] = newValue }
   }
   
   public var nestedElements: [PrismElement] {

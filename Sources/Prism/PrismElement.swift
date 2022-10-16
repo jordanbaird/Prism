@@ -8,10 +8,6 @@
 
 /// A type that can be combined with other elements to make up a ``Prism``.
 public protocol PrismElement: CustomStringConvertible, CustomDebugStringConvertible {
-  /// The element's identifying value.
-  @available(*, deprecated, message: "no longer used")
-  var id: UInt64 { get }
-  
   /// The control sequence at the base of the element.
   var controlSequence: ControlSequence { get }
   
@@ -32,13 +28,6 @@ public protocol PrismElement: CustomStringConvertible, CustomDebugStringConverti
 }
 
 extension PrismElement {
-  
-  // MARK: - Static Properties
-  
-  static var rng: SystemRandomNumberGenerator {
-    get { .init() }
-    set { }
-  }
   
   // MARK: - Instance Properties
   

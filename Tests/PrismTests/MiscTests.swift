@@ -10,12 +10,6 @@ import XCTest
 @testable import Prism
 
 final class MiscTests: XCTestCase {
-  func testRNGRandomness() {
-    let a1 = Bold("Bold")
-    let a2 = Bold("Bold")
-    XCTAssertNotEqual(a1.id, a2.id)
-  }
-  
   func testAttributeDescriptions() {
     let b1 = Bold("Foo")
     let b2 = Bold("Foo")

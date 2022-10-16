@@ -12,8 +12,6 @@
 public struct Spacer: SpacerElement {
   let elementRef = ElementRef()
   
-  public let id: UInt64 = 0
-  
   let type: SpacerType
   
   public var controlSequence: ControlSequence {
@@ -65,8 +63,6 @@ public struct Spacer: SpacerElement {
 /// A prism element that adds a single line break to a control sequence.
 public struct LineBreak: SpacerElement {
   let elementRef = ElementRef()
-  
-  public let id: UInt64 = 1
   
   let type: LineBreakType
   
@@ -120,11 +116,9 @@ public struct LineBreak: SpacerElement {
 public struct Reset: PrismElement {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
-  
   public let rawValue = ""
   
-  public var controlSequence: ControlSequence { .reset }
+  public let controlSequence = ControlSequence.reset
   
   private var _spacing: Prism.Spacing?
   public var spacing: Prism.Spacing {
@@ -176,7 +170,6 @@ public struct Reset: PrismElement {
 public struct Bold: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.boldOn
   public let offSequence = ControlSequence.boldOff
   
@@ -234,7 +227,6 @@ public struct Bold: Attribute {
 public struct Dim: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.dimOn
   public let offSequence = ControlSequence.dimOff
   
@@ -292,7 +284,6 @@ public struct Dim: Attribute {
 public struct Italic: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.italicOn
   public let offSequence = ControlSequence.italicOff
   
@@ -350,7 +341,6 @@ public struct Italic: Attribute {
 public struct Underline: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.underlineOn
   public let offSequence = ControlSequence.underlineOff
   
@@ -408,7 +398,6 @@ public struct Underline: Attribute {
 public struct Overline: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.overlineOn
   public let offSequence = ControlSequence.overlineOff
   
@@ -465,7 +454,6 @@ public struct Overline: Attribute {
 public struct Blink: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.blinkOn
   public let offSequence = ControlSequence.blinkOff
   
@@ -523,7 +511,6 @@ public struct Blink: Attribute {
 public struct Swap: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.swapOn
   public let offSequence = ControlSequence.swapOff
   
@@ -580,7 +567,6 @@ public struct Swap: Attribute {
 public struct Hide: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.hideOn
   public let offSequence = ControlSequence.hideOff
   
@@ -638,7 +624,6 @@ public struct Hide: Attribute {
 public struct Strikethrough: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence = ControlSequence.strikethroughOn
   public let offSequence = ControlSequence.strikethroughOff
   
@@ -696,7 +681,6 @@ public struct Strikethrough: Attribute {
 public struct ForegroundColor: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence: ControlSequence
   public let offSequence = ControlSequence.foregroundColor(.default)
   
@@ -771,7 +755,6 @@ public struct ForegroundColor: Attribute {
 public struct BackgroundColor: Attribute {
   let elementRef = ElementRef()
   
-  public let id = rng.next()
   public let onSequence: ControlSequence
   public let offSequence = ControlSequence.backgroundColor(.default)
   
@@ -844,8 +827,6 @@ public struct BackgroundColor: Attribute {
 /// A prism element that removes all formatting from any elements nested inside it.
 public struct IgnoreFormatting: Attribute {
   let elementRef = ElementRef()
-  
-  public let id = rng.next()
   
   public let rawValue: String
   
