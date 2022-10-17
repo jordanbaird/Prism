@@ -45,8 +45,12 @@ final class RGBCodeTests: XCTestCase {
     let code2 = RGBCode(red: 0.5, green: 0.5, blue: 0.5)
     XCTAssertEqual(code1, code2)
     
-    let code3 = RGBCode(string: "rgb(51 51 51)")
-    let code4 = RGBCode(string: "rgb(20% 20% 20%)")
+    let code3 = RGBCode(string: ".5 .5 .5")
+    let code4 = RGBCode(red: 0.5, green: 0.5, blue: 0.5)
     XCTAssertEqual(code3, code4)
+    
+    let code5 = RGBCode(string: "rgb(51 51 51)")
+    let code6 = RGBCode(string: "rgb(20% 20% 20%)")
+    XCTAssertEqual(code5, code6)
   }
 }

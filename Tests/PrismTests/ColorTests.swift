@@ -83,11 +83,13 @@ final class ColorTests: XCTestCase {
     XCTAssertNotEqual(c3, .default)
     XCTAssertNotEqual(c4, .default)
     
-    // These should be invalid.
+    // This should be invalid.
     let c5 = Color(string: "ZX0L8M")
+    XCTAssertEqual(c5, .init(red: 0, green: 0, blue: 0))
+    
+    // This should be partially invalid.
     let c6 = Color(string: "2,0.1,45")
-    XCTAssertEqual(c5, .default)
-    XCTAssertEqual(c6, .default)
+    XCTAssertEqual(c6, .init(red: 1, green: 0.1, blue: 1))
   }
   
   func testHashable() {
