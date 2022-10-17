@@ -65,3 +65,19 @@ extension String {
     BackgroundColor(color, self).string()
   }
 }
+
+extension StringProtocol {
+  private init<C: Collection>(_collection: C) where C.Element == Character {
+    self = String(_collection).withCString {
+      .init(cString: $0)
+    }
+  }
+  
+  private func dropReverse(while predicate: (Character) throws -> Bool) rethrows -> Self {
+    try .init(_collection: drop(while: predicate).reversed())
+  }
+  
+  func trim(while predicate: (Character) throws -> Bool) rethrows -> Self {
+    try dropReverse(while: predicate).dropReverse(while: predicate)
+  }
+}

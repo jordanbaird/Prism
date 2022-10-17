@@ -19,9 +19,9 @@ public struct Prism:
   
   /// Constants that describe how a prism's elements should be spaced when
   /// displayed in a terminal.
-  public enum Spacing {
+  public enum Spacing: Hashable {
     /// Constants that represent the type of element to use for managed spacing.
-    public enum ElementType {
+    public enum ElementType: Hashable {
       /// Indicates that managed spacing will use the ``LineBreak`` type with
       /// `newline` characters.
       case newlines
