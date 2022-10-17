@@ -51,16 +51,8 @@ public struct Color {
   }
   
   /// Creates a color with the given RGB code.
-  ///
-  /// Valid RGB values are floating point values between 0.0 and 1.0, or integer
-  /// values between 0 and 255. If the code is not valid, the color will be
-  /// initialized to the ``default`` value.
   public init(rgbCode: RGBCode) {
-    if rgbCode.isValid {
-      self.init(0, .default, rgbCode, nil)
-    } else {
-      self.init(color: .default)
-    }
+    self.init(0, .default, rgbCode, nil)
   }
   
   /// Creates a color with the given 8-bit color code.
@@ -89,9 +81,8 @@ public struct Color {
   
   /// Creates a color from the given string.
   ///
-  /// The string provided can either be a valid hexadecimal value, or an
-  /// RGB-formatted string. If an invalid string is provided, the color
-  /// will be initialized to the ``default`` value.
+  /// The string provided can either be a valid hexadecimal value,
+  /// or an RGB-formatted string.
   ///
   /// ```swift
   /// let color = Color(string: "26AB2A") // Valid
@@ -104,10 +95,8 @@ public struct Color {
     let hexadecimal = Hexadecimal(string: string)
     if hexadecimal.isValid {
       self.init(hexadecimal: hexadecimal)
-    } else if let rgbCode = RGBCode(string: string) {
-      self.init(rgbCode: rgbCode)
     } else {
-      self.init(color: .default)
+      self.init(rgbCode: .init(string: string))
     }
   }
   
