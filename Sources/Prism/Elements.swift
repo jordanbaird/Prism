@@ -58,6 +58,44 @@ public struct Reset: PrismElement, HasElementRef {
   public init() { }
 }
 
+// MARK: - Standard
+
+/// A prism element that does not alter its contents.
+///
+/// If you are working within the context of an ``ElementBuilder``, like,
+/// for example, when initializing a prism, you don't need to use this type
+/// directly. Simply passing in a string will automatically produce a
+/// result of this type.
+///
+/// In the following example, the two prisms are semantically identical:
+///
+/// ```swift
+/// let prism1 = Prism {
+///     Standard("Hello, world!")
+/// }
+///
+/// let prism2 = Prism {
+///     "Hello, world!"
+/// }
+/// ```
+public struct Standard: Attribute, HasElementRef {
+  let elementRef = ElementRef()
+  
+  public let onSequence = ControlSequence()
+  public let offSequence = ControlSequence()
+  
+  public let rawValue: String
+  
+  public var controlSequence: ControlSequence {
+    .init(for: self)
+  }
+  
+  public init(_ string: String, nestedElements: [PrismElement] = []) {
+    rawValue = string
+    self.nestedElements = nestedElements
+  }
+}
+
 // MARK: - Bold
 
 /// A prism element that renders its text in a bold font, in terminals that

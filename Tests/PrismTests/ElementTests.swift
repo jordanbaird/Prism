@@ -147,6 +147,6 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[1mBold \u{001B}[22mNot bold\u{001B}[1m\u{001B}[22m\u{001B}[0m")
+      "\u{001B}[1mBold\u{001B}[22mNot bold\u{001B}[1m\u{001B}[22m\u{001B}[0m")
   }
 }

@@ -10,13 +10,61 @@
 /// array of prism elements.
 @resultBuilder
 public struct ElementBuilder {
-  public static func buildBlock(_ components: PrismElement...) -> [PrismElement] { components }
-  public static func buildBlock(_ components: PrismElement) -> [PrismElement] { [components] }
-  public static func buildBlock(_ component: PrismElement) -> PrismElement { component }
-  public static func buildArray(_ components: [PrismElement]) -> [PrismElement] { components }
-  public static func buildExpression(_ expression: PrismElement) -> PrismElement { expression }
-  public static func buildEither(first component: PrismElement) -> PrismElement { component }
-  public static func buildEither(second component: PrismElement) -> PrismElement { component }
+  public static func buildBlock(_ components: PrismElement...) -> [PrismElement] {
+    components
+  }
+  
+  public static func buildBlock(_ component: PrismElement) -> [PrismElement] {
+    [component]
+  }
+  
+  public static func buildBlock(_ component: PrismElement) -> PrismElement {
+    component
+  }
+  
+  public static func buildArray(_ components: [PrismElement]) -> [PrismElement] {
+    components
+  }
+  
+  public static func buildExpression(_ expression: PrismElement) -> PrismElement {
+    expression
+  }
+  
+  public static func buildEither(first component: PrismElement) -> PrismElement {
+    component
+  }
+  
+  public static func buildEither(second component: PrismElement) -> PrismElement {
+    component
+  }
+  
+  public static func buildBlock(_ components: String...) -> [PrismElement] {
+    components.map { Standard($0) }
+  }
+  
+  public static func buildBlock(_ component: String) -> [PrismElement] {
+    [Standard(component)]
+  }
+  
+  public static func buildBlock(_ component: String) -> PrismElement {
+    Standard(component)
+  }
+  
+  public static func buildArray(_ components: [String]) -> [PrismElement] {
+    components.map { Standard($0) }
+  }
+  
+  public static func buildExpression(_ expression: String) -> PrismElement {
+    Standard(expression)
+  }
+  
+  public static func buildEither(first component: String) -> PrismElement {
+    Standard(component)
+  }
+  
+  public static func buildEither(second component: String) -> PrismElement {
+    Standard(component)
+  }
 }
 
 struct StringManipulator {
