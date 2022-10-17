@@ -75,9 +75,9 @@ final class ColorTests: XCTestCase {
   func testInitializationByString() {
     // These should be valid.
     let c1 = Color(string: "26AB2A")
-    let c2 = Color(string: "0.3,0.77,0.14")
-    let c3 = Color(string: "5,88,247")
-    let c4 = Color(string: "r:10,g:35,b:200")
+    let c2 = Color(string: "rgb(30%,77%,14%)")
+    let c3 = Color(string: "rgb(5 88 247)")
+    let c4 = Color(string: "rgb(10, 35, 200)")
     XCTAssertNotEqual(c1, .default)
     XCTAssertNotEqual(c2, .default)
     XCTAssertNotEqual(c3, .default)
