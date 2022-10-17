@@ -1,11 +1,11 @@
 [![Prism](/media/header.svg)](https://github.com/jordanbaird/Prism)
 
-[![Continuous Integration](https://img.shields.io/github/workflow/status/jordanbaird/Prism/Swift)]()
-[![Code Coverage](https://codecov.io/gh/jordanbaird/Prism/branch/main/graph/badge.svg?token=C60OOWRYQ2)](https://codecov.io/gh/jordanbaird/Prism)
-[![Release](https://img.shields.io/github/v/release/jordanbaird/Prism)](https://github.com/jordanbaird/Prism/releases/latest)
-[![](https://img.shields.io/badge/dynamic/json?color=F05138&label=Swift&query=%24.message&url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fjordanbaird%2FPrism%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/jordanbaird/Prism)
-[![](https://img.shields.io/badge/dynamic/json?color=F05138&label=Platforms&query=%24.message&url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fjordanbaird%2FPrism%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/jordanbaird/Prism)
-[![License](https://img.shields.io/github/license/jordanbaird/Prism)](http://www.opensource.org/licenses/mit-license)
+[![Continuous Integration](https://img.shields.io/github/workflow/status/jordanbaird/Prism/Swift?style=flat-square)]()
+[![Code Coverage](https://img.shields.io/codecov/c/github/jordanbaird/Prism?label=codecov&logo=codecov&style=flat-square)](https://codecov.io/gh/jordanbaird/Prism)
+[![Swift Versions](https://img.shields.io/badge/dynamic/json?color=F05138&label=Swift&query=%24.message&url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fjordanbaird%2FPrism%2Fbadge%3Ftype%3Dswift-versions&style=flat-square)](https://swiftpackageindex.com/jordanbaird/Prism)
+[![Supported Platforms](https://img.shields.io/badge/dynamic/json?color=F05138&label=Platforms&query=%24.message&url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fjordanbaird%2FPrism%2Fbadge%3Ftype%3Dplatforms&style=flat-square)](https://swiftpackageindex.com/jordanbaird/Prism)
+[![Latest Release](https://img.shields.io/github/v/release/jordanbaird/Prism?style=flat-square)](https://github.com/jordanbaird/Prism/releases/latest)
+[![License](https://img.shields.io/github/license/jordanbaird/Prism?style=flat-square)](https://github.com/jordanbaird/Prism/blob/main/LICENSE)
 
 `Prism` is a simple DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it's meant to be easy to use, it is quite powerful, and works on both macOS and Linux.
 
