@@ -159,7 +159,7 @@ extension Color {
       
       // The goal here is to get an array of doubles with each value
       // falling between 0 and 1.
-      let numbers = split.compactMap {
+      let numbers: [Double] = split.compactMap {
         var string = $0
         // If the string has a % suffix, remove it. If the new string
         // successfully converts to a double, clamp and divide it by
