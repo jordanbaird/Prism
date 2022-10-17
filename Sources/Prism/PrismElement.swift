@@ -97,4 +97,25 @@ extension PrismElement {
   var testableDescription: String {
     controlSequence.base.map(\.rawValue).joined()
   }
+  
+  func isEqual(_ other: PrismElement) -> Bool {
+    controlSequence == other.controlSequence &&
+    rawValue == other.rawValue &&
+    spacing == other.spacing &&
+    nestedElements.endIndex == other.nestedElements.endIndex &&
+    (0..<nestedElements.endIndex).allSatisfy {
+      nestedElements[$0].isEqual(other.nestedElements[$0])
+    }
+  }
+}
+
+extension Array where Element == PrismElement {
+  func isEqual(_ other: [PrismElement]) -> Bool {
+    guard endIndex == other.endIndex else {
+      return false
+    }
+    return (0..<endIndex).allSatisfy {
+      self[$0].isEqual(other[$0])
+    }
+  }
 }
