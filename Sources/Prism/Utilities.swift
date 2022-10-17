@@ -6,64 +6,58 @@
 //
 //===----------------------------------------------------------------------===//
 
-/// A result builder type that builds either a single prism element, or an
-/// array of prism elements.
 @resultBuilder
-public struct ElementBuilder {
+public enum ElementBuilder {
+  
+  // MARK: - Block Builders
+  
   public static func buildBlock(_ components: PrismElement...) -> [PrismElement] {
     components
   }
   
-  public static func buildBlock(_ component: PrismElement) -> [PrismElement] {
-    [component]
+  @_disfavoredOverload
+  public static func buildBlock(_ components: [PrismElement]...) -> [PrismElement] {
+    components.flatMap { $0 }
   }
   
-  public static func buildBlock(_ component: PrismElement) -> PrismElement {
-    component
-  }
-  
-  public static func buildArray(_ components: [PrismElement]) -> [PrismElement] {
-    components
-  }
+  // MARK: - Expression Builders
   
   public static func buildExpression(_ expression: PrismElement) -> PrismElement {
     expression
   }
   
-  public static func buildEither(first component: PrismElement) -> PrismElement {
-    component
+  public static func buildExpression(_ expression: PrismElementConvertible) -> PrismElement {
+    expression.prismElement
   }
   
-  public static func buildEither(second component: PrismElement) -> PrismElement {
-    component
+  @_disfavoredOverload
+  public static func buildExpression(_ expression: [PrismElement]) -> [PrismElement] {
+    expression
   }
   
-  public static func buildBlock(_ components: String...) -> [PrismElement] {
-    components.map { Standard($0) }
+  @_disfavoredOverload
+  public static func buildExpression(_ expression: [PrismElementConvertible]) -> [PrismElement] {
+    expression.map { $0.prismElement }
   }
   
-  public static func buildBlock(_ component: String) -> [PrismElement] {
-    [Standard(component)]
+  // MARK: - Conditional Builders
+  
+  public static func buildEither(first components: PrismElement...) -> [PrismElement] {
+    components
   }
   
-  public static func buildBlock(_ component: String) -> PrismElement {
-    Standard(component)
+  public static func buildEither(second components: PrismElement...) -> [PrismElement] {
+    components
   }
   
-  public static func buildArray(_ components: [String]) -> [PrismElement] {
-    components.map { Standard($0) }
+  @_disfavoredOverload
+  public static func buildEither(first components: [PrismElement]...) -> [PrismElement] {
+    components.flatMap { $0 }
   }
   
-  public static func buildExpression(_ expression: String) -> PrismElement {
-    Standard(expression)
-  }
-  
-  public static func buildEither(first component: String) -> PrismElement {
-    Standard(component)
-  }
-  
-  public static func buildEither(second component: String) -> PrismElement {
-    Standard(component)
+  @_disfavoredOverload
+  public static func buildEither(second components: [PrismElement]...) -> [PrismElement] {
+    components.flatMap { $0 }
   }
 }
 
