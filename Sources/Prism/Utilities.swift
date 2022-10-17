@@ -60,3 +60,5 @@ public enum ElementBuilder {
     components.flatMap { $0 }
   }
 }
+
+typealias Transformer<From, To> = (From) -> To
