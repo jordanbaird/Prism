@@ -63,3 +63,4 @@ The `Prism` type can be directly used in a `print()` function, and the formatted
 ## License
 
 Prism is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license).
+![Swift Version](https://img.shields.io/badge/Swift-5.5%2B-orange)
