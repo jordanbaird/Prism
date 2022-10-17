@@ -7,7 +7,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/jordanbaird/Prism?style=flat-square)](https://github.com/jordanbaird/Prism/releases/latest)
 [![License](https://img.shields.io/github/license/jordanbaird/Prism?style=flat-square)](https://github.com/jordanbaird/Prism/blob/main/LICENSE)
 
-`Prism` is a simple DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it's meant to be easy to use, it is quite powerful, and works on both macOS and Linux.
+`Prism` is a DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it's meant to be easy to use, it is quite powerful, and works on both macOS and Linux.
 
 [![Styles](/media/styles.svg)](https://github.com/jordanbaird/Prism)
 
@@ -35,7 +35,7 @@ let text = Prism {
 }
 ```
 
-Each attribute functions similarly to `Prism` itself, in that you can nest other elements inside of them. The `String` type conforms to `PrismElement`, so you can use string literals inline with other elements and attributes.
+Each attribute behaves similarly to `Prism` itself, in that you can nest other elements inside of them.
 
 ```swift
 let text = Prism {
@@ -54,6 +54,21 @@ let text = Prism {
         }
     }
 }
+```
+
+The DSL backend implicitly wraps strings inside the non-modifying `Standard` attribute, allowing instances of the `String` type — including string literals — to be used inline with other elements and attributes.
+
+```swift
+let text1 = Prism {
+    Standard("Just regular old text.")
+}
+
+let text2 = Prism {
+    "Just regular old text."
+}
+
+print(text1 == text2)
+// Prints: "true"
 ```
 
 The `Prism` type can be directly used in a `print()` function, and the formatted string will be printed directly to the terminal or console. If the terminal or console does not support formatted text, the unformatted version of the string will be automatically printed instead.
