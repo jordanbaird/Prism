@@ -96,40 +96,16 @@ public struct Color {
   /// ```swift
   /// let color = Color(string: "26AB2A") // Valid
   /// let color = Color(string: "#9B69B9") // Valid
-  /// let color = Color(string: "5,88,247") // Valid
-  /// let color = Color(string: "0.3,0.77,0.14") // Valid
-  /// let color = Color(string: "r:109,g:34,b:232") // Valid
+  /// let color = Color(string: "rgb(5 88 247)") // Valid
+  /// let color = Color(string: "rgb(30% 77% 14%)") // Valid
+  /// let color = Color(string: "rgb(109,34,232)") // Valid
   /// ```
   public init(string: String) {
     let hexadecimal = Hexadecimal(string: string)
-    let split = string.split(separator: ",")
-    
     if hexadecimal.isValid {
       self.init(hexadecimal: hexadecimal)
-    } else if split.count == 3 {
-      let strings: [String] = split.map {
-        var manipulator = StringManipulator(string: $0.lowercased())
-        manipulator.removeOccurrences(of: ["r:", "g:", "b:", "red:", "green:", "blue:"])
-        manipulator.trimWhitespace()
-        manipulator.trimNewlines()
-        return manipulator.finalize()
-      }
-      
-      if
-        let r = Int(strings[0]),
-        let g = Int(strings[1]),
-        let b = Int(strings[2])
-      {
-        self.init(red: r, green: g, blue: b)
-      } else if
-        let r = Double(strings[0]),
-        let g = Double(strings[1]),
-        let b = Double(strings[2])
-      {
-        self.init(red: r, green: g, blue: b)
-      } else {
-        self.init(color: .default)
-      }
+    } else if let rgbCode = RGBCode(string: string) {
+      self.init(rgbCode: rgbCode)
     } else {
       self.init(color: .default)
     }
