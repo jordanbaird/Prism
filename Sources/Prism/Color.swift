@@ -35,14 +35,14 @@ public struct Color {
   
   // MARK: - Initializers
   
-  init(_ rawValue: Int, _ style: Style, _ rgbCode: RGBCode?, _ eightBit: EightBit?) {
-    foregroundCode = rgbCode?.foregroundCode
-    ?? eightBit?.foregroundCode
-    ?? "\(rawValue + style.rawValue.foreground)"
-    
-    backgroundCode = rgbCode?.backgroundCode
-    ?? eightBit?.backgroundCode
-    ?? "\(rawValue + style.rawValue.background)"
+  init(_ foregroundCode: String, _ backgroundCode: String) {
+    self.foregroundCode = foregroundCode
+    self.backgroundCode = backgroundCode
+  }
+  
+  init(_ rawValue: Int, _ style: Style) {
+    foregroundCode = "\(rawValue + style.rawValue.foreground)"
+    backgroundCode = "\(rawValue + style.rawValue.background)"
   }
   
   /// Creates a color from the given color.
@@ -52,18 +52,18 @@ public struct Color {
   
   /// Creates a color with the given RGB code.
   public init(rgbCode: RGBCode) {
-    self.init(0, .default, rgbCode, nil)
+    self.init(rgbCode.foregroundCode, rgbCode.backgroundCode)
   }
   
   /// Creates a color with the given 8-bit color code.
   @available(*, deprecated, renamed: "init(eightBit:)")
   public init(ecma256: ECMA256) {
-    self.init(0, .default, nil, ecma256)
+    self.init(eightBit: ecma256)
   }
   
   /// Creates a color with the given 8-bit color code.
   public init(eightBit: EightBit) {
-    self.init(0, .default, nil, eightBit)
+    self.init(eightBit.foregroundCode, eightBit.backgroundCode)
   }
   
   /// Creates a color with the given hexadecimal code.
@@ -154,7 +154,7 @@ extension Color {
   public static let white = white(style: .default)
   
   /// The default text color of the terminal.
-  public static let `default` = Self(9, .default, nil, nil)
+  public static let `default` = Self(9, .default)
   
   // MARK: - Static Methods
   
@@ -163,37 +163,37 @@ extension Color {
   /// - Note: In most terminals, passing the ``Style/bright`` style into
   ///   this method produces a color equivalent to ``gray``.
   public static func black(style: Style = .default) -> Self {
-    .init(0, style, nil, nil)
+    .init(0, style)
   }
   
   /// The ANSI red color, in either a default or bright style.
   public static func red(style: Style = .default) -> Self {
-    .init(1, style, nil, nil)
+    .init(1, style)
   }
   
   /// The ANSI green color, in either a default or bright style.
   public static func green(style: Style = .default) -> Self {
-    .init(2, style, nil, nil)
+    .init(2, style)
   }
   
   /// The ANSI yellow color, in either a default or bright style.
   public static func yellow(style: Style = .default) -> Self {
-    .init(3, style, nil, nil)
+    .init(3, style)
   }
   
   /// The ANSI blue color, in either a default or bright style.
   public static func blue(style: Style = .default) -> Self {
-    .init(4, style, nil, nil)
+    .init(4, style)
   }
   
   /// The ANSI magenta color, in either a default or bright style.
   public static func magenta(style: Style = .default) -> Self {
-    .init(5, style, nil, nil)
+    .init(5, style)
   }
   
   /// The ANSI cyan color, in either a default or bright style.
   public static func cyan(style: Style = .default) -> Self {
-    .init(6, style, nil, nil)
+    .init(6, style)
   }
   
   /// The ANSI white color, in either a default or bright style.
@@ -202,20 +202,10 @@ extension Color {
   ///   this method produces a light gray color, while the ``Style/bright``
   ///   style produces pure white.
   public static func white(style: Style = .default) -> Self {
-    .init(7, style, nil, nil)
+    .init(7, style)
   }
 }
 
-extension Color: Equatable {
-  public static func == (lhs: Self, rhs: Self) -> Bool {
-    lhs.foregroundCode == rhs.foregroundCode &&
-    lhs.backgroundCode == rhs.backgroundCode
-  }
-}
+extension Color: Equatable { }
 
-extension Color: Hashable {
-  public func hash(into hasher: inout Hasher) {
-    hasher.combine(foregroundCode)
-    hasher.combine(backgroundCode)
-  }
-}
+extension Color: Hashable { }
