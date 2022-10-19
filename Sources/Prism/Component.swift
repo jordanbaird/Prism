@@ -8,39 +8,32 @@
 
 extension ControlSequence {
   struct Component {
-    private let _nestedComponents: ControlSequence
-    private let _rawValue: String
+    let nestedComponents: ControlSequence
     
-    var nestedComponents: ControlSequence {
-      _rawValue.isEmpty
-      ? _nestedComponents
-      : .init(.init(_rawValue))
-    }
-    
+    private var _rawValue: String?
     var rawValue: String {
-      _nestedComponents.base.isEmpty
-      ? _rawValue
-      : _nestedComponents.mapped
+      _rawValue ?? nestedComponents.mapped
     }
     
     var escapedDescription: String {
-      rawValue.reduce(into: "") {
-        if $1 == "\u{001B}" {
-          $0.append("\\u{001B}")
-        } else {
-          $0.append($1)
-        }
-      }
+      rawValue
+        .replacing("\u{001B}", with: "\\u{001B}")
+        .replacing("\n", with: "\\n")
+        .replacing("\r", with: "\\r")
+        .replacing("\t", with: "\\t")
+    }
+    
+    init(_indirectRawValue: String) {
+      nestedComponents = .init()
+      _rawValue = _indirectRawValue
     }
     
     init(_ rawValue: String) {
-      _nestedComponents = .init()
-      _rawValue = rawValue
+      nestedComponents = .init(.init(_indirectRawValue: rawValue))
     }
     
     init(_ nestedComponents: [Component]) {
-      _nestedComponents = .init(nestedComponents)
-      _rawValue = ""
+      self.nestedComponents = .init(nestedComponents)
     }
   }
 }
@@ -59,28 +52,13 @@ extension ControlSequence.Component: CustomStringConvertible, CustomDebugStringC
   }
   
   public var debugDescription: String {
-    var description = "\(Self.self)("
-    if _nestedComponents.base.isEmpty {
-      if self == .escape {
-        description.append("rawValue: \"ESC\"")
-      } else if _rawValue == "\n" {
-        description.append("rawValue: \"\\n\"")
-      } else if _rawValue == "\r" {
-        description.append("rawValue: \"\\r\"")
-      } else if _rawValue == " " {
-        description.append("rawValue: \" \"")
-      } else if _rawValue == "\t" {
-        description.append("rawValue: \"\\t\"")
-      } else {
-        description.append("rawValue: \"\(_rawValue)\"")
-      }
-    } else if _rawValue.isEmpty {
-      let mappedAndJoined = _nestedComponents.base.map(\.debugDescription).joined(separator: ", ")
-      description.append("nestedComponents: \(mappedAndJoined)")
+    var s = "\(Self.self)("
+    if _rawValue != nil {
+      s.append(#"rawValue: "\#(escapedDescription)""#)
     } else {
-      description.append("ERROR")
+      s.append("nestedComponents: \(nestedComponents.base.debugDescription)")
     }
-    return description + ")"
+    return s + ")"
   }
 }
 
