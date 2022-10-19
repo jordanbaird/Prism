@@ -124,14 +124,6 @@ extension ControlSequence: CustomDebugStringConvertible { }
 
 extension ControlSequence: CustomStringConvertible { }
 
-extension ControlSequence: Equatable {
-  public static func == (lhs: Self, rhs: Self) -> Bool {
-    lhs.base == rhs.base
-  }
-}
+extension ControlSequence: Equatable { }
 
-extension ControlSequence: Hashable {
-  public func hash(into hasher: inout Hasher) {
-    hasher.combine(base)
-  }
-}
+extension ControlSequence: Hashable { }
