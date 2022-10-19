@@ -1,4 +1,4 @@
-name: Test and Upload Code Coverage
+name: Test
 on: [ push, pull_request ]
 
 jobs:
@@ -48,11 +48,4 @@ jobs:
       - name: Check Swift Version
         run: swift --version
       - name: Run Tests
-        run: swift test -v --enable-code-coverage
-      - name: Generate Code Coverage
-        run: ./.github/scripts/generate-code-coverage.sh
-      - name: Upload Code Coverage
-        uses: codecov/codecov-action@v3.1.0
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./info.lcov
+        run: swift test
