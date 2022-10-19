@@ -2,20 +2,43 @@ name: Test and Upload Code Coverage
 on: [ push, pull_request ]
 
 jobs:
-  Linux:
+  ubuntu-latest-5_5:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Initial Swift Version
-        run: swift --version
-      - name: Install Swift
-        uses: sersoft-gmbh/swifty-linux-action@v1.3.0
+      - uses: actions/checkout@v3
+      - name: Install Swift 5.5
+        uses: sersoft-gmbh/swifty-linux-action@v2
         with:
           release-version: 5.5
-      - name: Print New Swift Version
+      - name: Check Swift Version
         run: swift --version
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Test
+      - name: Run Tests
+        run: swift test
+        
+  ubuntu-latest-5_6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Swift 5.6
+        uses: sersoft-gmbh/swifty-linux-action@v2
+        with:
+          release-version: 5.6
+      - name: Check Swift Version
+        run: swift --version
+      - name: Run Tests
+        run: swift test
+        
+  ubuntu-latest-5_7:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Swift 5.7
+        uses: sersoft-gmbh/swifty-linux-action@v2
+        with:
+          release-version: 5.7
+      - name: Check Swift Version
+        run: swift --version
+      - name: Run Tests
         run: swift test -v --enable-code-coverage
       - name: Generate Code Coverage
         run: ./.github/scripts/generate-code-coverage.sh
@@ -24,3 +47,48 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./info.lcov
+          
+  macos-latest-5_5:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Swiftenv
+        run: brew install kylef/formulae/swiftenv
+      - name: Install Swift 5.5
+        run: |
+          swiftenv install 5.5
+          swiftenv global 5.5
+      - name: Check Swift Version
+        run: ~/.swiftenv/shims/swift --version
+      - name: Run Tests
+        run: ~/.swiftenv/shims/swift test
+        
+  macos-latest-5_6:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Swiftenv
+        run: brew install kylef/formulae/swiftenv
+      - name: Install Swift 5.6
+        run: |
+          swiftenv install 5.6
+          swiftenv global 5.6
+      - name: Check Swift Version
+        run: ~/.swiftenv/shims/swift --version
+      - name: Run Tests
+        run: ~/.swiftenv/shims/swift test
+        
+  macos-latest-5_7:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Swiftenv
+        run: brew install kylef/formulae/swiftenv
+      - name: Install Swift 5.7
+        run: |
+          swiftenv install 5.7
+          swiftenv global 5.7
+      - name: Check Swift Version
+        run: ~/.swiftenv/shims/swift --version
+      - name: Run Tests
+        run: ~/.swiftenv/shims/swift test
