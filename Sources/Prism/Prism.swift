@@ -53,10 +53,10 @@ public struct Prism:
   
   /// The elements that make up the prism.
   public var elements: [PrismElement] {
-    _elements.reduce(into: [PrismElement]()) {
+    _elements.reduce(into: []) {
       $1.prism = self
       $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
-    } + [Reset()]
+    }
   }
   
   /// A textual representation of the prism.

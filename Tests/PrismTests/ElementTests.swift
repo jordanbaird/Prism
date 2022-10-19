@@ -15,9 +15,7 @@ final class ElementTests: XCTestCase {
       Spacer(type: .space)
       Spacer(type: .tab)
     }
-    XCTAssertEqual(
-      p.testableDescription,
-      " \t\u{001B}[0m")
+    XCTAssertEqual(p.testableDescription, " \t")
   }
   
   func testLineBreak() {
@@ -25,9 +23,7 @@ final class ElementTests: XCTestCase {
       LineBreak(type: .newline)
       LineBreak(type: .return)
     }
-    XCTAssertEqual(
-      p.testableDescription,
-      "\n\r\u{001B}[0m")
+    XCTAssertEqual(p.testableDescription, "\n\r")
   }
   
   func testReset() {
@@ -36,7 +32,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[0m\u{001B}[0m")
+      "\u{001B}[0m")
   }
   
   func testBold() {
@@ -45,7 +41,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[1mBold\u{001B}[22m\u{001B}[0m")
+      "\u{001B}[1mBold\u{001B}[22m")
   }
   
   func testDim() {
@@ -54,7 +50,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[2mDim\u{001B}[22m\u{001B}[0m")
+      "\u{001B}[2mDim\u{001B}[22m")
   }
   
   func testItalic() {
@@ -63,7 +59,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[3mItalic\u{001B}[23m\u{001B}[0m")
+      "\u{001B}[3mItalic\u{001B}[23m")
   }
   
   func testUnderline() {
@@ -72,7 +68,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[4mUnderline\u{001B}[24m\u{001B}[0m")
+      "\u{001B}[4mUnderline\u{001B}[24m")
   }
   
   func testOverline() {
@@ -81,7 +77,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[53mOverline\u{001B}[55m\u{001B}[0m")
+      "\u{001B}[53mOverline\u{001B}[55m")
   }
   
   func testBlink() {
@@ -90,7 +86,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[5mBlink\u{001B}[25m\u{001B}[0m")
+      "\u{001B}[5mBlink\u{001B}[25m")
   }
   
   func testSwap() {
@@ -99,7 +95,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[7mSwap\u{001B}[27m\u{001B}[0m")
+      "\u{001B}[7mSwap\u{001B}[27m")
   }
   
   func testHide() {
@@ -108,7 +104,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[8mHide\u{001B}[28m\u{001B}[0m")
+      "\u{001B}[8mHide\u{001B}[28m")
   }
   
   func testStrikethrough() {
@@ -117,7 +113,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[9mStrikethrough\u{001B}[29m\u{001B}[0m")
+      "\u{001B}[9mStrikethrough\u{001B}[29m")
   }
   
   func testForegroundColor() {
@@ -126,7 +122,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[34mForegroundColor\u{001B}[39m\u{001B}[0m")
+      "\u{001B}[34mForegroundColor\u{001B}[39m")
   }
   
   func testBackgroundColor() {
@@ -135,7 +131,7 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[44mBackgroundColor\u{001B}[49m\u{001B}[0m")
+      "\u{001B}[44mBackgroundColor\u{001B}[49m")
   }
   
   func testIgnoreFormatting() {
@@ -147,6 +143,6 @@ final class ElementTests: XCTestCase {
     }
     XCTAssertEqual(
       p.testableDescription,
-      "\u{001B}[1mBold\u{001B}[22mNot bold\u{001B}[1m\u{001B}[22m\u{001B}[0m")
+      "\u{001B}[1mBold\u{001B}[22mNot bold\u{001B}[1m\u{001B}[22m")
   }
 }

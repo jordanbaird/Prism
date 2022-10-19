@@ -20,8 +20,7 @@ final class PrismTests: XCTestCase {
       \\u{001B}[5mBlink\\u{001B}[25m \
       \\u{001B}[7mSwap\\u{001B}[27m \
       \\u{001B}[8mHide\\u{001B}[28m \
-      \\u{001B}[9mStrikethrough\\u{001B}[29m\
-      \\u{001B}[0m
+      \\u{001B}[9mStrikethrough\\u{001B}[29m
       """
     let prism = Prism {
       Bold("Bold")
