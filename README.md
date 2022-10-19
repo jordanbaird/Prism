@@ -90,7 +90,7 @@ print(text)
 ```
 
 <div align='center'>
-    <img src='Sources/Prism/Documentation.docc/Resources/output-example.png'>
+    <img src='Sources/Prism/Documentation.docc/Resources/output-example.png', style='width:75%'>
 </div>
 
 Note that some terminal clients may display certain elements differently than others. `Prism` simply provides the terminal with a set of control codes for each attribute. It is up to the terminal to determine how it will display the control codes that `Prism` provides it.
