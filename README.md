@@ -26,7 +26,7 @@ Add the following dependency to your `Package.swift` file:
 Start by creating an instance of the `Prism` type. Its initializer accepts a closure, which you populate with various attributes.
 
 ```swift
-let text = Prism {
+let text = Prism(spacing: .spaces) {
     ForegroundColor(.green, "This text's color is green.")
     Bold("This text is bold.")
     Italic("This text is italic.")
@@ -35,15 +35,13 @@ let text = Prism {
 }
 ```
 
-Each attribute behaves similarly to `Prism` itself, in that you can nest other elements inside of them.
+Attributes behave similarly to `Prism` itself, giving you the ability to nest other elements inside them. 
 
 ```swift
-let text = Prism {
+let text = Prism(spacing: .newlines) {
     Bold {
         "This text is bold."
-        Italic {
-            "This text is bold and italic."
-        }
+        Italic("This text is bold and italic.")
         Underline("This text is bold and underlined.")
         BackgroundColor(.cyan) {
             Underline {
@@ -92,7 +90,7 @@ print(text)
 ```
 
 <div align='center'>
-    <img src='/media/output-example.png'>
+    <img src='Sources/Prism/Documentation.docc/Resources/output-example.png'>
 </div>
 
 Note that some terminal clients may display certain elements differently than others. `Prism` simply provides the terminal with a set of control codes for each attribute. It is up to the terminal to determine how it will display the control codes that `Prism` provides it.
