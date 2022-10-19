@@ -14,9 +14,6 @@ public protocol PrismElement: CustomStringConvertible, CustomDebugStringConverti
   /// The elements nested inside the element.
   var nestedElements: [PrismElement] { get set }
   
-  /// The element's parent.
-  var parentElement: PrismElement? { get nonmutating set }
-  
   /// The element's enclosing ``Prism`` object.
   var prism: Prism? { get nonmutating set }
   
@@ -75,8 +72,9 @@ extension PrismElement {
   
   func updateNestedElements() {
     for element in nestedElements {
-      element.parentElement = self
+      element.setParentElementRef(from: self)
       element.prism = prism
+      element.updateNestedElements()
     }
   }
   
@@ -88,6 +86,18 @@ extension PrismElement {
   
   public static func + (lhs: Self, rhs: Prism) -> Prism {
     Prism([lhs]) + rhs
+  }
+}
+
+extension PrismElement {
+  func setParentElementRef(from element: PrismElement) {
+    guard
+      let self = self as? HasElementRef,
+      let element = element as? HasElementRef
+    else {
+      return
+    }
+    self.elementRef.parentElementRef = element.elementRef
   }
 }
 

@@ -7,19 +7,21 @@
 //===----------------------------------------------------------------------===//
 
 class ElementRef {
-  var parentElement: PrismElement?
-  
   private var _prism: Prism?
   private var _spacing: Prism.Spacing?
   private var _nestedElements = [PrismElement]()
   
+  weak var parentElementRef: ElementRef?
+  var onSequence = ControlSequence()
+  var offSequence = ControlSequence()
+  
   var prism: Prism? {
-    get { _prism ?? parentElement?.prism }
+    get { _prism ?? parentElementRef?.prism }
     set { _prism = newValue }
   }
   
-  var spacing: Prism.Spacing {
-    get { _spacing ?? prism?.spacing ?? .managed(.spaces) }
+  var spacing: Prism.Spacing? {
+    get { _spacing ?? prism?.spacing }
     set { _spacing = newValue }
   }
   
@@ -38,8 +40,16 @@ protocol HasElementRef: PrismElement {
 }
 
 extension HasElementRef {
+  public var onSequence: ControlSequence {
+    elementRef.onSequence
+  }
+  
+  public var offSequence: ControlSequence {
+    elementRef.offSequence
+  }
+  
   public var spacing: Prism.Spacing {
-    get { elementRef.spacing }
+    get { elementRef.spacing ?? .spaces }
     set { elementRef.spacing = newValue }
   }
   
@@ -51,18 +61,17 @@ extension HasElementRef {
     }
   }
   
-  public var parentElement: PrismElement? {
-    get { elementRef.parentElement }
-    nonmutating set {
-      elementRef.parentElement = newValue
-      updateNestedElements()
-    }
-  }
-  
   public var prism: Prism? {
     get { elementRef.prism }
     nonmutating set {
       elementRef.prism = newValue
     }
+  }
+}
+
+extension HasElementRef {
+  func setSequences(on onSequence: ControlSequence, off offSequence: ControlSequence) {
+    elementRef.onSequence = onSequence
+    elementRef.offSequence = offSequence
   }
 }

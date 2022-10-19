@@ -81,9 +81,6 @@ public struct Reset: PrismElement, HasElementRef {
 public struct Standard: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence()
-  public let offSequence = ControlSequence()
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -103,9 +100,6 @@ public struct Standard: Attribute, HasElementRef {
 public struct Bold: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.boldOn
-  public let offSequence = ControlSequence.boldOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -114,6 +108,7 @@ public struct Bold: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .boldOn, off: .boldOff)
     self.nestedElements = nestedElements
   }
 }
@@ -125,9 +120,6 @@ public struct Bold: Attribute, HasElementRef {
 public struct Dim: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.dimOn
-  public let offSequence = ControlSequence.dimOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -136,6 +128,7 @@ public struct Dim: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .dimOn, off: .dimOff)
     self.nestedElements = nestedElements
   }
 }
@@ -147,9 +140,6 @@ public struct Dim: Attribute, HasElementRef {
 public struct Italic: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.italicOn
-  public let offSequence = ControlSequence.italicOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -158,6 +148,7 @@ public struct Italic: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .italicOn, off: .italicOff)
     self.nestedElements = nestedElements
   }
 }
@@ -169,9 +160,6 @@ public struct Italic: Attribute, HasElementRef {
 public struct Underline: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.underlineOn
-  public let offSequence = ControlSequence.underlineOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -180,6 +168,7 @@ public struct Underline: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .underlineOn, off: .underlineOff)
     self.nestedElements = nestedElements
   }
 }
@@ -191,9 +180,6 @@ public struct Underline: Attribute, HasElementRef {
 public struct Overline: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.overlineOn
-  public let offSequence = ControlSequence.overlineOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -202,6 +188,7 @@ public struct Overline: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .overlineOn, off: .overlineOff)
     self.nestedElements = nestedElements
   }
 }
@@ -212,9 +199,6 @@ public struct Overline: Attribute, HasElementRef {
 public struct Blink: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.blinkOn
-  public let offSequence = ControlSequence.blinkOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -223,6 +207,7 @@ public struct Blink: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .blinkOn, off: .blinkOff)
     self.nestedElements = nestedElements
   }
 }
@@ -234,9 +219,6 @@ public struct Blink: Attribute, HasElementRef {
 public struct Swap: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.swapOn
-  public let offSequence = ControlSequence.swapOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -245,6 +227,7 @@ public struct Swap: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .swapOn, off: .swapOff)
     self.nestedElements = nestedElements
   }
 }
@@ -255,9 +238,6 @@ public struct Swap: Attribute, HasElementRef {
 public struct Hide: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.hideOn
-  public let offSequence = ControlSequence.hideOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -266,6 +246,7 @@ public struct Hide: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .hideOn, off: .hideOff)
     self.nestedElements = nestedElements
   }
 }
@@ -277,9 +258,6 @@ public struct Hide: Attribute, HasElementRef {
 public struct Strikethrough: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence = ControlSequence.strikethroughOn
-  public let offSequence = ControlSequence.strikethroughOff
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -288,6 +266,7 @@ public struct Strikethrough: Attribute, HasElementRef {
   
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
+    setSequences(on: .strikethroughOn, off: .strikethroughOff)
     self.nestedElements = nestedElements
   }
 }
@@ -299,9 +278,6 @@ public struct Strikethrough: Attribute, HasElementRef {
 public struct ForegroundColor: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence: ControlSequence
-  public let offSequence = ControlSequence.foregroundColor(.default)
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -310,8 +286,8 @@ public struct ForegroundColor: Attribute, HasElementRef {
   
   /// Creates an attribute with the given color, string, and nested elements.
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
-    onSequence = .foregroundColor(color)
     rawValue = string
+    setSequences(on: .foregroundColor(color), off: .foregroundColor(.default))
     self.nestedElements = nestedElements
   }
   
@@ -338,9 +314,6 @@ public struct ForegroundColor: Attribute, HasElementRef {
 public struct BackgroundColor: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
-  public let onSequence: ControlSequence
-  public let offSequence = ControlSequence.backgroundColor(.default)
-  
   public let rawValue: String
   
   public var controlSequence: ControlSequence {
@@ -349,8 +322,8 @@ public struct BackgroundColor: Attribute, HasElementRef {
   
   /// Creates an attribute with the given color, string, and nested elements.
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
-    onSequence = .backgroundColor(color)
     rawValue = string
+    setSequences(on: .backgroundColor(color), off: .backgroundColor(.default))
     self.nestedElements = nestedElements
   }
   
@@ -384,20 +357,20 @@ public struct IgnoreFormatting: Attribute, HasElementRef {
   
   public var onSequence: ControlSequence {
     var sequence = ControlSequence()
-    var visitedElement = parentElement
-    while let element = visitedElement as? Attribute {
-      sequence += element.offSequence
-      visitedElement = element.parentElement
+    var visitedElementRef = elementRef.parentElementRef
+    while let elementRef = visitedElementRef {
+      sequence += elementRef.offSequence
+      visitedElementRef = elementRef.parentElementRef
     }
     return sequence
   }
   
   public var offSequence: ControlSequence {
     var sequence = ControlSequence()
-    var visitedElement = parentElement
-    while let element = visitedElement as? Attribute {
-      sequence += element.onSequence
-      visitedElement = element.parentElement
+    var visitedElementRef = elementRef.parentElementRef
+    while let elementRef = visitedElementRef {
+      sequence += elementRef.onSequence
+      visitedElementRef = elementRef.parentElementRef
     }
     return sequence
   }
