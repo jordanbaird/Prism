@@ -5,10 +5,14 @@ jobs:
   Linux:
     runs-on: ubuntu-latest
     steps:
+      - name: Print Initial Swift Version
+        run: swift --version
       - name: Install Swift
         uses: sersoft-gmbh/swifty-linux-action@v1.3.0
         with:
           release-version: 5.5
+      - name: Print New Swift Version
+        run: swift --version
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test
