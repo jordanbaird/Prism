@@ -56,24 +56,46 @@ let text = Prism {
 }
 ```
 
-The DSL backend implicitly wraps strings inside the non-modifying `Standard` attribute, allowing instances of the `String` type — including string literals — to be used inline with other elements and attributes.
+The DSL's `ElementBuilder` implicitly wraps strings inside of a special, non-modifying `Standard` attribute, allowing instances of the `String` type — including string literals — to be used inline with other elements and attributes. In the following example, the two `Prism` blocks are semantically identical.
 
 ```swift
 let text1 = Prism {
+    Bold("Some bold text.")
     Standard("Just regular old text.")
+    Italic("Some italic text.")
 }
 
 let text2 = Prism {
+    Bold("Some bold text.")
     "Just regular old text."
+    Italic("Some italic text.")
 }
 
 print(text1 == text2)
 // Prints: "true"
 ```
 
-The `Prism` type can be directly used in a `print()` function, and the formatted string will be printed directly to the terminal or console. If the terminal or console does not support formatted text, the unformatted version of the string will be automatically printed instead.
+The `Prism` type can be directly used with a `print()` function, and the resulting formatted string will be printed directly to the terminal or console. If the terminal or console does not support formatted text, the unformatted version of the string will be automatically printed instead.
 
-- NOTE: Some terminal clients may display certain elements differently than others. `Prism` simply provides the terminal with a set of control codes for each attribute. It is up to the terminal to determine how it will display the control codes that `Prism` provides it.
+```swift
+let text = Prism {
+    "I see"
+    ForegroundColor(.blue) {
+        "skies that are blue."
+    }
+    ForegroundColor(.red) {
+        "Red roses, too."
+    }
+}
+
+print(text)
+```
+
+<div align='center'>
+    <img src='/media/output-example.png'>
+</div>
+
+Note that some terminal clients may display certain elements differently than others. `Prism` simply provides the terminal with a set of control codes for each attribute. It is up to the terminal to determine how it will display the control codes that `Prism` provides it.
 
 ## License
 
