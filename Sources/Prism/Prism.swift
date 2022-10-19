@@ -17,36 +17,58 @@ public struct Prism:
   
   // MARK: - Nested Types
   
-  /// Constants that describe how a prism's elements should be spaced when
-  /// displayed in a terminal.
+  /// Constants that describe how a prism's elements should be spaced
+  /// when displayed in a terminal.
   public enum Spacing: Hashable {
-    /// Constants that represent the type of element to use for managed spacing.
+    /// Constants that represent the type of element a prism should
+    /// use for managed spacing.
     public enum ElementType: Hashable {
-      /// Indicates that managed spacing will use the ``LineBreak`` type with
-      /// `newline` characters.
+      /// Indicates that managed spacing will use the ``LineBreak``
+      /// type with ``LineBreak/LineBreakType/newline`` characters.
       case newlines
-      /// Indicates that managed spacing will use the ``LineBreak`` type with
-      /// `return` characters.
+      
+      /// Indicates that managed spacing will use the ``LineBreak``
+      /// type with ``LineBreak/LineBreakType/return`` characters.
       case returns
-      /// Indicates that managed spacing will use the ``Spacer`` type with
-      /// `space` characters.
+      
+      /// Indicates that managed spacing will use the ``Spacer``
+      /// type with ``Spacer/SpacerType/space`` characters.
       case spaces
-      /// Indicates that managed spacing will use the ``Spacer`` type with
-      /// `tab` characters.
+      
+      /// Indicates that managed spacing will use the ``Spacer``
+      /// type with ``Spacer/SpacerType/tab`` characters.
       case tabs
     }
     
-    /// The elements are automatically separated by spaces or line breaks.
+    /// Elements are automatically separated by ``Spacer``
+    /// or ``LineBreak`` elements.
     case managed(_ elementType: ElementType)
-    /// The elements are spaced according to the placement of ``Spacer`` and
-    /// ``LineBreak`` elements within the prism.
+    
+    /// Elements are spaced according to the placement
+    /// of ``Spacer`` and ``LineBreak`` elements within the prism.
     case custom
+    
+    /// Elements are automatically separated
+    /// by ``Spacer/SpacerType/space`` elements.
+    public static let spaces = Self.managed(.spaces)
+    
+    /// Elements are automatically separated
+    /// by ``Spacer/SpacerType/tab`` elements.
+    public static let tabs = Self.managed(.tabs)
+    
+    /// Elements are automatically separated
+    /// by ``LineBreak/LineBreakType/newline`` elements.
+    public static let newlines = Self.managed(.newlines)
+    
+    /// Elements are automatically separated
+    /// by ``LineBreak/LineBreakType/return`` elements.
+    public static let returns = Self.managed(.returns)
   }
   
   // MARK: - Properties
   
-  /// A value that describes how the prism's elements should be spaced when
-  /// displayed in a terminal.
+  /// A value that describes how the prism's elements should be spaced
+  /// when displayed in a terminal.
   public let spacing: Spacing
   
   private var _elements: [PrismElement]
@@ -77,13 +99,13 @@ public struct Prism:
   // MARK: - Initializers
   
   /// Creates a prism with the given elements and spacing.
-  public init(spacing: Spacing = .managed(.spaces), elements: [PrismElement]) {
+  public init(spacing: Spacing = .spaces, elements: [PrismElement]) {
     _elements = elements
     self.spacing = spacing
   }
   
   /// Creates a prism with the given elements and spacing.
-  public init(spacing: Spacing = .managed(.spaces), elements: PrismElement...) {
+  public init(spacing: Spacing = .spaces, elements: PrismElement...) {
     self.init(spacing: spacing, elements: elements)
   }
   
@@ -98,7 +120,7 @@ public struct Prism:
   }
   
   /// Creates a prism with the given elements and spacing.
-  public init(spacing: Spacing = .managed(.spaces), @ElementBuilder _ elements: () -> [PrismElement]) {
+  public init(spacing: Spacing = .spaces, @ElementBuilder _ elements: () -> [PrismElement]) {
     self.init(spacing: spacing, elements: elements())
   }
   
