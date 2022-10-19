@@ -80,4 +80,18 @@ extension StringProtocol {
   func trim(while predicate: (Character) throws -> Bool) rethrows -> Self {
     try dropReverse(while: predicate).dropReverse(while: predicate)
   }
+  
+  func replacing(_ oldString: String, with newString: String) -> Self {
+    guard !oldString.isEmpty else {
+      return self
+    }
+    let string = reduce(into: "") { string, char in
+      string.append(char)
+      let suffix = string.suffix(oldString.count)
+      if suffix == oldString {
+        string = string.prefix(upTo: suffix.startIndex) + newString
+      }
+    }
+    return .init(_collection: string)
+  }
 }
