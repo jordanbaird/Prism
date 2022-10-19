@@ -22,4 +22,11 @@ final class StringTests: XCTestCase {
     XCTAssertEqual(ForegroundColor(.blue, "").string(), "".foregroundColor(.blue))
     XCTAssertEqual(BackgroundColor(.blue, "").string(), "".backgroundColor(.blue))
   }
+  
+  func testReplace() {
+    XCTAssertEqual("Hello, world!".replacing("world", with: "Joe"), "Hello, Joe!")
+    XCTAssertEqual("Hello, world!".replacing("World", with: "Joe"), "Hello, world!")
+    XCTAssertEqual("Hello, world!".replacing("", with: "Halt and catch fire."), "Hello, world!")
+    XCTAssertEqual("Hello, world!".replacing(" ", with: ""), "Hello,world!")
+  }
 }
