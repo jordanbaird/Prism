@@ -14,15 +14,23 @@ public struct ControlSequence {
   let base: [Component]
   
   public var description: String {
-    "\(Self.self)(\(base.map(\.description).joined(separator: ", ")))"
+    "\(Self.self)("
+    + base
+      .map { $0.description }
+      .joined(separator: ", ")
+    + ")"
   }
   
   public var debugDescription: String {
-    "\(Self.self)(\(base.map(\.debugDescription).joined(separator: ", ")))"
+    "\(Self.self)("
+    + base
+      .map { $0.debugDescription }
+      .joined(separator: ", ")
+    + ")"
   }
   
-  var mapped: String {
-    base.map(\.rawValue).joined()
+  var reduced: String {
+    base.reduce("") { $0 + $1.rawValue }
   }
   
   // MARK: - Initializers
@@ -42,7 +50,9 @@ public struct ControlSequence {
   init(for element: PrismElement) {
     if element.nestedElements.isEmpty {
       if let element = element as? Attribute {
-        self = element.onSequence + .string(element.rawValue) + element.offSequence
+        self = element.onSequence
+        + .string(element.rawValue)
+        + element.offSequence
       } else {
         self = .string(element.rawValue)
       }
@@ -51,9 +61,13 @@ public struct ControlSequence {
         $0 += $1.controlSequence
       }
       if let element = element as? Attribute {
-        self = element.onSequence + .string(element.rawValue) + sequences + element.offSequence
+        self = element.onSequence
+        + .string(element.rawValue)
+        + sequences
+        + element.offSequence
       } else {
-        self = .string(element.rawValue) + sequences
+        self = .string(element.rawValue)
+        + sequences
       }
     }
   }

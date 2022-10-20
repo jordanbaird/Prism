@@ -30,12 +30,11 @@ extension PrismElement {
   
   var colorCompatibleDescription: String {
     if Destination.current == .formattingCompatible {
-      return controlSequence.mapped
+      return controlSequence.reduced
     } else if rawValue.isEmpty {
-      return nestedElements.map(\.description).joined()
-    } else {
-      return rawValue
+      return nestedElements.reduce("") { $0 + $1.description }
     }
+    return rawValue
   }
   
   /// A textual representation of the element.
@@ -50,7 +49,7 @@ extension PrismElement {
   
   /// A textual representation of the element that shows its control characters.
   public var escapedDescription: String {
-    controlSequence.base.map(\.escapedDescription).joined()
+    controlSequence.base.reduce("") { $0 + $1.escapedDescription }
   }
   
   // MARK: - Methods
@@ -105,7 +104,7 @@ extension PrismElement {
 
 extension PrismElement {
   var testableDescription: String {
-    controlSequence.base.map(\.rawValue).joined()
+    controlSequence.base.reduce("") { $0 + $1.rawValue }
   }
   
   func isEqual(_ other: PrismElement) -> Bool {

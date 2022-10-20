@@ -12,7 +12,7 @@ extension ControlSequence {
     
     private var _rawValue: String?
     var rawValue: String {
-      _rawValue ?? nestedComponents.mapped
+      _rawValue ?? nestedComponents.reduced
     }
     
     var escapedDescription: String {

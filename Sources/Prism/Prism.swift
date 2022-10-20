@@ -83,17 +83,19 @@ public struct Prism:
   
   /// A textual representation of the prism.
   public var description: String {
-    elements.map(\.description).joined()
+    elements.reduce("") { $0 + $1.description }
   }
   
   /// A textual representation of the prism that is suitable for debugging.
   public var debugDescription: String {
-    elements.map(\.debugDescription).joined(separator: ", ")
+    elements
+      .map { $0.debugDescription }
+      .joined(separator: ", ")
   }
   
   /// A textual representation of the prism that shows its control characters.
   public var escapedDescription: String {
-    elements.map(\.escapedDescription).joined()
+    elements.reduce("") { $0 + $1.escapedDescription }
   }
   
   // MARK: - Initializers
@@ -181,6 +183,6 @@ extension Prism {
 
 extension Prism {
   var testableDescription: String {
-    elements.map(\.testableDescription).joined()
+    elements.reduce("") { $0 + $1.testableDescription }
   }
 }

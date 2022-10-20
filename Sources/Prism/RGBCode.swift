@@ -112,9 +112,11 @@ extension Color {
         string.removeLast()
       }
       
-      let predicate = string.contains(",") ? { $0 == "," } : \.isWhitespace
+      let predicate = string.contains(",")
+      ? { $0 == "," }
+      : { $0.isWhitespace }
       var split = string.split(whereSeparator: predicate).map {
-        $0.trim(while: \.isWhitespace)
+        $0.trim { $0.isWhitespace }
       }
       
       // ECMA-48 RGB mode doesn't support alpha values, so limit the

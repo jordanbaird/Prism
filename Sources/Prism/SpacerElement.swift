@@ -9,15 +9,22 @@
 protocol SpacerElement: PrismElement {
   /// The type of the spacer associated with the element.
   associatedtype SpacerType: SpacerElementType
+  
   /// The spacer type associated with the element.
   var type: SpacerType { get }
+  
   /// Creates a new element of the given type.
   init(type: SpacerType)
 }
 
 extension SpacerElement {
-  public var debugDescription: String { "\(Self.self)(type: \(type))" }
-  public var rawValue: String { type.rawValue }
+  public var debugDescription: String {
+    "\(Self.self)(type: \(type))"
+  }
+  
+  public var rawValue: String {
+    type.rawValue
+  }
 }
 
 protocol SpacerElementType {
@@ -29,6 +36,7 @@ extension Spacer {
   public enum SpacerType: String, SpacerElementType {
     /// A space `(" ")` element.
     case space = " "
+    
     /// A tab `("\t")` element.
     case tab = "\t"
   }
@@ -39,6 +47,7 @@ extension LineBreak {
   public enum LineBreakType: String, SpacerElementType {
     /// A newline `("\n")` element.
     case newline = "\n"
+    
     /// A return `("\r")` element.
     case `return` = "\r"
   }

@@ -25,12 +25,14 @@ class ElementRef {
     set { _spacing = newValue }
   }
   
-  var nestedElements: [PrismElement] {
-    get {
-      _nestedElements.reduce(into: []) {
-        $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
-      }
+  private var _spacedElements: [PrismElement] {
+    _nestedElements.reduce(into: []) {
+      $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
     }
+  }
+  
+  var nestedElements: [PrismElement] {
+    get { _spacedElements }
     set { _nestedElements = newValue }
   }
 }
