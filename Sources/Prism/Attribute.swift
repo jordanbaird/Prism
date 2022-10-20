@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-// StringModifier.swift
+// Attribute.swift
 //
 // Created: 2022. Author: Jordan Baird.
 //
