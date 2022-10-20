@@ -8,7 +8,8 @@
 
 // MARK: - Spacer
 
-/// A prism element that adds a single space or tab to a control sequence.
+/// A prism element that adds a single space or tab to a
+/// control sequence.
 public struct Spacer: SpacerElement, HasElementRef {
   let elementRef = ElementRef()
   
@@ -25,7 +26,8 @@ public struct Spacer: SpacerElement, HasElementRef {
 
 // MARK: - LineBreak
 
-/// A prism element that adds a single line break to a control sequence.
+/// A prism element that adds a single line break to a
+/// control sequence.
 public struct LineBreak: SpacerElement, HasElementRef {
   let elementRef = ElementRef()
   
@@ -95,8 +97,7 @@ public struct Standard: Attribute, HasElementRef {
 
 // MARK: - Bold
 
-/// A prism element that renders its text in a bold font, in terminals that
-/// support it.
+/// A prism element that renders its text in a bold font.
 public struct Bold: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -115,8 +116,7 @@ public struct Bold: Attribute, HasElementRef {
 
 // MARK: - Dim
 
-/// A prism element that renders its text in a dim color, in terminals that
-/// support it.
+/// A prism element that renders its text in a dim color.
 public struct Dim: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -135,8 +135,7 @@ public struct Dim: Attribute, HasElementRef {
 
 // MARK: - Italic
 
-/// A prism element that renders its text in italics, in terminals that
-/// support it.
+/// A prism element that renders its text in italics.
 public struct Italic: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -155,8 +154,7 @@ public struct Italic: Attribute, HasElementRef {
 
 // MARK: - Underline
 
-/// A prism element that renders its text with an underline, in terminals that
-/// support it.
+/// A prism element that renders its text with an underline.
 public struct Underline: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -175,8 +173,7 @@ public struct Underline: Attribute, HasElementRef {
 
 // MARK: - Overline
 
-/// A prism element that renders its text with an overline, in terminals that
-/// support it.
+/// A prism element that renders its text with an overline.
 public struct Overline: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -195,7 +192,7 @@ public struct Overline: Attribute, HasElementRef {
 
 // MARK: - Blink
 
-/// A prism element that renders its text to blink, in terminals that support it.
+/// A prism element that causes the text it renders to blink.
 public struct Blink: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -214,8 +211,8 @@ public struct Blink: Attribute, HasElementRef {
 
 // MARK: - Swap
 
-/// A prism element that swaps the foreground and background colors of its text,
-/// in terminals that support it.
+/// A prism element that swaps the foreground and background
+/// colors of its text.
 public struct Swap: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -234,7 +231,7 @@ public struct Swap: Attribute, HasElementRef {
 
 // MARK: - Hide
 
-/// A prism element that hides its text, in terminals that support it.
+/// A prism element that hides its text.
 public struct Hide: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -253,8 +250,7 @@ public struct Hide: Attribute, HasElementRef {
 
 // MARK: - Strikethrough
 
-/// A prism element that renders its text with a strikethrough, in terminals
-/// that support it.
+/// A prism element that renders its text with a strikethrough.
 public struct Strikethrough: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -273,8 +269,7 @@ public struct Strikethrough: Attribute, HasElementRef {
 
 // MARK: - Foreground Color
 
-/// A prism element that renders its text in a given color, in terminals that
-/// support it.
+/// A prism element that renders its text with a given color.
 public struct ForegroundColor: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -284,19 +279,22 @@ public struct ForegroundColor: Attribute, HasElementRef {
     .init(for: self)
   }
   
-  /// Creates an attribute with the given color, string, and nested elements.
+  /// Creates an attribute with the given color, string, and
+  /// nested elements.
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
     setSequences(on: .foregroundColor(color), off: .foregroundColor(.default))
     self.nestedElements = nestedElements
   }
   
-  /// Creates an attribute with the given color, string, and nested elements.
+  /// Creates an attribute with the given color, string, and
+  /// nested elements.
   public init(_ color: Color, _ string: String, @ElementBuilder nestedElements: () -> [PrismElement]) {
     self.init(color, string, nestedElements: nestedElements())
   }
   
-  /// Creates an attribute with the given color and nested elements.
+  /// Creates an attribute with the given color and nested
+  /// elements.
   public init(_ color: Color, @ElementBuilder nestedElements: () -> [PrismElement]) {
     self.init(color, "", nestedElements: nestedElements())
   }
@@ -309,8 +307,8 @@ public struct ForegroundColor: Attribute, HasElementRef {
 
 // MARK: - BackgroundColor
 
-/// A prism element that renders the background of its text in a given color,
-/// in terminals that support it.
+/// A prism element that renders the background of its text
+/// with a given color.
 public struct BackgroundColor: Attribute, HasElementRef {
   let elementRef = ElementRef()
   
@@ -320,19 +318,22 @@ public struct BackgroundColor: Attribute, HasElementRef {
     .init(for: self)
   }
   
-  /// Creates an attribute with the given color, string, and nested elements.
+  /// Creates an attribute with the given color, string, and
+  /// nested elements.
   public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
     setSequences(on: .backgroundColor(color), off: .backgroundColor(.default))
     self.nestedElements = nestedElements
   }
   
-  /// Creates an attribute with the given color, string, and nested elements.
+  /// Creates an attribute with the given color, string,
+  /// and nested elements.
   public init(_ color: Color, _ string: String, @ElementBuilder nestedElements: () -> [PrismElement]) {
     self.init(color, string, nestedElements: nestedElements())
   }
   
-  /// Creates an attribute with the given color and nested elements.
+  /// Creates an attribute with the given color and nested
+  /// elements.
   public init(_ color: Color, @ElementBuilder nestedElements: () -> [PrismElement]) {
     self.init(color, "", nestedElements: nestedElements())
   }
@@ -345,7 +346,8 @@ public struct BackgroundColor: Attribute, HasElementRef {
 
 // MARK: - IgnoreFormatting
 
-/// A prism element that removes all formatting from any elements nested inside it.
+/// A prism element that removes all formatting from any
+/// elements nested inside it.
 public struct IgnoreFormatting: Attribute, HasElementRef {
   let elementRef = ElementRef()
   

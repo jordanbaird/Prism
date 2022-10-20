@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-/// A type that contains multiple elements, that will be combined into a final
-/// formatted string for display in a terminal.
+/// A type that contains multiple elements that will be combined
+/// into a final formatted string for display in a terminal.
 public struct Prism:
   CustomStringConvertible,
   CustomDebugStringConvertible,
@@ -17,11 +17,11 @@ public struct Prism:
   
   // MARK: - Nested Types
   
-  /// Constants that describe how a prism's elements should be spaced
-  /// when displayed in a terminal.
+  /// Constants that describe how a prism's elements should be
+  /// spaced when displayed in a terminal.
   public enum Spacing: Hashable {
-    /// Constants that represent the type of element a prism should
-    /// use for managed spacing.
+    /// Constants that represent the type of element a prism
+    /// should use for managed spacing.
     public enum ElementType: Hashable {
       /// Indicates that managed spacing will use the ``LineBreak``
       /// type with ``LineBreak/LineBreakType/newline`` characters.
@@ -49,26 +49,26 @@ public struct Prism:
     case custom
     
     /// Elements are automatically separated
-    /// by ``Spacer/SpacerType/space`` elements.
+    /// by ``Spacer/SpacerType/space`` characters.
     public static let spaces = Self.managed(.spaces)
     
     /// Elements are automatically separated
-    /// by ``Spacer/SpacerType/tab`` elements.
+    /// by ``Spacer/SpacerType/tab`` characters.
     public static let tabs = Self.managed(.tabs)
     
     /// Elements are automatically separated
-    /// by ``LineBreak/LineBreakType/newline`` elements.
+    /// by ``LineBreak/LineBreakType/newline`` characters.
     public static let newlines = Self.managed(.newlines)
     
     /// Elements are automatically separated
-    /// by ``LineBreak/LineBreakType/return`` elements.
+    /// by ``LineBreak/LineBreakType/return`` characters.
     public static let returns = Self.managed(.returns)
   }
   
   // MARK: - Properties
   
-  /// A value that describes how the prism's elements should be spaced
-  /// when displayed in a terminal.
+  /// A value that describes how the prism's elements should
+  /// be spaced when displayed in a terminal.
   public let spacing: Spacing
   
   private var _elements: [PrismElement]
@@ -86,14 +86,16 @@ public struct Prism:
     elements.reduce("") { $0 + $1.description }
   }
   
-  /// A textual representation of the prism that is suitable for debugging.
+  /// A textual representation of the prism that is suitable
+  /// for debugging.
   public var debugDescription: String {
     elements
       .map { $0.debugDescription }
       .joined(separator: ", ")
   }
   
-  /// A textual representation of the prism that shows its control characters.
+  /// A textual representation of the prism that shows its
+  /// control characters.
   public var escapedDescription: String {
     elements.reduce("") { $0 + $1.escapedDescription }
   }
@@ -136,7 +138,8 @@ public struct Prism:
   
   /// The string value of the prism.
   ///
-  /// Accessing this property is equivalent to accessing the ``description`` property.
+  /// Accessing this property is equivalent to accessing
+  /// the ``description`` property.
   public func string() -> String {
     description
   }

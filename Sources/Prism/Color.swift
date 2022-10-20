@@ -6,24 +6,35 @@
 //
 //===----------------------------------------------------------------------===//
 
-/// A color that text will be rendered in when displayed in a terminal.
+/// A type that represents the color that text will be rendered with
+/// when displayed in a terminal.
 public struct Color {
   
   // MARK: - Nested Types
   
-  /// Styles that impact how a ``Color`` is rendered.
+  /// Styles that impact how a ``Color`` will be rendered.
   public enum Style {
-    /// The color is rendered in its default form.
+    /// The color will be rendered in its default form.
     case `default`
-    /// The color is rendered in a brighter form.
+    
+    /// The color will be rendered in a brighter form.
     case bright
     
-    var rawValue: (foreground: Int, background: Int) {
+    var foregroundCode: Int {
       switch self {
       case .default:
-        return (30, 40)
+        return 30
       case .bright:
-        return (90, 100)
+        return 90
+      }
+    }
+    
+    var backgroundCode: Int {
+      switch self {
+      case .default:
+        return 40
+      case .bright:
+        return 100
       }
     }
   }
@@ -41,8 +52,9 @@ public struct Color {
   }
   
   init(_ rawValue: Int, _ style: Style) {
-    foregroundCode = "\(rawValue + style.rawValue.foreground)"
-    backgroundCode = "\(rawValue + style.rawValue.background)"
+    self.init(
+      "\(rawValue + style.foregroundCode)",
+      "\(rawValue + style.backgroundCode)")
   }
   
   /// Creates a color from the given color.
@@ -56,14 +68,14 @@ public struct Color {
   }
   
   /// Creates a color with the given 8-bit color code.
-  @available(*, deprecated, renamed: "init(eightBit:)")
-  public init(ecma256: ECMA256) {
-    self.init(eightBit: ecma256)
+  public init(eightBit: EightBit) {
+    self.init(eightBit.foregroundCode, eightBit.backgroundCode)
   }
   
   /// Creates a color with the given 8-bit color code.
-  public init(eightBit: EightBit) {
-    self.init(eightBit.foregroundCode, eightBit.backgroundCode)
+  @available(*, deprecated, renamed: "init(eightBit:)")
+  public init(ecma256: ECMA256) {
+    self.init(eightBit: ecma256)
   }
   
   /// Creates a color with the given hexadecimal code.

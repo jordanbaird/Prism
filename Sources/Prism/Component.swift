@@ -11,6 +11,7 @@ extension ControlSequence {
     let nestedComponents: ControlSequence
     
     private var _rawValue: String?
+    
     var rawValue: String {
       _rawValue ?? nestedComponents.reduced
     }
@@ -46,11 +47,15 @@ extension ControlSequence.Component {
   static let introducer = Self([escape, bracket])
 }
 
-extension ControlSequence.Component: CustomStringConvertible, CustomDebugStringConvertible {
+extension ControlSequence.Component: Codable { }
+
+extension ControlSequence.Component: CustomStringConvertible {
   public var description: String {
     "\(Self.self)"
   }
-  
+}
+
+extension ControlSequence.Component: CustomDebugStringConvertible {
   public var debugDescription: String {
     var s = "\(Self.self)("
     if _rawValue != nil {
@@ -61,8 +66,6 @@ extension ControlSequence.Component: CustomStringConvertible, CustomDebugStringC
     return s + ")"
   }
 }
-
-extension ControlSequence.Component: Codable { }
 
 extension ControlSequence.Component: Equatable { }
 

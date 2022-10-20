@@ -60,7 +60,7 @@ final class PrismTests: XCTestCase {
         Strikethrough("Strikethrough")
       }
     }
-    let managedSpacing = Prism(spacing: .managed(.spaces)) {
+    let managedSpacing = Prism(spacing: .spaces) {
       ForegroundColor(.green(style: .default)) {
         Bold("Bold")
         Dim("Dim")
@@ -84,8 +84,8 @@ final class PrismTests: XCTestCase {
   }
   
   func testNonStandardInitialization() {
-    let prism1 = Prism(spacing: .managed(.newlines), elements: Bold("Bold"), Blink("Blink"))
-    let prism2 = Prism(spacing: .managed(.newlines)) {
+    let prism1 = Prism(spacing: .newlines, elements: Bold("Bold"), Blink("Blink"))
+    let prism2 = Prism(spacing: .newlines) {
       Bold("Bold")
       Blink("Blink")
     }

@@ -13,22 +13,6 @@ public struct ControlSequence {
   
   let base: [Component]
   
-  public var description: String {
-    "\(Self.self)("
-    + base
-      .map { $0.description }
-      .joined(separator: ", ")
-    + ")"
-  }
-  
-  public var debugDescription: String {
-    "\(Self.self)("
-    + base
-      .map { $0.debugDescription }
-      .joined(separator: ", ")
-    + ")"
-  }
-  
   var reduced: String {
     base.reduce("") { $0 + $1.rawValue }
   }
@@ -57,17 +41,17 @@ public struct ControlSequence {
         self = .string(element.rawValue)
       }
     } else {
-      let sequences = element.nestedElements.reduce(into: Self()) {
+      let reduced = element.nestedElements.reduce(into: Self()) {
         $0 += $1.controlSequence
       }
       if let element = element as? Attribute {
         self = element.onSequence
         + .string(element.rawValue)
-        + sequences
+        + reduced
         + element.offSequence
       } else {
         self = .string(element.rawValue)
-        + sequences
+        + reduced
       }
     }
   }
@@ -104,7 +88,11 @@ extension ControlSequence {
   
   static let strikethroughOn = Self(withCodeComponent: 9)
   static let strikethroughOff = Self(withCodeComponent: 29)
-  
+}
+
+// MARK: - Static Functions
+
+extension ControlSequence {
   static func foregroundColor(_ color: Color) -> Self {
     Self(withCodeComponent: color.foregroundCode)
   }
@@ -134,9 +122,25 @@ extension ControlSequence {
 
 extension ControlSequence: Codable { }
 
-extension ControlSequence: CustomDebugStringConvertible { }
+extension ControlSequence: CustomStringConvertible {
+  public var description: String {
+    "\(Self.self)("
+    + base
+      .map { $0.description }
+      .joined(separator: ", ")
+    + ")"
+  }
+}
 
-extension ControlSequence: CustomStringConvertible { }
+extension ControlSequence: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    "\(Self.self)("
+    + base
+      .map { $0.debugDescription }
+      .joined(separator: ", ")
+    + ")"
+  }
+}
 
 extension ControlSequence: Equatable { }
 

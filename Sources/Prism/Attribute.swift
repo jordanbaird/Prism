@@ -52,7 +52,7 @@ extension Attribute {
   /// }
   /// ```
   public init(
-    spacing: Prism.Spacing = .managed(.spaces),
+    spacing: Prism.Spacing = .spaces,
     @ElementBuilder _ nestedElements: () -> [PrismElement]
   ) {
     self.init("", nestedElements: nestedElements())
