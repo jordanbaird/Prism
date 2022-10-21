@@ -4,7 +4,7 @@ Colored text for Swift command line tools.
 
 ## Overview
 
-`Prism` is a DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it's meant to be easy to use, it is quite powerful, and works on both macOS and Linux.
+`Prism` is a DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. It's powerful, easy to use, and supports both macOS and Linux.
 
 Start by creating an instance of the `Prism` type. Its initializer accepts a closure, which you populate with various attributes.
 
@@ -56,7 +56,7 @@ print(text1 == text2)
 // Prints: "true"
 ```
 
-The `Prism` type can be directly used with a `print()` function, and the resulting formatted string will be printed directly to the terminal or console. If the terminal or console does not support formatted text, the unformatted version of the string will be automatically printed instead.
+The `Prism` type conforms to the `CustomStringConvertible` protocol, allowing its formatted contents to be printed directly to `stdout`. If the output destination (i.e. terminal or console) does not support formatted text, the unformatted version will be automatically printed instead.
 
 ```swift
 let text = Prism {
@@ -84,6 +84,7 @@ Note that some terminal clients may display certain elements differently than ot
 
 ### Attributes
 
+- ``Standard``
 - ``Bold``
 - ``Dim``
 - ``Italic``
