@@ -6,6 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+// MARK: - ElementRef Class
+
 class ElementRef {
   private var _prism: Prism?
   private var _spacing: Prism.Spacing?
@@ -36,6 +38,8 @@ class ElementRef {
     set { _nestedElements = newValue }
   }
 }
+
+// MARK: - HasElementRef Protocol
 
 protocol HasElementRef: PrismElement {
   var elementRef: ElementRef { get }

@@ -6,6 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+// MARK: - SpacerElement Protocol
+
 protocol SpacerElement: PrismElement {
   /// The type of the spacer associated with the element.
   associatedtype SpacerType: SpacerElementType
@@ -27,9 +29,13 @@ extension SpacerElement {
   }
 }
 
+// MARK: SpacerElementType Protocol
+
 protocol SpacerElementType {
   var rawValue: String { get }
 }
+
+// MARK: - SpacerType Enum
 
 extension Spacer {
   /// The possible values that a spacer element can contain.
@@ -41,6 +47,8 @@ extension Spacer {
     case tab = "\t"
   }
 }
+
+// MARK: - LineBreakType Enum
 
 extension LineBreak {
   /// The possible values that a line break element can contain.

@@ -127,10 +127,9 @@ public struct Color {
   }
 }
 
+// MARK: - Static Constants
+
 extension Color {
-  
-  // MARK: - Static Constants
-  
   /// The ANSI black color.
   public static let black = black(style: .default)
   
@@ -167,9 +166,11 @@ extension Color {
   
   /// The default text color of the terminal.
   public static let `default` = Self(9, .default)
-  
-  // MARK: - Static Methods
-  
+}
+
+// MARK: - Static Methods
+
+extension Color {
   /// The ANSI black color, in either a default or bright style.
   ///
   /// - Note: In most terminals, passing the ``Style/bright`` style into
@@ -217,6 +218,8 @@ extension Color {
     .init(7, style)
   }
 }
+
+// MARK: - Protocol Conformances
 
 extension Color: Equatable { }
 

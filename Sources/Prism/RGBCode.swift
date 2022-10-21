@@ -14,6 +14,9 @@ extension Color {
   /// A type that contains a red, green, and blue component
   /// that can be used to construct a ``Color`` instance.
   public struct RGBCode {
+    
+    // MARK: - Properties
+    
     /// The red component of the code.
     public let red: Double
     
@@ -34,6 +37,8 @@ extension Color {
     var backgroundCode: String {
       "48;\(rawColorCode)"
     }
+    
+    // MARK: - Initializers
     
     /// Creates a code with the given red, green, and blue floating
     /// point components.
@@ -180,6 +185,8 @@ extension Color {
     }
   }
 }
+
+// MARK: - Protocol Conformances
 
 extension RGBCode: Equatable { }
 

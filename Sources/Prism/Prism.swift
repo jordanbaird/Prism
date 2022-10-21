@@ -8,62 +8,7 @@
 
 /// A type that contains multiple elements that will be combined
 /// into a final formatted string for display in a terminal.
-public struct Prism:
-  CustomStringConvertible,
-  CustomDebugStringConvertible,
-  Equatable,
-  Hashable
-{
-  
-  // MARK: - Nested Types
-  
-  /// Constants that describe how a prism's elements should be
-  /// spaced when displayed in a terminal.
-  public enum Spacing: Hashable {
-    /// Constants that represent the type of element a prism
-    /// should use for managed spacing.
-    public enum ElementType: Hashable {
-      /// Indicates that managed spacing will use the ``LineBreak``
-      /// type with ``LineBreak/LineBreakType/newline`` characters.
-      case newlines
-      
-      /// Indicates that managed spacing will use the ``LineBreak``
-      /// type with ``LineBreak/LineBreakType/return`` characters.
-      case returns
-      
-      /// Indicates that managed spacing will use the ``Spacer``
-      /// type with ``Spacer/SpacerType/space`` characters.
-      case spaces
-      
-      /// Indicates that managed spacing will use the ``Spacer``
-      /// type with ``Spacer/SpacerType/tab`` characters.
-      case tabs
-    }
-    
-    /// Elements are automatically separated by ``Spacer``
-    /// or ``LineBreak`` elements.
-    case managed(_ elementType: ElementType)
-    
-    /// Elements are spaced according to the placement
-    /// of ``Spacer`` and ``LineBreak`` elements within the prism.
-    case custom
-    
-    /// Elements are automatically separated
-    /// by ``Spacer/SpacerType/space`` characters.
-    public static let spaces = Self.managed(.spaces)
-    
-    /// Elements are automatically separated
-    /// by ``Spacer/SpacerType/tab`` characters.
-    public static let tabs = Self.managed(.tabs)
-    
-    /// Elements are automatically separated
-    /// by ``LineBreak/LineBreakType/newline`` characters.
-    public static let newlines = Self.managed(.newlines)
-    
-    /// Elements are automatically separated
-    /// by ``LineBreak/LineBreakType/return`` characters.
-    public static let returns = Self.managed(.returns)
-  }
+public struct Prism {
   
   // MARK: - Properties
   
@@ -79,19 +24,6 @@ public struct Prism:
       $1.prism = self
       $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
     }
-  }
-  
-  /// A textual representation of the prism.
-  public var description: String {
-    elements.reduce("") { $0 + $1.description }
-  }
-  
-  /// A textual representation of the prism that is suitable
-  /// for debugging.
-  public var debugDescription: String {
-    elements
-      .map { $0.debugDescription }
-      .joined(separator: ", ")
   }
   
   /// A textual representation of the prism that shows its
@@ -130,10 +62,6 @@ public struct Prism:
   
   // MARK: - Methods
   
-  public func hash(into hasher: inout Hasher) {
-    elements._hash(&hasher)
-  }
-  
   /// The string value of the prism.
   ///
   /// Accessing this property is equivalent to accessing
@@ -146,10 +74,6 @@ public struct Prism:
 // MARK: - Operators
 
 extension Prism {
-  public static func == (lhs: Self, rhs: Self) -> Bool {
-      lhs.elements._isEqual(rhs.elements)
-  }
-  
   public static func + (lhs: Self, rhs: Self) -> Self {
     Self(lhs._elements + rhs._elements)
   }
@@ -172,6 +96,37 @@ extension Prism {
   
   public static func += (lhs: inout Self, rhs: PrismElement) {
     lhs = lhs + rhs
+  }
+}
+
+// MARK: - Protocol Conformances
+
+extension Prism: CustomStringConvertible {
+  /// A textual representation of the prism.
+  public var description: String {
+    elements.reduce("") { $0 + $1.description }
+  }
+}
+
+extension Prism: CustomDebugStringConvertible {
+  /// A textual representation of the prism that is suitable
+  /// for debugging.
+  public var debugDescription: String {
+    elements
+      .map { $0.debugDescription }
+      .joined(separator: ", ")
+  }
+}
+
+extension Prism: Equatable {
+  public static func == (lhs: Self, rhs: Self) -> Bool {
+    lhs.elements._isEqual(rhs.elements)
+  }
+}
+
+extension Prism: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    elements._hash(&hasher)
   }
 }
 

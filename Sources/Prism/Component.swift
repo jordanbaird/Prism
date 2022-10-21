@@ -8,6 +8,9 @@
 
 extension ControlSequence {
   struct Component {
+    
+    // MARK: - Properties
+    
     let nestedComponents: ControlSequence
     
     private var _rawValue: String?
@@ -24,6 +27,8 @@ extension ControlSequence {
         .replacing("\t", with: "\\t")
     }
     
+    // MARK: - Initializers
+    
     init(_indirectRawValue: String) {
       nestedComponents = .init()
       _rawValue = _indirectRawValue
@@ -39,6 +44,8 @@ extension ControlSequence {
   }
 }
 
+// MARK: - Static Constants
+
 extension ControlSequence.Component {
   static let escape = Self("\u{001B}")
   static let bracket = Self("[")
@@ -46,6 +53,8 @@ extension ControlSequence.Component {
   static let closer = Self("m")
   static let introducer = Self([escape, bracket])
 }
+
+// MARK: - Protocol Conformances
 
 extension ControlSequence.Component: Codable { }
 

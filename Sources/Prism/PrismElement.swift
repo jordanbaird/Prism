@@ -6,6 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+// MARK: - PrismElement Protocol
+
 /// A type that can be combined with other elements to make up a ``Prism``.
 public protocol PrismElement: CustomStringConvertible, CustomDebugStringConvertible {
   /// The control sequence at the base of the element.
@@ -92,6 +94,8 @@ extension PrismElement {
     Prism([lhs]) + rhs
   }
 }
+
+// MARK: - Helpers
 
 extension PrismElement {
   func setParentElementRef(from element: PrismElement) {

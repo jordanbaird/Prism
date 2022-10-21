@@ -19,6 +19,9 @@ public protocol ECMACode: Hashable {
 
 extension Color {
   public struct EightBit: Hashable, Equatable {
+    
+    // MARK: - Properties
+    
     let subcode: AnySubcode
     
     var numericCode: UInt8 {
@@ -36,6 +39,8 @@ extension Color {
     var backgroundCode: String {
       "48;\(rawColorCode)"
     }
+    
+    // MARK: - Initializers
     
     /// Creates an 8-bit color from the given subcode.
     /// - Parameter subcode: A type-erased subcode that produces a
@@ -70,6 +75,8 @@ extension Color {
   }
 }
 
+// MARK: - Static Methods
+
 extension Color.EightBit {
   /// Returns an 8-bit code that produces a grayscale color.
   /// - Parameter subcode: A subcode that produces a grayscale value.
@@ -84,7 +91,7 @@ extension Color.EightBit {
   }
 }
 
-// MARK: - StandardColor
+// MARK: - StandardColor Struct
 
 extension Color.EightBit {
   /// An ECMA-48 compliant code that produces one of sixteen standard colors.
@@ -151,7 +158,7 @@ extension Color.EightBit {
   }
 }
 
-// MARK: - Grayscale
+// MARK: - Grayscale Struct
 
 extension Color.EightBit {
   /// An ECMA-48 compliant code that produces grayscale colors.
@@ -191,7 +198,7 @@ extension Color.EightBit {
   }
 }
 
-// MARK: - AnySubcode
+// MARK: - AnySubcode Struct
 
 extension Color.EightBit {
   /// A type that wraps the raw value of another subcode.
