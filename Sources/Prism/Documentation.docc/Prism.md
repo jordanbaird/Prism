@@ -37,7 +37,7 @@ let text = Prism(spacing: .newlines) {
 }
 ```
 
-The DSL's `ElementBuilder` implicitly wraps strings inside of a special, non-modifying `Standard` attribute, allowing instances of the `String` type — including string literals — to be used inline with other elements and attributes. In the following example, the two `Prism` blocks are semantically identical.
+The DSL's `ElementBuilder` implicitly wraps strings inside a special, non-modifying `Standard` attribute, allowing instances of the `String` type — including string literals — to be used inline with other elements and attributes. In the following example, the two `Prism` blocks are semantically identical.
 
 ```swift
 let text1 = Prism {
