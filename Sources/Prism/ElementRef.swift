@@ -17,16 +17,6 @@ class ElementRef {
   var onSequence = ControlSequence()
   var offSequence = ControlSequence()
   
-  var prism: Prism? {
-    get { _prism ?? parentElementRef?.prism }
-    set { _prism = newValue }
-  }
-  
-  var spacing: Prism.Spacing? {
-    get { _spacing ?? prism?.spacing }
-    set { _spacing = newValue }
-  }
-  
   private var _spacedElements: [PrismElement] {
     _nestedElements.reduce(into: []) {
       $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
@@ -36,6 +26,22 @@ class ElementRef {
   var nestedElements: [PrismElement] {
     get { _spacedElements }
     set { _nestedElements = newValue }
+  }
+  
+  var prism: Prism? {
+    get { _prism ?? parentElementRef?.prism }
+    set { _prism = newValue }
+  }
+  
+  var spacing: Prism.Spacing? {
+    get { _spacing ?? prism?.spacing }
+    set {
+      if newValue == prism?.spacing {
+        _spacing = nil
+      } else {
+        _spacing = newValue
+      }
+    }
   }
 }
 
@@ -54,11 +60,6 @@ extension HasElementRef {
     elementRef.offSequence
   }
   
-  public var spacing: Prism.Spacing {
-    get { elementRef.spacing ?? .spaces }
-    set { elementRef.spacing = newValue }
-  }
-  
   public var nestedElements: [PrismElement] {
     get { elementRef.nestedElements }
     set {
@@ -72,6 +73,11 @@ extension HasElementRef {
     nonmutating set {
       elementRef.prism = newValue
     }
+  }
+  
+  public var spacing: Prism.Spacing {
+    get { elementRef.spacing ?? .spaces }
+    set { elementRef.spacing = newValue }
   }
 }
 

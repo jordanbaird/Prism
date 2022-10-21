@@ -32,6 +32,48 @@ public struct Prism {
     elements.reduce("") { $0 + $1.escapedDescription }
   }
   
+  /// A version of the prism whose elements produce an unformatted
+  /// string.
+  ///
+  /// Use this property if, for example, you need to send the results
+  /// of the prism to a log file, or if you need to save or view the
+  /// text in some other format.
+  ///
+  /// ```swift
+  /// let text = Prism(spacing: .spaces) {
+  ///     "I see"
+  ///     ForegroundColor(.blue) {
+  ///         "skies that are blue."
+  ///     }
+  ///     ForegroundColor(.red) {
+  ///         "Red roses, too."
+  ///     }
+  /// }
+  ///
+  /// print(text) // Prints the formatted text.
+  /// print(text.unformatted) // Prints the unformatted text.
+  ///
+  /// try text
+  ///     .string()
+  ///     .write(to: url, atomically: true, encoding: .utf8)
+  /// // Contents written to file are:
+  /// // "I see \u{001B}[34mskies that are blue.\u{001B}[39m \u{001B}[31mRed roses, too.\u{001B}[39m"
+  ///
+  /// try text
+  ///     .unformatted
+  ///     .string()
+  ///     .write(to: url, atomically: true, encoding: .utf8)
+  /// // Contents written to file are:
+  /// // "I see skies that are blue. Red roses, too."
+  /// ```
+  public var unformatted: Self {
+    var unformatted = self
+    unformatted._elements = unformatted._elements.map {
+      Standard(element: $0)
+    }
+    return unformatted
+  }
+  
   // MARK: - Initializers
   
   /// Creates a prism with the given elements and spacing.
@@ -62,12 +104,42 @@ public struct Prism {
   
   // MARK: - Methods
   
-  /// The string value of the prism.
+  /// Returns the string value of the prism in either a formatted
+  /// or unformatted representation.
   ///
-  /// Accessing this property is equivalent to accessing
-  /// the ``description`` property.
-  public func string() -> String {
-    description
+  /// Passing `true` into the `formatted` parameter returns the
+  /// prism's ``description`` property. Passing `false` returns
+  /// the ``description`` property of the prism that is returned
+  /// from the ``unformatted`` property.
+  ///
+  /// ```swift
+  /// let text = Prism(spacing: .spaces) {
+  ///     "I see"
+  ///     ForegroundColor(.blue) {
+  ///         "skies that are blue."
+  ///     }
+  ///     ForegroundColor(.red) {
+  ///         "Red roses, too."
+  ///     }
+  /// }
+  ///
+  /// try text
+  ///     .string(formatted: true)
+  ///     .write(to: url, atomically: true, encoding: .utf8)
+  /// // Contents written to file are:
+  /// // "I see \u{001B}[34mskies that are blue.\u{001B}[39m \u{001B}[31mRed roses, too.\u{001B}[39m"
+  ///
+  /// try text
+  ///     .string(formatted: false)
+  ///     .write(to: url, atomically: true, encoding: .utf8)
+  /// // Contents written to file are:
+  /// // "I see skies that are blue. Red roses, too."
+  /// ```
+  public func string(formatted: Bool = true) -> String {
+    if formatted {
+      return description
+    }
+    return unformatted.description
   }
 }
 

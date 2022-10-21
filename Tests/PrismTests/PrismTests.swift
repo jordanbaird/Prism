@@ -126,6 +126,9 @@ final class PrismTests: XCTestCase {
       Italic("Italic")
       Underline("Underline")
       Dim("Dim")
+      Bold {
+        ForegroundColor(.green, "Nested")
+      }
     }
     let p2 = Prism(spacing: .custom) {
       Bold("Bold")
@@ -135,8 +138,13 @@ final class PrismTests: XCTestCase {
       Underline("Underline")
       Spacer()
       Dim("Dim")
+      Spacer()
+      Bold {
+        ForegroundColor(.green, "Nested")
+      }
     }
-    XCTAssertEqual(p1.string(), p2.string())
+    XCTAssertEqual(p1.string(formatted: true), p2.string(formatted: true))
+    XCTAssertEqual(p1.string(formatted: false), p2.string(formatted: false))
   }
   
   func testElementEquality() {

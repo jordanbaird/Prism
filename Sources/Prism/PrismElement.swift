@@ -33,24 +33,15 @@ extension PrismElement {
   
   // MARK: - Instance Properties
   
-  var colorCompatibleDescription: String {
-    if Destination.current == .formattingCompatible {
-      return controlSequence.reduced
-    } else if rawValue.isEmpty {
-      return nestedElements.reduce("") { $0 + $1.description }
-    }
-    return rawValue
-  }
-  
   /// A textual representation of the element.
   public var description: String {
-    rawValue
+    string(formatted: Destination.current == .formattingCompatible)
   }
   
   /// A textual representation of the element that is suitable
   /// for debugging.
   public var debugDescription: String {
-    "\(Self.self)(rawValue: " + rawValue + ")"
+    "\(Self.self)(controlSequence: \(controlSequence.debugDescription))"
   }
   
   /// A textual representation of the element that shows its
@@ -61,6 +52,37 @@ extension PrismElement {
   
   // MARK: - Methods
   
+  /// Returns the string value of the attribute in either a
+  /// formatted or unformatted representation.
+  ///
+  /// Passing `true` into the `formatted` parameter returns the
+  /// attribute's ``description`` property. Passing `false` returns
+  /// an unformatted version of the attribute's string.
+  public func string(formatted: Bool = true) -> String {
+    if formatted {
+      return controlSequence.reduced
+    }
+    return rawValue + nestedElements.reduce("") {
+      $0 + $1.string(formatted: false)
+    }
+  }
+}
+
+// MARK: - Operators
+
+extension PrismElement {
+  public static func + (lhs: Self, rhs: PrismElement) -> Prism {
+    Prism([lhs, rhs])
+  }
+  
+  public static func + (lhs: Self, rhs: Prism) -> Prism {
+    Prism([lhs]) + rhs
+  }
+}
+
+// MARK: - Helpers
+
+extension PrismElement {
   func maybePrependSpacer() -> [PrismElement] {
     switch spacing {
     case .managed(.spaces):
@@ -84,20 +106,6 @@ extension PrismElement {
     }
   }
   
-  // MARK: - Operators
-  
-  public static func + (lhs: Self, rhs: PrismElement) -> Prism {
-    Prism([lhs, rhs])
-  }
-  
-  public static func + (lhs: Self, rhs: Prism) -> Prism {
-    Prism([lhs]) + rhs
-  }
-}
-
-// MARK: - Helpers
-
-extension PrismElement {
   func setParentElementRef(from element: PrismElement) {
     guard
       let self = self as? HasElementRef,
@@ -119,12 +127,14 @@ extension PrismElement {
   }
 }
 
+// MARK: Array Helpers
+
 extension Array where Element == PrismElement {
   func _isEqual(_ other: [PrismElement]) -> Bool {
     guard endIndex == other.endIndex else {
       return false
     }
-    return (0..<endIndex).allSatisfy {
+    return indices.allSatisfy {
       self[$0]._isEqual(other[$0])
     }
   }

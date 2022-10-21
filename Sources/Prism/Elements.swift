@@ -52,10 +52,6 @@ public struct Reset: PrismElement, HasElementRef {
   
   public let controlSequence = ControlSequence.reset
   
-  public var description: String {
-    colorCompatibleDescription
-  }
-  
   /// Creates a reset element.
   public init() { }
 }
@@ -92,6 +88,15 @@ public struct Standard: Attribute, HasElementRef {
   public init(_ string: String, nestedElements: [PrismElement] = []) {
     rawValue = string
     self.nestedElements = nestedElements
+  }
+  
+  init(element: PrismElement) {
+    let nestedElements = element.nestedElements.map {
+      Self(element: $0)
+    }
+    self.init(element.rawValue, nestedElements: nestedElements)
+    prism = element.prism
+    spacing = element.spacing
   }
 }
 

@@ -20,28 +20,16 @@ public protocol Attribute: PrismElement {
 
 extension Attribute {
   
-  // MARK: - Properties
-  
-  /// A textual representation of the attribute.
-  public var description: String {
-    colorCompatibleDescription
-  }
-  
-  /// A textual representation of the attribute that is suitable for debugging.
-  public var debugDescription: String {
-    "\(Self.self)(controlSequence: \(controlSequence.debugDescription))"
-  }
-  
   // MARK: - Initializers
   
   /// Creates an attribute with the given spacing and nested elements.
   ///
-  /// Use this initializer to create an attribute in a declarative manner. In the
-  /// following example, the text in each of the nested attributes will be rendered
-  /// in bold.
+  /// Use this initializer to create an attribute in a declarative manner.
+  /// In the following example, the text in each of the nested attributes
+  /// will be rendered in bold.
   ///
   /// ```swift
-  /// Bold(spacing: .manual) {
+  /// Bold(spacing: .custom) {
   ///     Italic("Hello,")
   ///     Spacer()
   ///     Underline("how")
@@ -51,20 +39,35 @@ extension Attribute {
   ///     Strikethrough("you?")
   /// }
   /// ```
+  ///
+  /// This initializer causes the attribute to override the spacing
+  /// of its enclosing prism.
   public init(
-    spacing: Prism.Spacing = .spaces,
+    spacing: Prism.Spacing,
     @ElementBuilder _ nestedElements: () -> [PrismElement]
   ) {
     self.init("", nestedElements: nestedElements())
     self.spacing = spacing
   }
   
-  // MARK: - Methods
-  
-  /// The generated string of this attribute.
+  /// Creates an attribute with the given nested elements.
   ///
-  /// Accessing this property is equivalent to accessing the `description` property.
-  public func string() -> String {
-    description
+  /// Use this initializer to create an attribute in a declarative manner.
+  /// In the following example, the text in each of the nested attributes
+  /// will be rendered in bold.
+  ///
+  /// ```swift
+  /// Bold {
+  ///     Italic("Hello,")
+  ///     Underline("how")
+  ///     Blink("are")
+  ///     Strikethrough("you?")
+  /// }
+  /// ```
+  ///
+  /// This initializer causes the attribute to inherit the spacing of
+  /// its enclosing prism.
+  public init(@ElementBuilder _ nestedElements: () -> [PrismElement]) {
+    self.init("", nestedElements: nestedElements())
   }
 }
