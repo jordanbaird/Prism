@@ -1,4 +1,7 @@
-[![Prism](/media/header.svg)](https://github.com/jordanbaird/Prism)
+<div align='center'>
+    <img src='/media/header.svg', style='width:75%'>
+</div>
+<br/>
 
 [![Continuous Integration](https://img.shields.io/github/workflow/status/jordanbaird/Prism/Swift?style=flat-square)]()
 [![Code Coverage](https://img.shields.io/codecov/c/github/jordanbaird/Prism?label=codecov&logo=codecov&style=flat-square)](https://codecov.io/gh/jordanbaird/Prism)
