@@ -1,8 +1,9 @@
-<br/>
-<div align='center'>
+<h1 align='center'>
+    <br>
     <img src='/media/header.svg', style='width:66%'>
-</div>
-<br/>
+    <br>
+    <br>
+</h1>
 
 [![Continuous Integration](https://img.shields.io/github/workflow/status/jordanbaird/Prism/Swift?style=flat-square)]()
 [![Code Coverage](https://img.shields.io/codecov/c/github/jordanbaird/Prism?label=codecov&logo=codecov&style=flat-square)](https://codecov.io/gh/jordanbaird/Prism)
@@ -11,9 +12,11 @@
 [![Latest Release](https://img.shields.io/github/v/release/jordanbaird/Prism?style=flat-square)](https://github.com/jordanbaird/Prism/releases/latest)
 [![License](https://img.shields.io/github/license/jordanbaird/Prism?style=flat-square)](https://github.com/jordanbaird/Prism/blob/main/LICENSE)
 
-`Prism` is a DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. While it's meant to be easy to use, it is quite powerful, and works on both macOS and Linux.
-
 [![Styles](/media/styles.svg)](https://github.com/jordanbaird/Prism)
+
+## About
+
+`Prism` is a DSL that uses declarative syntax to create beautiful formatted text for Swift command line tools. It's powerful, easy to use, and supports both macOS and Linux.
 
 ## Install
 
@@ -77,7 +80,7 @@ print(text1 == text2)
 // Prints: "true"
 ```
 
-The `Prism` type can be directly used with a `print()` function, and the resulting formatted string will be printed directly to the terminal or console. If the terminal or console does not support formatted text, the unformatted version of the string will be automatically printed instead.
+The `Prism` type conforms to the `CustomStringConvertible` protocol, allowing its formatted contents to be printed directly to `stdout`. If the output destination (i.e. terminal or console) does not support formatted text, the unformatted version will be automatically printed instead.
 
 ```swift
 let text = Prism {
