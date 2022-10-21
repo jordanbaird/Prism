@@ -131,9 +131,7 @@ public struct Prism:
   // MARK: - Methods
   
   public func hash(into hasher: inout Hasher) {
-    for element in elements {
-      hasher.combine(element.controlSequence)
-    }
+    elements._hash(&hasher)
   }
   
   /// The string value of the prism.
@@ -149,12 +147,7 @@ public struct Prism:
 
 extension Prism {
   public static func == (lhs: Self, rhs: Self) -> Bool {
-    guard lhs.elements.endIndex == rhs.elements.endIndex else {
-      return false
-    }
-    return !(0..<lhs.elements.count).contains {
-      lhs.elements[$0].controlSequence != rhs.elements[$0].controlSequence
-    }
+      lhs.elements._isEqual(rhs.elements)
   }
   
   public static func + (lhs: Self, rhs: Self) -> Self {

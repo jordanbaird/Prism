@@ -21,8 +21,8 @@ final class ElementBuilderTests: XCTestCase {
       "world"
     }
     
-    XCTAssert(elements1.isEqual([Standard("Hello"), Standard("world")]))
-    XCTAssert(elements1.isEqual(elements2))
+    XCTAssert(elements1._isEqual([Standard("Hello"), Standard("world")]))
+    XCTAssert(elements1._isEqual(elements2))
   }
   
   func testBuildBlockFromArrays() {

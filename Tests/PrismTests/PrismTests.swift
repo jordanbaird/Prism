@@ -97,8 +97,9 @@ final class PrismTests: XCTestCase {
       Bold("Bold")
       Italic("Italic")
       Underline("Underline")
+      Dim("Dim")
     }
-    let prismConcat = Bold("Bold") + Italic("Italic") + Underline("Underline")
+    let prismConcat = Bold("Bold") + Italic("Italic") + (Underline("Underline") + Prism(Dim("Dim")))
     XCTAssertEqual(prismStandard, prismConcat)
   }
   
@@ -108,12 +109,71 @@ final class PrismTests: XCTestCase {
       Italic("Italic")
       Underline("Underline")
       Dim("Dim")
+      Overline("Overline")
     }
     
     var prismConcat = Prism(Bold("Bold"))
     prismConcat += Italic("Italic")
     prismConcat += [Underline("Underline"), Dim("Dim")]
+    prismConcat += Prism(Overline("Overline"))
     
     XCTAssertEqual(prismStandard, prismConcat)
+  }
+  
+  func testString() {
+    let p1 = Prism {
+      Bold("Bold")
+      Italic("Italic")
+      Underline("Underline")
+      Dim("Dim")
+    }
+    let p2 = Prism(spacing: .custom) {
+      Bold("Bold")
+      Spacer()
+      Italic("Italic")
+      Spacer()
+      Underline("Underline")
+      Spacer()
+      Dim("Dim")
+    }
+    XCTAssertEqual(p1.string(), p2.string())
+  }
+  
+  func testElementEquality() {
+    let e1: [PrismElement] = [
+      Bold("Bold"),
+      Spacer(),
+      Italic("Italic"),
+      Spacer(),
+      Underline("Underline"),
+      Spacer(),
+      Dim("Dim"),
+    ]
+    let p1 = Prism(spacing: .spaces) {
+      Bold("Bold")
+      Italic("Italic")
+      Underline("Underline")
+      Dim("Dim")
+    }
+    XCTAssert(e1._isEqual(p1.elements))
+  }
+  
+  func testElementHashValue() {
+    let p1 = Prism {
+      Bold("Bold")
+      Italic("Italic")
+      Underline("Underline")
+      Dim("Dim")
+    }
+    let p2 = Prism(spacing: .custom) {
+      Bold("Bold")
+      Spacer()
+      Italic("Italic")
+      Spacer()
+      Underline("Underline")
+      Spacer()
+      Dim("Dim")
+    }
+    XCTAssertEqual(p1.hashValue, p2.hashValue)
   }
 }

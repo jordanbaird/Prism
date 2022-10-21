@@ -17,7 +17,10 @@ public protocol PrismElement: CustomStringConvertible, CustomDebugStringConverti
   /// The element's enclosing ``Prism`` object.
   var prism: Prism? { get nonmutating set }
   
-  /// The spacing that the element's prism imposes upon it.
+  /// The spacing of the element.
+  ///
+  /// Unless otherwise set, this is the same as the spacing
+  /// of the element's enclosing ``Prism`` object.
   var spacing: Prism.Spacing { get set }
   
   /// The raw value of the element.
@@ -42,12 +45,14 @@ extension PrismElement {
     rawValue
   }
   
-  /// A textual representation of the element that is suitable for debugging.
+  /// A textual representation of the element that is suitable
+  /// for debugging.
   public var debugDescription: String {
     "\(Self.self)(rawValue: " + rawValue + ")"
   }
   
-  /// A textual representation of the element that shows its control characters.
+  /// A textual representation of the element that shows its
+  /// control characters.
   public var escapedDescription: String {
     controlSequence.base.reduce("") { $0 + $1.escapedDescription }
   }
@@ -98,6 +103,33 @@ extension PrismElement {
     }
     self.elementRef.parentElementRef = element.elementRef
   }
+  
+  func _isEqual(_ other: PrismElement) -> Bool {
+    controlSequence == other.controlSequence &&
+    nestedElements._isEqual(other.nestedElements)
+  }
+  
+  func _hash(_ hasher: inout Hasher) {
+    hasher.combine(controlSequence)
+    nestedElements._hash(&hasher)
+  }
+}
+
+extension Array where Element == PrismElement {
+  func _isEqual(_ other: [PrismElement]) -> Bool {
+    guard endIndex == other.endIndex else {
+      return false
+    }
+    return (0..<endIndex).allSatisfy {
+      self[$0]._isEqual(other[$0])
+    }
+  }
+  
+  func _hash(_ hasher: inout Hasher) {
+    for element in self {
+      element._hash(&hasher)
+    }
+  }
 }
 
 // MARK: - Test Helpers
@@ -105,26 +137,5 @@ extension PrismElement {
 extension PrismElement {
   var testableDescription: String {
     controlSequence.base.reduce("") { $0 + $1.rawValue }
-  }
-  
-  func isEqual(_ other: PrismElement) -> Bool {
-    controlSequence == other.controlSequence &&
-    rawValue == other.rawValue &&
-    spacing == other.spacing &&
-    nestedElements.endIndex == other.nestedElements.endIndex &&
-    (0..<nestedElements.endIndex).allSatisfy {
-      nestedElements[$0].isEqual(other.nestedElements[$0])
-    }
-  }
-}
-
-extension Array where Element == PrismElement {
-  func isEqual(_ other: [PrismElement]) -> Bool {
-    guard endIndex == other.endIndex else {
-      return false
-    }
-    return (0..<endIndex).allSatisfy {
-      self[$0].isEqual(other[$0])
-    }
   }
 }
