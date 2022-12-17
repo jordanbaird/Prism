@@ -11,8 +11,8 @@ jobs:
       - name: Run Tests
         run: swift test
         
-  ubuntu-latest-5_5:
-    runs-on: ubuntu-latest
+  ubuntu-20_04-5_5:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - name: Setup Swift 5.5
@@ -24,8 +24,8 @@ jobs:
       - name: Run Tests
         run: swift test
         
-  ubuntu-latest-5_6:
-    runs-on: ubuntu-latest
+  ubuntu-20_04-5_6:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - name: Setup Swift 5.6
