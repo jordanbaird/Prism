@@ -11,27 +11,27 @@ jobs:
       - name: Run Tests
         run: swift test
         
-  ubuntu-latest-5_5:
-    runs-on: ubuntu-latest
+  ubuntu-20_04-5_5:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Install Swift 5.5
-        uses: sersoft-gmbh/swifty-linux-action@v2
+      - name: Setup Swift 5.5
+        uses: swift-actions/setup-swift@v1.20.0
         with:
-          release-version: 5.5
+          swift-version: "5.5"
       - name: Check Swift Version
         run: swift --version
       - name: Run Tests
         run: swift test
         
-  ubuntu-latest-5_6:
-    runs-on: ubuntu-latest
+  ubuntu-20_04-5_6:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Install Swift 5.6
-        uses: sersoft-gmbh/swifty-linux-action@v2
+      - name: Setup Swift 5.6
+        uses: swift-actions/setup-swift@v1.20.0
         with:
-          release-version: 5.6
+          swift-version: "5.6"
       - name: Check Swift Version
         run: swift --version
       - name: Run Tests
@@ -41,10 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Swift 5.7
-        uses: sersoft-gmbh/swifty-linux-action@v2
+      - name: Setup Swift 5.7
+        uses: swift-actions/setup-swift@v1.20.0
         with:
-          release-version: 5.7
+          swift-version: "5.7"
       - name: Check Swift Version
         run: swift --version
       - name: Run Tests
