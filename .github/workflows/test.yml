@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Swift 5.5
-        uses: slashmo/install-swift@v0.3.0
+      - name: Setup Swift 5.5
+        uses: swift-actions/setup-swift@v1.20.0
         with:
-          version: 5.5
+          swift-version: "5.5"
       - name: Check Swift Version
         run: swift --version
       - name: Run Tests
@@ -28,10 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Swift 5.6
-        uses: slashmo/install-swift@v0.3.0
+      - name: Setup Swift 5.6
+        uses: swift-actions/setup-swift@v1.20.0
         with:
-          version: 5.6
+          swift-version: "5.6"
       - name: Check Swift Version
         run: swift --version
       - name: Run Tests
@@ -41,10 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Swift 5.7
-        uses: slashmo/install-swift@v0.3.0
+      - name: Setup Swift 5.7
+        uses: swift-actions/setup-swift@v1.20.0
         with:
-          version: 5.7
+          swift-version: "5.7"
       - name: Check Swift Version
         run: swift --version
       - name: Run Tests
