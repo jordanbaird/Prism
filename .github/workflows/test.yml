@@ -11,7 +11,7 @@ jobs:
       - name: Run Tests
         run: swift test
         
-  ubuntu-20_04-5_5:
+  ubuntu-20_04-swift-5_5:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +24,7 @@ jobs:
       - name: Run Tests
         run: swift test
         
-  ubuntu-20_04-5_6:
+  ubuntu-20_04-swift-5_6:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -37,7 +37,7 @@ jobs:
       - name: Run Tests
         run: swift test
         
-  ubuntu-latest-5_7:
+  ubuntu-latest-swift-5_7:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -48,4 +48,11 @@ jobs:
       - name: Check Swift Version
         run: swift --version
       - name: Run Tests
-        run: swift test
+        run: swift test -v --enable-code-coverage
+      - name: Generate Code Coverage
+        run: ./.github/scripts/generate-code-coverage.sh
+      - name: Upload Code Coverage
+        uses: codecov/codecov-action@v3.1.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./info.lcov
