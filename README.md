@@ -5,7 +5,7 @@
     <br>
 </h1>
 
-[![Continuous Integration](https://img.shields.io/github/actions/workflow/status/jordanbaird/Prism/test.yml?branch=main&style=flat-square)]()
+[![Continuous Integration](https://img.shields.io/github/actions/workflow/status/jordanbaird/Prism/test.yml?branch=main&style=flat-square)](https://github.com/jordanbaird/Prism/actions/workflows/test.yml)
 [![Code Coverage](https://img.shields.io/codecov/c/github/jordanbaird/Prism?label=codecov&logo=codecov&style=flat-square)](https://codecov.io/gh/jordanbaird/Prism)
 [![Swift Versions](https://img.shields.io/badge/dynamic/json?color=F05138&label=Swift&query=%24.message&url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fjordanbaird%2FPrism%2Fbadge%3Ftype%3Dswift-versions&style=flat-square)](https://swiftpackageindex.com/jordanbaird/Prism)
 [![Supported Platforms](https://img.shields.io/badge/dynamic/json?color=F05138&label=Platforms&query=%24.message&url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fjordanbaird%2FPrism%2Fbadge%3Ftype%3Dplatforms&style=flat-square)](https://swiftpackageindex.com/jordanbaird/Prism)
