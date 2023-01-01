@@ -104,4 +104,4 @@ Note that some terminal clients may display certain elements differently than ot
 
 ## License
 
-Prism is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license).
+Prism is available under the [MIT license](LICENSE).
