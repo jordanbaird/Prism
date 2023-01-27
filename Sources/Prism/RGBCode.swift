@@ -2,8 +2,6 @@
 //
 // RGBCode.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 /// A type that contains a red, green, and blue component

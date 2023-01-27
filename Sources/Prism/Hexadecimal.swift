@@ -2,8 +2,6 @@
 //
 // Hexadecimal.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 /// A type that constructs a color from a hexadecimal string.

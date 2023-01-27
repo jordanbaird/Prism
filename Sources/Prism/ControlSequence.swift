@@ -2,8 +2,6 @@
 //
 // ControlSequence.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 /// A sequence of components that make up the underlying value of a prism.

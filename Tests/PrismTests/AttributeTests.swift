@@ -2,8 +2,6 @@
 //
 // AttributeTests.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 import XCTest

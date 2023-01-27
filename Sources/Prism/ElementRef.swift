@@ -2,8 +2,6 @@
 //
 // ElementRef.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 // MARK: - ElementRef Class

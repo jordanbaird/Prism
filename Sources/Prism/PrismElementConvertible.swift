@@ -2,8 +2,6 @@
 //
 // PrismElementConvertible.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 /// A type that can be converted to a prism element.

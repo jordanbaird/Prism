@@ -2,8 +2,6 @@
 //
 // NumericExtensions.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 extension Numeric where Self: Comparable {

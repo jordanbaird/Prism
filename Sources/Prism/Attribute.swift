@@ -2,8 +2,6 @@
 //
 // Attribute.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 /// A type that modifies a string for display in a terminal.

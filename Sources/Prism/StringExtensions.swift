@@ -2,8 +2,6 @@
 //
 // StringExtensions.swift
 //
-// Created: 2022. Creator: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 extension String {

@@ -2,8 +2,6 @@
 //
 // Color.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 /// A type that represents the color that text will be rendered with

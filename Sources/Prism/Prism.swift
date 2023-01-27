@@ -2,8 +2,6 @@
 //
 // Prism.swift
 //
-// Created: 2022. Author: Jordan Baird.
-//
 //===----------------------------------------------------------------------===//
 
 /// A type that contains multiple elements that will be combined
