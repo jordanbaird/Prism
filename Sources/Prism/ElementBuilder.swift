@@ -7,7 +7,7 @@
 @resultBuilder
 public enum ElementBuilder {
 
-    // MARK: - Block Builders
+    // MARK: Block Builders
 
     public static func buildBlock(_ components: PrismElement...) -> [PrismElement] {
         components
@@ -18,7 +18,7 @@ public enum ElementBuilder {
         components.flatMap { $0 }
     }
 
-    // MARK: - Expression Builders
+    // MARK: Expression Builders
 
     public static func buildExpression(_ expression: PrismElement) -> PrismElement {
         expression
@@ -38,7 +38,7 @@ public enum ElementBuilder {
         expression.map { $0.prismElement }
     }
 
-    // MARK: - Conditional Builders
+    // MARK: Conditional Builders
 
     public static func buildEither(first components: PrismElement...) -> [PrismElement] {
         components

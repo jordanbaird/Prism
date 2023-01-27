@@ -4,11 +4,13 @@
 //
 //===----------------------------------------------------------------------===//
 
-// MARK: - ElementRef Class
+// MARK: - ElementRef
 
 class ElementRef {
     private var _prism: Prism?
+
     private var _spacing: Prism.Spacing?
+
     private var _nestedElements = [PrismElement]()
 
     weak var parentElementRef: ElementRef?
@@ -43,7 +45,7 @@ class ElementRef {
     }
 }
 
-// MARK: - HasElementRef Protocol
+// MARK: - HasElementRef
 
 protocol HasElementRef: PrismElement {
     var elementRef: ElementRef { get }
@@ -77,9 +79,7 @@ extension HasElementRef {
         get { elementRef.spacing ?? .spaces }
         set { elementRef.spacing = newValue }
     }
-}
 
-extension HasElementRef {
     func setSequences(on onSequence: ControlSequence, off offSequence: ControlSequence) {
         elementRef.onSequence = onSequence
         elementRef.offSequence = offSequence

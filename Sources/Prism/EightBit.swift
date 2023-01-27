@@ -4,78 +4,61 @@
 //
 //===----------------------------------------------------------------------===//
 
-@available(*, deprecated, renamed: "EightBit")
-public typealias ECMA256 = Color.EightBit
+// MARK: - EightBit
 
-public typealias EightBit = Color.EightBit
+public struct EightBit {
+    let subcode: AnySubcode
 
-/// A color code that conforms to the ECMA-48 standard.
-public protocol ECMACode: Hashable {
-    /// The raw value associated with the code.
-    var numericCode: UInt8 { get }
-}
+    var numericCode: UInt8 {
+        subcode.numericCode
+    }
 
-extension Color {
-    public struct EightBit: Hashable, Equatable {
+    var rawColorCode: String {
+        "5;\(numericCode)"
+    }
 
-        // MARK: - Properties
+    var foregroundCode: String {
+        "38;\(rawColorCode)"
+    }
 
-        let subcode: AnySubcode
+    var backgroundCode: String {
+        "48;\(rawColorCode)"
+    }
 
-        var numericCode: UInt8 {
-            subcode.numericCode
-        }
+    /// Creates an 8-bit color from the given subcode.
+    /// - Parameter subcode: A type-erased subcode that produces a
+    ///   color value.
+    public init(subcode: AnySubcode) {
+        self.subcode = subcode
+    }
 
-        var rawColorCode: String {
-            "5;\(numericCode)"
-        }
+    /// Creates an 8-bit color from the given subcode.
+    /// - Parameter subcode: A subcode that produces a color value.
+    public init<C: ECMACode>(subcode: C) {
+        self.init(subcode: .init(subcode))
+    }
 
-        var foregroundCode: String {
-            "38;\(rawColorCode)"
-        }
+    /// Creates an 8-bit color from the given grayscale subcode.
+    /// - Parameter subcode: A subcode that produces a grayscale value.
+    public init(grayscale subcode: Grayscale) {
+        self.init(subcode: subcode)
+    }
 
-        var backgroundCode: String {
-            "48;\(rawColorCode)"
-        }
+    /// Creates an 8-bit color from the given standard subcode.
+    /// - Parameter subcode: A subcode that produces a standard color value.
+    public init(standard subcode: StandardColor) {
+        self.init(subcode: subcode)
+    }
 
-        // MARK: - Initializers
-
-        /// Creates an 8-bit color from the given subcode.
-        /// - Parameter subcode: A type-erased subcode that produces a
-        ///   color value.
-        public init(subcode: AnySubcode) {
-            self.subcode = subcode
-        }
-
-        /// Creates an 8-bit color from the given subcode.
-        /// - Parameter subcode: A subcode that produces a color value.
-        public init<C: ECMACode>(subcode: C) {
-            self.init(subcode: .init(subcode))
-        }
-
-        /// Creates an 8-bit color from the given grayscale subcode.
-        /// - Parameter subcode: A subcode that produces a grayscale value.
-        public init(grayscale subcode: Grayscale) {
-            self.init(subcode: subcode)
-        }
-
-        /// Creates an 8-bit color from the given standard subcode.
-        /// - Parameter subcode: A subcode that produces a standard color value.
-        public init(standard subcode: StandardColor) {
-            self.init(subcode: subcode)
-        }
-
-        /// Creates an 8-bit color from the given numeric value.
-        /// - Parameter numericCode: A numeric value between 0 and 255.
-        public init(numericCode: UInt8) {
-            self.init(subcode: AnySubcode(numericCode: numericCode))
-        }
+    /// Creates an 8-bit color from the given numeric value.
+    /// - Parameter numericCode: A numeric value between 0 and 255.
+    public init(numericCode: UInt8) {
+        self.init(subcode: AnySubcode(numericCode: numericCode))
     }
 }
 
-// MARK: - Static Methods
-
-extension Color.EightBit {
+// MARK: EightBit Static Methods
+extension EightBit {
     /// Returns an 8-bit code that produces a grayscale color.
     /// - Parameter subcode: A subcode that produces a grayscale value.
     public static func grayscale(_ subcode: Grayscale) -> Self {
@@ -89,9 +72,23 @@ extension Color.EightBit {
     }
 }
 
-// MARK: - StandardColor Struct
+// MARK: EightBit Equatable
+extension EightBit: Equatable { }
 
-extension Color.EightBit {
+// MARK: EightBit Hashable
+extension EightBit: Hashable { }
+
+// MARK: - ECMACode
+
+/// A color code that conforms to the ECMA-48 standard.
+public protocol ECMACode: Hashable {
+    /// The raw value associated with the code.
+    var numericCode: UInt8 { get }
+}
+
+// MARK: - EightBit StandardColor
+
+extension EightBit {
     /// An ECMA-48 compliant code that produces one of sixteen standard colors.
     public struct StandardColor: ECMACode {
         /// The ECMA standard black color.
@@ -156,9 +153,9 @@ extension Color.EightBit {
     }
 }
 
-// MARK: - Grayscale Struct
+// MARK: - EightBit Grayscale
 
-extension Color.EightBit {
+extension EightBit {
     /// An ECMA-48 compliant code that produces grayscale colors.
     public struct Grayscale: ECMACode, ExpressibleByFloatLiteral {
         /// The raw value associated with the code.
@@ -196,9 +193,9 @@ extension Color.EightBit {
     }
 }
 
-// MARK: - AnySubcode Struct
+// MARK: - EightBit AnySubcode
 
-extension Color.EightBit {
+extension EightBit {
     /// A type that wraps the raw value of another subcode.
     public struct AnySubcode: ECMACode {
         /// The raw value associated with the code.
@@ -213,9 +210,4 @@ extension Color.EightBit {
             self.init(numericCode: base.numericCode)
         }
     }
-}
-
-extension Color {
-    @available(*, deprecated, renamed: "EightBit")
-    public typealias ECMA256 = EightBit
 }

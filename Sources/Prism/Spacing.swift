@@ -4,6 +4,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+// MARK: - Prism Spacing
+
 extension Prism {
     /// Constants that describe how a prism's elements should be spaced.
     public enum Spacing {
@@ -81,6 +83,14 @@ extension Prism {
     }
 }
 
+// MARK: Spacing Equatable
+extension Prism.Spacing: Equatable { }
+
+// MARK: Spacing Hashable
+extension Prism.Spacing: Hashable { }
+
+// MARK: - Spacing ElementType
+
 extension Prism.Spacing {
     /// Constants that represent the type of element to use for managed spacing.
     public enum ElementType {
@@ -102,10 +112,8 @@ extension Prism.Spacing {
     }
 }
 
-extension Prism.Spacing: Equatable { }
-
-extension Prism.Spacing: Hashable { }
-
+// MARK: ElementType Equatable
 extension Prism.Spacing.ElementType: Equatable { }
 
+// MARK: ElementType Hashable
 extension Prism.Spacing.ElementType: Hashable { }

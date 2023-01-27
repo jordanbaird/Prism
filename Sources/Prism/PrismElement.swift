@@ -4,7 +4,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-// MARK: - PrismElement Protocol
+// MARK: - PrismElement
 
 /// A type that can be combined with other elements to make up a ``Prism``.
 public protocol PrismElement: CustomStringConvertible, CustomDebugStringConvertible {
@@ -27,10 +27,8 @@ public protocol PrismElement: CustomStringConvertible, CustomDebugStringConverti
     var rawValue: String { get }
 }
 
+// MARK: PrismElement Default Implementation
 extension PrismElement {
-
-    // MARK: - Instance Properties
-
     /// A textual representation of the element.
     public var description: String {
         string(formatted: Destination.current == .formattingCompatible)
@@ -48,8 +46,6 @@ extension PrismElement {
         controlSequence.base.reduce("") { $0 + $1.escapedDescription }
     }
 
-    // MARK: - Methods
-
     /// Returns the string value of the attribute in either a
     /// formatted or unformatted representation.
     ///
@@ -66,8 +62,7 @@ extension PrismElement {
     }
 }
 
-// MARK: - Operators
-
+// MARK: PrismElement Operators
 extension PrismElement {
     public static func + (lhs: Self, rhs: PrismElement) -> Prism {
         Prism([lhs, rhs])
@@ -78,8 +73,7 @@ extension PrismElement {
     }
 }
 
-// MARK: - Helpers
-
+// MARK: PrismElement Helpers
 extension PrismElement {
     func maybePrependSpacer() -> [PrismElement] {
         switch spacing {
@@ -126,7 +120,6 @@ extension PrismElement {
 }
 
 // MARK: Array Helpers
-
 extension Array where Element == PrismElement {
     func _isEqual(_ other: [PrismElement]) -> Bool {
         guard endIndex == other.endIndex else {
@@ -144,8 +137,7 @@ extension Array where Element == PrismElement {
     }
 }
 
-// MARK: - Test Helpers
-
+// MARK: Test Helpers
 extension PrismElement {
     var testableDescription: String {
         controlSequence.base.reduce("") { $0 + $1.rawValue }

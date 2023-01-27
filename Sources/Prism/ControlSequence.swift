@@ -6,16 +6,11 @@
 
 /// A sequence of components that make up the underlying value of a prism.
 public struct ControlSequence {
-
-    // MARK: - Properties
-
     let base: [Component]
 
     var reduced: String {
         base.reduce("") { $0 + $1.rawValue }
     }
-
-    // MARK: - Initializers
 
     init(_ base: [Component]) {
         self.base = base
@@ -55,8 +50,7 @@ public struct ControlSequence {
     }
 }
 
-// MARK: - Static Constants
-
+// MARK: ControlSequence Static Constants
 extension ControlSequence {
     static let reset = Self(withCodeComponent: 0)
 
@@ -88,8 +82,7 @@ extension ControlSequence {
     static let strikethroughOff = Self(withCodeComponent: 29)
 }
 
-// MARK: - Static Functions
-
+// MARK: ControlSequence Static Methods
 extension ControlSequence {
     static func foregroundColor(_ color: Color) -> Self {
         Self(withCodeComponent: color.foregroundCode)
@@ -104,8 +97,7 @@ extension ControlSequence {
     }
 }
 
-// MARK: - Operators
-
+// MARK: ControlSequence Operators
 extension ControlSequence {
     public static func + (lhs: Self, rhs: Self) -> Self {
         Self(lhs.base + rhs.base)
@@ -116,20 +108,10 @@ extension ControlSequence {
     }
 }
 
-// MARK: - Protocol Conformances
-
+// MARK: ControlSequence Codable
 extension ControlSequence: Codable { }
 
-extension ControlSequence: CustomStringConvertible {
-    public var description: String {
-        "\(Self.self)("
-        + base
-            .map { $0.description }
-            .joined(separator: ", ")
-        + ")"
-    }
-}
-
+// MARK: ControlSequence CustomDebugStringConvertible
 extension ControlSequence: CustomDebugStringConvertible {
     public var debugDescription: String {
         "\(Self.self)("
@@ -140,6 +122,92 @@ extension ControlSequence: CustomDebugStringConvertible {
     }
 }
 
+// MARK: ControlSequence CustomStringConvertible
+extension ControlSequence: CustomStringConvertible {
+    public var description: String {
+        "\(Self.self)("
+        + base
+            .map { $0.description }
+            .joined(separator: ", ")
+        + ")"
+    }
+}
+
+// MARK: ControlSequence Equatable
 extension ControlSequence: Equatable { }
 
+// MARK: ControlSequence Hashable
 extension ControlSequence: Hashable { }
+
+// MARK: - ControlSequence Component
+
+extension ControlSequence {
+    struct Component {
+        let nestedComponents: ControlSequence
+
+        private var _rawValue: String?
+
+        var rawValue: String {
+            _rawValue ?? nestedComponents.reduced
+        }
+
+        var escapedDescription: String {
+            rawValue
+                .replacing("\u{001B}", with: "\\u{001B}")
+                .replacing("\n", with: "\\n")
+                .replacing("\r", with: "\\r")
+                .replacing("\t", with: "\\t")
+        }
+
+        init(_indirectRawValue: String) {
+            nestedComponents = .init()
+            _rawValue = _indirectRawValue
+        }
+
+        init(_ rawValue: String) {
+            nestedComponents = .init(.init(_indirectRawValue: rawValue))
+        }
+
+        init(_ nestedComponents: [Component]) {
+            self.nestedComponents = .init(nestedComponents)
+        }
+    }
+}
+
+// MARK: Component Static Constants
+extension ControlSequence.Component {
+    static let escape = Self("\u{001B}")
+    static let bracket = Self("[")
+    static let semicolon = Self(";")
+    static let closer = Self("m")
+    static let introducer = Self([escape, bracket])
+}
+
+// MARK: Component Codable
+extension ControlSequence.Component: Codable { }
+
+// MARK: Component CustomDebugStringConvertible
+extension ControlSequence.Component: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        var s = "\(Self.self)("
+        if _rawValue != nil {
+            s.append(#"rawValue: "\#(escapedDescription)""#)
+        } else {
+            s.append("nestedComponents: \(nestedComponents.base.debugDescription)")
+        }
+        return s + ")"
+    }
+}
+
+// MARK: Component CustomStringConvertible
+extension ControlSequence.Component: CustomStringConvertible {
+    public var description: String {
+        "\(Self.self)"
+    }
+}
+
+// MARK: Component Equatable
+extension ControlSequence.Component: Equatable { }
+
+// MARK: Component Hashable
+extension ControlSequence.Component: Hashable { }

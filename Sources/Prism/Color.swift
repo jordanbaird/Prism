@@ -8,41 +8,13 @@
 /// when displayed in a terminal.
 public struct Color {
 
-    // MARK: - Nested Types
-
-    /// Styles that impact how a ``Color`` will be rendered.
-    public enum Style {
-        /// The color will be rendered in its default form.
-        case `default`
-
-        /// The color will be rendered in a brighter form.
-        case bright
-
-        var foregroundCode: Int {
-            switch self {
-            case .default:
-                return 30
-            case .bright:
-                return 90
-            }
-        }
-
-        var backgroundCode: Int {
-            switch self {
-            case .default:
-                return 40
-            case .bright:
-                return 100
-            }
-        }
-    }
-
-    // MARK: - Properties
+    // MARK: Properties
 
     let foregroundCode: String
+
     let backgroundCode: String
 
-    // MARK: - Initializers
+    // MARK: Initializers
 
     init(_ foregroundCode: String, _ backgroundCode: String) {
         self.foregroundCode = foregroundCode
@@ -68,12 +40,6 @@ public struct Color {
     /// Creates a color with the given 8-bit color code.
     public init(eightBit: EightBit) {
         self.init(eightBit.foregroundCode, eightBit.backgroundCode)
-    }
-
-    /// Creates a color with the given 8-bit color code.
-    @available(*, deprecated, renamed: "init(eightBit:)")
-    public init(ecma256: ECMA256) {
-        self.init(eightBit: ecma256)
     }
 
     /// Creates a color with the given hexadecimal code.
@@ -125,8 +91,7 @@ public struct Color {
     }
 }
 
-// MARK: - Static Constants
-
+// MARK: Static Constants
 extension Color {
     /// The ANSI black color.
     public static let black = black(style: .default)
@@ -166,8 +131,7 @@ extension Color {
     public static let `default` = Self(9, .default)
 }
 
-// MARK: - Static Methods
-
+// MARK: Static Methods
 extension Color {
     /// The ANSI black color, in either a default or bright style.
     ///
@@ -217,8 +181,67 @@ extension Color {
     }
 }
 
-// MARK: - Protocol Conformances
-
+// MARK: Equatable
 extension Color: Equatable { }
 
+// MARK: Hashable
 extension Color: Hashable { }
+
+// MARK: - Color Style
+
+extension Color {
+    /// Styles that impact how a ``Color`` will be rendered.
+    public enum Style {
+        /// The color will be rendered in its default form.
+        case `default`
+
+        /// The color will be rendered in a brighter form.
+        case bright
+
+        var foregroundCode: Int {
+            switch self {
+            case .default:
+                return 30
+            case .bright:
+                return 90
+            }
+        }
+
+        var backgroundCode: Int {
+            switch self {
+            case .default:
+                return 40
+            case .bright:
+                return 100
+            }
+        }
+    }
+}
+
+// MARK: - Compatibility
+
+public typealias _EightBit = EightBit
+
+public typealias _Hexadecimal = Hexadecimal
+
+public typealias _RGBCode = RGBCode
+
+@available(*, deprecated, renamed: "EightBit")
+public typealias ECMA256 = EightBit
+
+extension Color {
+    public typealias EightBit = _EightBit
+
+    public typealias Hexadecimal = _Hexadecimal
+
+    public typealias RGBCode = _RGBCode
+
+    @available(*, deprecated, renamed: "EightBit")
+    public typealias ECMA256 = EightBit
+
+    /// Creates a color with the given 8-bit color code.
+    @available(*, deprecated, renamed: "init(eightBit:)")
+    public init(ecma256: ECMA256) {
+        self.init(eightBit: ecma256)
+    }
+}

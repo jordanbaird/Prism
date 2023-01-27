@@ -16,10 +16,8 @@ public protocol Attribute: PrismElement {
     init(_ string: String, nestedElements: [PrismElement])
 }
 
+// MARK: Default Implementation
 extension Attribute {
-
-    // MARK: - Initializers
-
     /// Creates an attribute with the given spacing and nested elements.
     ///
     /// Use this initializer to create an attribute in a declarative manner.

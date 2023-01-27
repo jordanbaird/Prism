@@ -10,6 +10,8 @@ import Darwin
 import Glibc
 #endif
 
+// MARK: - EnvironmentVariable
+
 /// A type that represents an environment variable.
 public struct EnvironmentVariable {
     /// Constants that represent the status of an environment variable,
@@ -75,6 +77,7 @@ public struct EnvironmentVariable {
     }
 }
 
+// MARK: EnvironmentVariable Equatable
 extension EnvironmentVariable: Equatable {
     /// Returns a Boolean value indicating whether the given environment
     /// variables have the same name and value.
@@ -90,6 +93,7 @@ extension EnvironmentVariable: Equatable {
     }
 }
 
+// MARK: EnvironmentVariable Hashable
 extension EnvironmentVariable: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(name)

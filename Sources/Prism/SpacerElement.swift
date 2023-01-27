@@ -4,7 +4,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-// MARK: - SpacerElement Protocol
+// MARK: - SpacerElement
 
 protocol SpacerElement: PrismElement {
     /// The type of the spacer associated with the element.
@@ -17,6 +17,7 @@ protocol SpacerElement: PrismElement {
     init(type: SpacerType)
 }
 
+// MARK: SpacerElement Default Implementation
 extension SpacerElement {
     public var debugDescription: String {
         "\(Self.self)(type: \(type))"
@@ -27,13 +28,13 @@ extension SpacerElement {
     }
 }
 
-// MARK: SpacerElementType Protocol
+// MARK: - SpacerElementType
 
 protocol SpacerElementType {
     var rawValue: String { get }
 }
 
-// MARK: - SpacerType Enum
+// MARK: - Spacer SpacerType
 
 extension Spacer {
     /// The possible values that a spacer element can contain.
@@ -46,7 +47,7 @@ extension Spacer {
     }
 }
 
-// MARK: - LineBreakType Enum
+// MARK: - LineBreak LineBreakType
 
 extension LineBreak {
     /// The possible values that a line break element can contain.

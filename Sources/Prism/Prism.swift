@@ -4,11 +4,13 @@
 //
 //===----------------------------------------------------------------------===//
 
+// MARK: - Prism
+
 /// A type that contains multiple elements that will be combined
 /// into a final formatted string for display in a terminal.
 public struct Prism {
 
-    // MARK: - Properties
+    // MARK: Properties
 
     /// A value that describes how the prism's elements should
     /// be spaced when displayed in a terminal.
@@ -72,7 +74,7 @@ public struct Prism {
         return unformatted
     }
 
-    // MARK: - Initializers
+    // MARK: Initializers
 
     /// Creates a prism with the given elements and spacing.
     public init(spacing: Spacing = .spaces, elements: [PrismElement]) {
@@ -100,7 +102,7 @@ public struct Prism {
         self.init(spacing: spacing, elements: elements())
     }
 
-    // MARK: - Methods
+    // MARK: Methods
 
     /// Returns the string value of the prism in either a formatted
     /// or unformatted representation.
@@ -141,8 +143,7 @@ public struct Prism {
     }
 }
 
-// MARK: - Operators
-
+// MARK: Prism Operators
 extension Prism {
     public static func + (lhs: Self, rhs: Self) -> Self {
         Self(lhs._elements + rhs._elements)
@@ -169,15 +170,7 @@ extension Prism {
     }
 }
 
-// MARK: - Protocol Conformances
-
-extension Prism: CustomStringConvertible {
-    /// A textual representation of the prism.
-    public var description: String {
-        elements.reduce("") { $0 + $1.description }
-    }
-}
-
+// MARK: Prism CustomDebugStringConvertible
 extension Prism: CustomDebugStringConvertible {
     /// A textual representation of the prism that is suitable
     /// for debugging.
@@ -188,20 +181,29 @@ extension Prism: CustomDebugStringConvertible {
     }
 }
 
+// MARK: Prism CustomStringConvertible
+extension Prism: CustomStringConvertible {
+    /// A textual representation of the prism.
+    public var description: String {
+        elements.reduce("") { $0 + $1.description }
+    }
+}
+
+// MARK: Prism Equatable
 extension Prism: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.elements._isEqual(rhs.elements)
     }
 }
 
+// MARK: Prism Hashable
 extension Prism: Hashable {
     public func hash(into hasher: inout Hasher) {
         elements._hash(&hasher)
     }
 }
 
-// MARK: - Test Helpers
-
+// MARK: Prism Test Helpers
 extension Prism {
     var testableDescription: String {
         elements.reduce("") { $0 + $1.testableDescription }
