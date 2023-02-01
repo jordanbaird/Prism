@@ -13,10 +13,10 @@ public protocol PrismElement: CustomStringConvertible, CustomDebugStringConverti
     var controlSequence: ControlSequence { get }
 
     /// The elements nested inside this element.
-    var nestedElements: [PrismElement] { get set }
+    var nestedElements: [PrismElement] { get }
 
     /// The element's enclosing ``Prism/Prism``.
-    var prism: Prism? { get nonmutating set }
+    var prism: Prism? { get }
 
     /// The spacing of the element.
     ///
@@ -45,7 +45,7 @@ extension PrismElement {
     /// A textual representation of the element that shows its
     /// control characters.
     public var escapedDescription: String {
-        controlSequence.base.reduce("") { $0 + $1.escapedDescription }
+        controlSequence.components.reduce("") { $0 + $1.escapedDescription }
     }
 
     /// Returns the string value of the attribute in either a
@@ -94,20 +94,28 @@ extension PrismElement {
 
     internal func updateNestedElements() {
         for element in nestedElements {
-            element.setParentElementRef(from: self)
-            element.prism = prism
+            element.setParent(from: self)
+            element.setPrism(from: self)
             element.updateNestedElements()
         }
     }
 
-    internal func setParentElementRef(from element: PrismElement) {
+    internal func setPrism(to prism: Prism?) {
+        (self as? any ReferencingElement)?.prism = prism
+    }
+
+    internal func setPrism(from element: PrismElement) {
+        setPrism(to: element.prism)
+    }
+
+    internal func setParent(from element: PrismElement) {
         guard
-            let self = self as? HasElementRef,
-            let element = element as? HasElementRef
+            let self = self as? any ReferencingElement,
+            let element = element as? any ReferencingElement
         else {
             return
         }
-        self.elementRef.parentElementRef = element.elementRef
+        self.ref.parent = element.ref
     }
 
     internal func _isEqual(_ other: PrismElement) -> Bool {
@@ -142,6 +150,6 @@ extension Array where Element == PrismElement {
 // MARK: Test Helpers
 extension PrismElement {
     internal var testableDescription: String {
-        controlSequence.base.reduce("") { $0 + $1.rawValue }
+        controlSequence.components.reduce("") { $0 + $1.rawValue }
     }
 }

@@ -30,7 +30,7 @@ public struct EnvironmentVariable {
             return .init(validatingUTF8: raw)
         }
         nonmutating set {
-            guard let newValue = newValue else {
+            guard let newValue else {
                 unsetenv(name)
                 return
             }

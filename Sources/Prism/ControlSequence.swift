@@ -8,30 +8,28 @@
 
 /// A sequence of components that make up the underlying value of a prism.
 public struct ControlSequence {
-    internal let base: [Component]
+    internal let components: [Component]
 
     internal var reduced: String {
-        base.reduce("") { $0 + $1.rawValue }
+        components.reduce("") { $0 + $1.rawValue }
     }
 
-    internal init(_ base: [Component]) {
-        self.base = base
+    internal init(components: [Component]) {
+        self.components = components
     }
 
-    internal init(_ base: Component...) {
-        self.init(base)
+    internal init() {
+        self.init(components: [])
     }
 
-    internal init(withCodeComponent component: Any) {
-        self.init(.introducer, .init("\(component)"), .closer)
+    internal init(withComponentValue value: Any) {
+        self.init(components: [.introducer, Component(value: value), .closer])
     }
 
     internal init(for element: PrismElement) {
         if element.nestedElements.isEmpty {
             if let element = element as? Attribute {
-                self = element.onSequence
-                + .string(element.rawValue)
-                + element.offSequence
+                self = element.onSequence + .string(element.rawValue) + element.offSequence
             } else {
                 self = .string(element.rawValue)
             }
@@ -40,13 +38,9 @@ public struct ControlSequence {
                 $0 += $1.controlSequence
             }
             if let element = element as? Attribute {
-                self = element.onSequence
-                + .string(element.rawValue)
-                + reduced
-                + element.offSequence
+                self = element.onSequence + .string(element.rawValue) + reduced + element.offSequence
             } else {
-                self = .string(element.rawValue)
-                + reduced
+                self = .string(element.rawValue) + reduced
             }
         }
     }
@@ -54,55 +48,55 @@ public struct ControlSequence {
 
 // MARK: ControlSequence Static Constants
 extension ControlSequence {
-    internal static let reset = Self(withCodeComponent: 0)
+    internal static let reset = Self(withComponentValue: 0)
 
-    internal static let boldOn = Self(withCodeComponent: 1)
-    internal static let boldOff = Self(withCodeComponent: 22)
+    internal static let boldOn = Self(withComponentValue: 1)
+    internal static let boldOff = Self(withComponentValue: 22)
 
-    internal static let dimOn = Self(withCodeComponent: 2)
-    internal static let dimOff = Self(withCodeComponent: 22)
+    internal static let dimOn = Self(withComponentValue: 2)
+    internal static let dimOff = Self(withComponentValue: 22)
 
-    internal static let italicOn = Self(withCodeComponent: 3)
-    internal static let italicOff = Self(withCodeComponent: 23)
+    internal static let italicOn = Self(withComponentValue: 3)
+    internal static let italicOff = Self(withComponentValue: 23)
 
-    internal static let underlineOn = Self(withCodeComponent: 4)
-    internal static let underlineOff = Self(withCodeComponent: 24)
+    internal static let underlineOn = Self(withComponentValue: 4)
+    internal static let underlineOff = Self(withComponentValue: 24)
 
-    internal static let overlineOn = Self(withCodeComponent: 53)
-    internal static let overlineOff = Self(withCodeComponent: 55)
+    internal static let overlineOn = Self(withComponentValue: 53)
+    internal static let overlineOff = Self(withComponentValue: 55)
 
-    internal static let blinkOn = Self(withCodeComponent: 5)
-    internal static let blinkOff = Self(withCodeComponent: 25)
+    internal static let blinkOn = Self(withComponentValue: 5)
+    internal static let blinkOff = Self(withComponentValue: 25)
 
-    internal static let swapOn = Self(withCodeComponent: 7)
-    internal static let swapOff = Self(withCodeComponent: 27)
+    internal static let swapOn = Self(withComponentValue: 7)
+    internal static let swapOff = Self(withComponentValue: 27)
 
-    internal static let hideOn = Self(withCodeComponent: 8)
-    internal static let hideOff = Self(withCodeComponent: 28)
+    internal static let hideOn = Self(withComponentValue: 8)
+    internal static let hideOff = Self(withComponentValue: 28)
 
-    internal static let strikethroughOn = Self(withCodeComponent: 9)
-    internal static let strikethroughOff = Self(withCodeComponent: 29)
+    internal static let strikethroughOn = Self(withComponentValue: 9)
+    internal static let strikethroughOff = Self(withComponentValue: 29)
 }
 
 // MARK: ControlSequence Static Methods
 extension ControlSequence {
     internal static func foregroundColor(_ color: Color) -> Self {
-        Self(withCodeComponent: color.foregroundCode)
+        Self(withComponentValue: color.foregroundCode)
     }
 
     internal static func backgroundColor(_ color: Color) -> Self {
-        Self(withCodeComponent: color.backgroundCode)
+        Self(withComponentValue: color.backgroundCode)
     }
 
-    internal static func string(_ str: String) -> Self {
-        Self(.init(str))
+    internal static func string(_ string: String) -> Self {
+        Self(components: [Component(rawValue: string)])
     }
 }
 
 // MARK: ControlSequence Operators
 extension ControlSequence {
     public static func + (lhs: Self, rhs: Self) -> Self {
-        Self(lhs.base + rhs.base)
+        Self(components: lhs.components + rhs.components)
     }
 
     public static func += (lhs: inout Self, rhs: Self) {
@@ -118,7 +112,7 @@ extension ControlSequence: CustomDebugStringConvertible {
     public var debugDescription: String {
         "\(Self.self)"
         + "("
-        + base
+        + components
             .map { $0.debugDescription }
             .joined(separator: ", ")
         + ")"
@@ -130,7 +124,7 @@ extension ControlSequence: CustomStringConvertible {
     public var description: String {
         "\(Self.self)"
         + "("
-        + base
+        + components
             .map { $0.description }
             .joined(separator: ", ")
         + ")"
@@ -157,24 +151,31 @@ extension ControlSequence {
                 .replacing("\t", with: "\\t")
         }
 
-        init(_ rawValue: String) {
+        init(rawValue: String) {
             self.rawValue = rawValue
         }
 
-        init(_ nestedComponents: [Component]) {
-            let nestedSequence = ControlSequence(nestedComponents)
-            self.init(nestedSequence.reduced)
+        init(value: Any) {
+            self.init(rawValue: "\(value)")
+        }
+
+        init(controlSequence: ControlSequence) {
+            self.init(rawValue: controlSequence.reduced)
+        }
+
+        init(components: [Component]) {
+            self.init(controlSequence: ControlSequence(components: components))
         }
     }
 }
 
 // MARK: Component Static Constants
 extension ControlSequence.Component {
-    static let escape = Self("\u{001B}")
-    static let bracket = Self("[")
-    static let semicolon = Self(";")
-    static let closer = Self("m")
-    static let introducer = Self([escape, bracket])
+    static let escape = Self(rawValue: "\u{001B}")
+    static let bracket = Self(rawValue: "[")
+    static let semicolon = Self(rawValue: ";")
+    static let closer = Self(rawValue: "m")
+    static let introducer = Self(components: [escape, bracket])
 }
 
 // MARK: Component: Codable

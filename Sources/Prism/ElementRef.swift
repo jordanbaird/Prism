@@ -7,34 +7,31 @@
 // MARK: - ElementRef
 
 internal class ElementRef {
-    private var _prism: Prism?
-
-    private var _spacing: Prism.Spacing?
+    weak var parent: ElementRef?
 
     private var _nestedElements = [PrismElement]()
-
-    weak var parentElementRef: ElementRef?
-    var onSequence = ControlSequence()
-    var offSequence = ControlSequence()
-
-    private var _spacedElements: [PrismElement] {
-        _nestedElements.reduce(into: []) {
-            $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
+    var nestedElements: [PrismElement] {
+        get {
+            _nestedElements.reduce(into: []) {
+                $0 += $0.isEmpty ? [$1] : $1.maybePrependSpacer()
+            }
+        }
+        set {
+            _nestedElements = newValue
         }
     }
 
-    var nestedElements: [PrismElement] {
-        get { _spacedElements }
-        set { _nestedElements = newValue }
-    }
-
+    private var _prism: Prism?
     var prism: Prism? {
-        get { _prism ?? parentElementRef?.prism }
+        get { _prism ?? parent?.prism }
         set { _prism = newValue }
     }
 
+    private var _spacing: Prism.Spacing?
     var spacing: Prism.Spacing? {
-        get { _spacing ?? prism?.spacing }
+        get {
+            _spacing ?? prism?.spacing
+        }
         set {
             if newValue == prism?.spacing {
                 _spacing = nil
@@ -45,43 +42,68 @@ internal class ElementRef {
     }
 }
 
-// MARK: - HasElementRef
+// MARK: - ReferencingElement
 
-internal protocol HasElementRef: PrismElement {
-    var elementRef: ElementRef { get }
+internal protocol ReferencingElement: PrismElement {
+    associatedtype RefType: ElementRef
+    var ref: RefType { get }
 }
 
-extension HasElementRef {
-    public var onSequence: ControlSequence {
-        elementRef.onSequence
-    }
-
-    public var offSequence: ControlSequence {
-        elementRef.offSequence
-    }
-
-    public var nestedElements: [PrismElement] {
-        get { elementRef.nestedElements }
-        set {
-            elementRef.nestedElements = newValue
+// MARK: ReferencingElement Default Implementation
+extension ReferencingElement {
+    public internal(set) var nestedElements: [PrismElement] {
+        get {
+            ref.nestedElements
+        }
+        nonmutating set {
+            ref.nestedElements = newValue
             updateNestedElements()
         }
     }
 
     public var prism: Prism? {
-        get { elementRef.prism }
+        get {
+            ref.prism
+        }
         nonmutating set {
-            elementRef.prism = newValue
+            ref.prism = newValue
         }
     }
 
     public var spacing: Prism.Spacing {
-        get { elementRef.spacing ?? .spaces }
-        set { elementRef.spacing = newValue }
+        get { ref.spacing ?? .spaces }
+        set { ref.spacing = newValue }
+    }
+}
+
+// MARK: - AttributeRef
+
+internal class AttributeRef: ElementRef {
+    var onSequence = ControlSequence()
+    var offSequence = ControlSequence()
+}
+
+// MARK: - ReferencingAttribute
+
+internal protocol ReferencingAttribute: ReferencingElement, Attribute where RefType == AttributeRef { }
+
+// MARK: ReferencingAttribute Default Implementation
+extension ReferencingAttribute {
+    public internal(set) var onSequence: ControlSequence {
+        get {
+            ref.onSequence
+        }
+        nonmutating set {
+            ref.onSequence = newValue
+        }
     }
 
-    func setSequences(on onSequence: ControlSequence, off offSequence: ControlSequence) {
-        elementRef.onSequence = onSequence
-        elementRef.offSequence = offSequence
+    public internal(set) var offSequence: ControlSequence {
+        get {
+            ref.offSequence
+        }
+        nonmutating set {
+            ref.offSequence = newValue
+        }
     }
 }

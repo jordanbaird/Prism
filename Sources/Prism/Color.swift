@@ -18,15 +18,16 @@ public struct Color {
 
     // MARK: Initializers
 
-    internal init(_ foregroundCode: String, _ backgroundCode: String) {
+    internal init(foregroundCode: String, backgroundCode: String) {
         self.foregroundCode = foregroundCode
         self.backgroundCode = backgroundCode
     }
 
-    internal init(_ rawValue: Int, _ style: Style) {
+    internal init(rawValue: Int, style: Style) {
         self.init(
-            "\(rawValue + style.foregroundCode)",
-            "\(rawValue + style.backgroundCode)")
+            foregroundCode: "\(rawValue + style.foregroundCode)",
+            backgroundCode: "\(rawValue + style.backgroundCode)"
+        )
     }
 
     /// Creates a color from the given color.
@@ -36,12 +37,18 @@ public struct Color {
 
     /// Creates a color with the given RGB code.
     public init(rgbCode: RGBCode) {
-        self.init(rgbCode.foregroundCode, rgbCode.backgroundCode)
+        self.init(
+            foregroundCode: rgbCode.foregroundCode,
+            backgroundCode: rgbCode.backgroundCode
+        )
     }
 
     /// Creates a color with the given 8-bit color code.
     public init(eightBit: EightBit) {
-        self.init(eightBit.foregroundCode, eightBit.backgroundCode)
+        self.init(
+            foregroundCode: eightBit.foregroundCode,
+            backgroundCode: eightBit.backgroundCode
+        )
     }
 
     /// Creates a color with the given hexadecimal code.
@@ -74,7 +81,7 @@ public struct Color {
         if hexadecimal.isValid {
             self.init(hexadecimal: hexadecimal)
         } else {
-            self.init(rgbCode: .init(string: string))
+            self.init(rgbCode: RGBCode(string: string))
         }
     }
 
@@ -82,14 +89,14 @@ public struct Color {
     ///
     /// These values must be integer values between 0 and 255.
     public init(red: Int, green: Int, blue: Int) {
-        self.init(rgbCode: .init(red: red, green: green, blue: blue))
+        self.init(rgbCode: RGBCode(red: red, green: green, blue: blue))
     }
 
     /// Creates a color with the given red, green, and blue values.
     ///
     /// These values must be floating point values between 0.0 and 1.0.
     public init(red: Double, green: Double, blue: Double) {
-        self.init(rgbCode: .init(red: red, green: green, blue: blue))
+        self.init(rgbCode: RGBCode(red: red, green: green, blue: blue))
     }
 }
 
@@ -100,7 +107,7 @@ extension Color {
 
     /// The ANSI gray color.
     ///
-    /// - Note: This color is equivalent to calling ``black(style:)`` and
+    /// > Note: This color is equivalent to calling ``black(style:)`` and
     ///   passing in the ``Style/bright`` style.
     public static let gray = black(style: .bright)
 
@@ -124,62 +131,62 @@ extension Color {
 
     /// The ANSI white color.
     ///
-    /// - Note: Most terminals will actually render this color as light gray.
+    /// > Note: Most terminals will actually render this color as light gray.
     ///   For a pure white color, use the ``white(style:)`` method and pass in
     ///   the ``Style/bright`` style.
     public static let white = white(style: .default)
 
     /// The default text color of the terminal.
-    public static let `default` = Self(9, .default)
+    public static let `default` = Self(rawValue: 9, style: .default)
 }
 
 // MARK: Color Static Methods
 extension Color {
     /// The ANSI black color, in either a default or bright style.
     ///
-    /// - Note: In most terminals, passing the ``Style/bright`` style into
+    /// > Note: In most terminals, passing the ``Style/bright`` style into
     ///   this method produces a color equivalent to ``gray``.
     public static func black(style: Style = .default) -> Self {
-        .init(0, style)
+        Self(rawValue: 0, style: style)
     }
 
     /// The ANSI red color, in either a default or bright style.
     public static func red(style: Style = .default) -> Self {
-        .init(1, style)
+        Self(rawValue: 1, style: style)
     }
 
     /// The ANSI green color, in either a default or bright style.
     public static func green(style: Style = .default) -> Self {
-        .init(2, style)
+        Self(rawValue: 2, style: style)
     }
 
     /// The ANSI yellow color, in either a default or bright style.
     public static func yellow(style: Style = .default) -> Self {
-        .init(3, style)
+        Self(rawValue: 3, style: style)
     }
 
     /// The ANSI blue color, in either a default or bright style.
     public static func blue(style: Style = .default) -> Self {
-        .init(4, style)
+        Self(rawValue: 4, style: style)
     }
 
     /// The ANSI magenta color, in either a default or bright style.
     public static func magenta(style: Style = .default) -> Self {
-        .init(5, style)
+        Self(rawValue: 5, style: style)
     }
 
     /// The ANSI cyan color, in either a default or bright style.
     public static func cyan(style: Style = .default) -> Self {
-        .init(6, style)
+        Self(rawValue: 6, style: style)
     }
 
     /// The ANSI white color, in either a default or bright style.
     ///
-    /// - Note: In most terminals, passing the ``Style/default`` style into
+    /// > Note: In most terminals, passing the ``Style/default`` style into
     ///   this method produces a light gray color, while the ``Style/bright``
     ///   style produces pure white.
     public static func white(style: Style = .default) -> Self {
-        .init(7, style)
+        Self(rawValue: 7, style: style)
     }
 }
 
@@ -194,10 +201,10 @@ extension Color: Hashable { }
 extension Color {
     /// Styles that impact how a ``Color`` will be rendered.
     public enum Style {
-        /// The color will be rendered in its default form.
+        /// The color will be rendered in a default style.
         case `default`
 
-        /// The color will be rendered in a brighter form.
+        /// The color will be rendered in a brighter style.
         case bright
 
         internal var foregroundCode: Int {
