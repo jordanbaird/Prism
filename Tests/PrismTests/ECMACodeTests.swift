@@ -22,11 +22,13 @@ final class ECMACodeTests: XCTestCase {
 
         XCTAssertEqual(
             EightBit.Grayscale(intensity: -5),
-            EightBit.Grayscale(intensity: 0))
+            EightBit.Grayscale(intensity: 0)
+        )
 
         XCTAssertEqual(
             EightBit.Grayscale(intensity: 5),
-            EightBit.Grayscale(intensity: 1))
+            EightBit.Grayscale(intensity: 1)
+        )
     }
 
     func testStandardColor() {

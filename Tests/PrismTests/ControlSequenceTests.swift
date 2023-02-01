@@ -40,15 +40,19 @@ final class ControlSequenceTests: XCTestCase {
     func testEqual() {
         XCTAssertEqual(
             ControlSequence(for: Bold("Bold")),
-            Bold("Bold").controlSequence)
+            Bold("Bold").controlSequence
+        )
         XCTAssertEqual(
             ControlSequence(for: Bold("Bold")).description,
-            Bold("Bold").controlSequence.description)
+            Bold("Bold").controlSequence.description
+        )
         XCTAssertEqual(
             ControlSequence(for: Bold("Bold")).debugDescription,
-            Bold("Bold").controlSequence.debugDescription)
+            Bold("Bold").controlSequence.debugDescription
+        )
         XCTAssertEqual(
             ControlSequence(for: Bold("Bold")).hashValue,
-            Bold("Bold").controlSequence.hashValue)
+            Bold("Bold").controlSequence.hashValue
+        )
     }
 }

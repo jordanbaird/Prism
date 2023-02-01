@@ -14,9 +14,11 @@ final class AttributeTests: XCTestCase {
 
         XCTAssertEqual(
             attribute.string(formatted: true),
-            "\u{001B}[1mBold\u{001B}[3mItalic\u{001B}[23m\u{001B}[22m")
+            "\u{001B}[1mBold\u{001B}[3mItalic\u{001B}[23m\u{001B}[22m"
+        )
         XCTAssertEqual(
             attribute.string(formatted: false),
-            "BoldItalic")
+            "BoldItalic"
+        )
     }
 }

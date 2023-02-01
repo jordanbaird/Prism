@@ -55,23 +55,23 @@ final class ColorTests: XCTestCase {
     }
 
     func testRGBCodes() {
-        let fgCode = "38;2;134;51;220"
-        let bgCode = "48;2;134;51;220"
+        let foregroundCode = "38;2;134;51;220"
+        let backgroundCode = "48;2;134;51;220"
         let color = Color(red: 0.526, green: 0.201, blue: 0.865)
-        XCTAssertEqual(fgCode, color.foregroundCode)
-        XCTAssertEqual(bgCode, color.backgroundCode)
+        XCTAssertEqual(foregroundCode, color.foregroundCode)
+        XCTAssertEqual(backgroundCode, color.backgroundCode)
     }
 
     func testEightBitCodes() {
-        let fgCode = "38;5;238"
-        let bgCode = "48;5;238"
+        let foregroundCode = "38;5;238"
+        let backgroundCode = "48;5;238"
         let color = Color(eightBit: .grayscale(0.3))
-        XCTAssertEqual(fgCode, color.foregroundCode)
-        XCTAssertEqual(bgCode, color.backgroundCode)
+        XCTAssertEqual(foregroundCode, color.foregroundCode)
+        XCTAssertEqual(backgroundCode, color.backgroundCode)
     }
 
     func testInitializationByString() {
-        // These should be valid.
+        // These should be valid (invalid gets set to .default).
         let c1 = Color(string: "26AB2A")
         let c2 = Color(string: "rgb(30%,77%,14%)")
         let c3 = Color(string: "rgb(5 88 247)")
@@ -83,11 +83,11 @@ final class ColorTests: XCTestCase {
 
         // This should be invalid.
         let c5 = Color(string: "ZX0L8M")
-        XCTAssertEqual(c5, .init(red: 0, green: 0, blue: 0))
+        XCTAssertEqual(c5, Color(red: 0, green: 0, blue: 0))
 
         // This should be partially invalid.
         let c6 = Color(string: "2,0.1,45")
-        XCTAssertEqual(c6, .init(red: 1, green: 0.1, blue: 1))
+        XCTAssertEqual(c6, Color(red: 1, green: 0.1, blue: 1))
     }
 
     func testHashable() {
