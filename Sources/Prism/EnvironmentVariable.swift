@@ -14,15 +14,6 @@ import Glibc
 
 /// A type that represents an environment variable.
 public struct EnvironmentVariable {
-    /// Constants that represent the status of an environment variable,
-    /// that is, whether the variable is set or unset.
-    public enum Status {
-        /// The environment variable is set.
-        case set
-        /// The environment variable is not set.
-        case unset
-    }
-
     /// The name of the environment variable.
     public let name: String
 
@@ -53,11 +44,14 @@ public struct EnvironmentVariable {
         value == nil ? .unset : .set
     }
 
-    /// Creates an environment variable with the given value.
+    /// Creates an environment variable with the given name.
     public init(_ name: String) {
         self.name = name
     }
+}
 
+// MARK: EnvironmentVariable Deprecated
+extension EnvironmentVariable {
     /// Gets the value of the environment variable.
     @available(*, deprecated, message: "Access the 'value' property directly.")
     public func get() -> String? {
@@ -77,7 +71,7 @@ public struct EnvironmentVariable {
     }
 }
 
-// MARK: EnvironmentVariable Equatable
+// MARK: EnvironmentVariable: Equatable
 extension EnvironmentVariable: Equatable {
     /// Returns a Boolean value indicating whether the given environment
     /// variables have the same name and value.
@@ -93,10 +87,23 @@ extension EnvironmentVariable: Equatable {
     }
 }
 
-// MARK: EnvironmentVariable Hashable
+// MARK: EnvironmentVariable: Hashable
 extension EnvironmentVariable: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(value)
+    }
+}
+
+// MARK: - EnvironmentVariable Status
+
+extension EnvironmentVariable {
+    /// Constants that represent the status of an environment variable,
+    /// that is, whether the variable is set or unset.
+    public enum Status {
+        /// The environment variable is set.
+        case set
+        /// The environment variable is not set.
+        case unset
     }
 }

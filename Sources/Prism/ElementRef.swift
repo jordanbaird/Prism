@@ -6,7 +6,7 @@
 
 // MARK: - ElementRef
 
-class ElementRef {
+internal class ElementRef {
     private var _prism: Prism?
 
     private var _spacing: Prism.Spacing?
@@ -47,7 +47,7 @@ class ElementRef {
 
 // MARK: - HasElementRef
 
-protocol HasElementRef: PrismElement {
+internal protocol HasElementRef: PrismElement {
     var elementRef: ElementRef { get }
 }
 

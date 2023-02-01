@@ -17,7 +17,7 @@ public struct Hexadecimal {
     /// a fallback.
     public var color: Color {
         if let rgbCode = rgbCodeFromString() {
-            return .init(rgbCode: rgbCode)
+            return Color(rgbCode: rgbCode)
         }
         return .default
     }
@@ -38,7 +38,7 @@ public struct Hexadecimal {
     /// Note that validation of the string does not happen until either ``isValid``
     /// or ``color`` is accessed.
     public init(string: String) {
-        stringCandidate = string
+        self.stringCandidate = string
     }
 
     /// Determines if the hexadecimal string provided on initialization is valid,
@@ -49,10 +49,10 @@ public struct Hexadecimal {
     /// (`#`). Whitespace is ignored, as are additional pound signs.
     public func validate() throws {
         var stringCandidate = ""
-        for char in self.stringCandidate where !(char.isWhitespace || char == "#") {
+        for char in self.stringCandidate where !char.isWhitespace && char != "#" {
             stringCandidate.append(char)
         }
-        guard stringCandidate.count % 2 == 0 else {
+        guard stringCandidate.count.isMultiple(of: 2) else {
             throw ValidationError("Hexadecimal string must have an even number of characters.")
         }
         guard stringCandidate.count >= 6 else {
@@ -86,10 +86,11 @@ public struct Hexadecimal {
             }
         }
 
-        return .init(
+        return RGBCode(
             red: Double(rawValue[0]) / 255,
             green: Double(rawValue[1]) / 255,
-            blue: Double(rawValue[2]) / 255)
+            blue: Double(rawValue[2]) / 255
+        )
     }
 }
 

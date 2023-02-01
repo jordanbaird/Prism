@@ -78,7 +78,7 @@ public struct Prism {
 
     /// Creates a prism with the given elements and spacing.
     public init(spacing: Spacing = .spaces, elements: [PrismElement]) {
-        _elements = elements
+        self._elements = elements
         self.spacing = spacing
     }
 
@@ -170,9 +170,9 @@ extension Prism {
     }
 }
 
-// MARK: Prism CustomDebugStringConvertible
+// MARK: Prism: CustomDebugStringConvertible
 extension Prism: CustomDebugStringConvertible {
-    /// A textual representation of the prism that is suitable
+    /// A textual representation of this prism that is suitable
     /// for debugging.
     public var debugDescription: String {
         elements
@@ -181,22 +181,22 @@ extension Prism: CustomDebugStringConvertible {
     }
 }
 
-// MARK: Prism CustomStringConvertible
+// MARK: Prism: CustomStringConvertible {
 extension Prism: CustomStringConvertible {
-    /// A textual representation of the prism.
+    /// A textual representation of this prism.
     public var description: String {
         elements.reduce("") { $0 + $1.description }
     }
 }
 
-// MARK: Prism Equatable
+// MARK: Prism: Equatable
 extension Prism: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.elements._isEqual(rhs.elements)
     }
 }
 
-// MARK: Prism Hashable
+// MARK: Prism: Hashable
 extension Prism: Hashable {
     public func hash(into hasher: inout Hasher) {
         elements._hash(&hasher)
@@ -205,7 +205,7 @@ extension Prism: Hashable {
 
 // MARK: Prism Test Helpers
 extension Prism {
-    var testableDescription: String {
+    internal var testableDescription: String {
         elements.reduce("") { $0 + $1.testableDescription }
     }
 }

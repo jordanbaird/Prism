@@ -19,15 +19,15 @@ public struct RGBCode {
     /// The blue component of the code.
     public let blue: Double
 
-    var rawColorCode: String {
+    internal var rawColorCode: String {
         "2;\(Int(red * 255));\(Int(green * 255));\(Int(blue * 255))"
     }
 
-    var foregroundCode: String {
+    internal var foregroundCode: String {
         "38;\(rawColorCode)"
     }
 
-    var backgroundCode: String {
+    internal var backgroundCode: String {
         "48;\(rawColorCode)"
     }
 
@@ -69,7 +69,8 @@ public struct RGBCode {
         self.init(
             red: Double(red) / 255,
             green: Double(green) / 255,
-            blue: Double(blue) / 255)
+            blue: Double(blue) / 255
+        )
     }
 
     /// Creates a code from a string consisting of red, green, and
@@ -110,29 +111,32 @@ public struct RGBCode {
             string.removeLast()
         }
 
-        let predicate = string.contains(",")
-        ? { $0 == "," }
-        : { $0.isWhitespace }
-        var split = string.split(whereSeparator: predicate).map {
+        let predicate: (Character) -> Bool
+
+        if string.contains(",") {
+            predicate = { $0 == "," }
+        } else {
+            predicate = { $0.isWhitespace }
+        }
+
+        let split = string.split(whereSeparator: predicate).map {
             $0.trim { $0.isWhitespace }
         }
 
         // ECMA-48 RGB mode doesn't support alpha values, so limit the
         // number of substrings to 3.
         if split.count == 3 {
-            var transformer: Transformer<Substring, Double>
+            let transformer: Transformer<Substring, Double>
 
             // If one substring has a percentage suffix, they _all_ must
             // have one. Remove the suffix and clamp the result to range
             // 0...100. Divide by 100 to calculate the percentage.
             if split.contains(where: { $0.hasSuffix("%") }) {
                 transformer = {
-                    var string = $0
-                    guard string.hasSuffix("%") else {
+                    guard $0.hasSuffix("%") else {
                         return 0
                     }
-                    string.removeLast()
-                    if let number = Double(string) {
+                    if let number = Double($0.dropLast()) {
                         return number.clamped(to: 0...100) / 100
                     }
                     return 0
@@ -169,8 +173,7 @@ public struct RGBCode {
             self.init(red: numbers[0], green: numbers[1], blue: numbers[2])
         } else if split.count > 3 {
             // Remove the extra substrings and call the initializer again.
-            split.removeLast(split.count - 3)
-            self.init(string: split.joined(separator: " "))
+            self.init(string: split.dropLast(split.count - 3).joined(separator: " "))
         } else {
             // Worst-case scenario, initialize to zero.
             self.init(red: 0, green: 0, blue: 0)
@@ -178,8 +181,8 @@ public struct RGBCode {
     }
 }
 
-// MARK: Equatable
+// MARK: RGBCode: Equatable
 extension RGBCode: Equatable { }
 
-// MARK: Hashable
+// MARK: RGBCode: Hashable
 extension RGBCode: Hashable { }

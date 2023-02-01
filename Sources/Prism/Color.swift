@@ -4,24 +4,26 @@
 //
 //===----------------------------------------------------------------------===//
 
+// MARK: - Color
+
 /// A type that represents the color that text will be rendered with
 /// when displayed in a terminal.
 public struct Color {
 
     // MARK: Properties
 
-    let foregroundCode: String
+    internal let foregroundCode: String
 
-    let backgroundCode: String
+    internal let backgroundCode: String
 
     // MARK: Initializers
 
-    init(_ foregroundCode: String, _ backgroundCode: String) {
+    internal init(_ foregroundCode: String, _ backgroundCode: String) {
         self.foregroundCode = foregroundCode
         self.backgroundCode = backgroundCode
     }
 
-    init(_ rawValue: Int, _ style: Style) {
+    internal init(_ rawValue: Int, _ style: Style) {
         self.init(
             "\(rawValue + style.foregroundCode)",
             "\(rawValue + style.backgroundCode)")
@@ -91,7 +93,7 @@ public struct Color {
     }
 }
 
-// MARK: Static Constants
+// MARK: Color Static Constants
 extension Color {
     /// The ANSI black color.
     public static let black = black(style: .default)
@@ -131,7 +133,7 @@ extension Color {
     public static let `default` = Self(9, .default)
 }
 
-// MARK: Static Methods
+// MARK: Color Static Methods
 extension Color {
     /// The ANSI black color, in either a default or bright style.
     ///
@@ -181,10 +183,10 @@ extension Color {
     }
 }
 
-// MARK: Equatable
+// MARK: Color: Equatable
 extension Color: Equatable { }
 
-// MARK: Hashable
+// MARK: Color: Hashable
 extension Color: Hashable { }
 
 // MARK: - Color Style
@@ -198,7 +200,7 @@ extension Color {
         /// The color will be rendered in a brighter form.
         case bright
 
-        var foregroundCode: Int {
+        internal var foregroundCode: Int {
             switch self {
             case .default:
                 return 30
@@ -207,7 +209,7 @@ extension Color {
             }
         }
 
-        var backgroundCode: Int {
+        internal var backgroundCode: Int {
             switch self {
             case .default:
                 return 40

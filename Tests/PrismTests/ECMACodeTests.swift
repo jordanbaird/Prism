@@ -1,13 +1,13 @@
 //===----------------------------------------------------------------------===//
 //
-// EightBitTests.swift
+// ECMACodeTests.swift
 //
 //===----------------------------------------------------------------------===//
 
 import XCTest
 @testable import Prism
 
-final class EightBitTests: XCTestCase {
+final class ECMACodeTests: XCTestCase {
     func testGrayscale() {
         let c0 = EightBit.Grayscale(intensity: 0)
         let c1 = EightBit.Grayscale(intensity: 1)

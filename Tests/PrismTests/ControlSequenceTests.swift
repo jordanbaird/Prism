@@ -8,7 +8,7 @@ import XCTest
 @testable import Prism
 
 final class ControlSequenceTests: XCTestCase {
-    func testMapped() {
+    func testReduced() {
         XCTAssertEqual("\u{001B}[0m", ControlSequence.reset.reduced)
         XCTAssertEqual("\u{001B}[1m", ControlSequence.boldOn.reduced)
         XCTAssertEqual("\u{001B}[22m", ControlSequence.boldOff.reduced)

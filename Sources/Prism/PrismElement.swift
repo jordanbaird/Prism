@@ -6,24 +6,26 @@
 
 // MARK: - PrismElement
 
-/// A type that can be combined with other elements to make up a ``Prism``.
+/// A type that can be combined with other elements to make up
+/// a ``Prism/Prism``.
 public protocol PrismElement: CustomStringConvertible, CustomDebugStringConvertible {
-    /// The control sequence at the base of the element.
+    /// The control sequence at the base of this element.
     var controlSequence: ControlSequence { get }
 
-    /// The elements nested inside the element.
+    /// The elements nested inside this element.
     var nestedElements: [PrismElement] { get set }
 
-    /// The element's enclosing ``Prism`` object.
+    /// The element's enclosing ``Prism/Prism``.
     var prism: Prism? { get nonmutating set }
 
     /// The spacing of the element.
     ///
-    /// Unless otherwise set, this is the same as the spacing
-    /// of the element's enclosing ``Prism`` object.
+    /// Unless otherwise specified, this value is the same as the
+    /// ``Prism/Prism/spacing-swift.property`` of the element's
+    /// enclosing ``Prism/Prism``.
     var spacing: Prism.Spacing { get set }
 
-    /// The raw value of the element.
+    /// The raw value of this element.
     var rawValue: String { get }
 }
 
@@ -75,7 +77,7 @@ extension PrismElement {
 
 // MARK: PrismElement Helpers
 extension PrismElement {
-    func maybePrependSpacer() -> [PrismElement] {
+    internal func maybePrependSpacer() -> [PrismElement] {
         switch spacing {
         case .managed(.spaces):
             return [Spacer(type: .space), self]
@@ -90,7 +92,7 @@ extension PrismElement {
         }
     }
 
-    func updateNestedElements() {
+    internal func updateNestedElements() {
         for element in nestedElements {
             element.setParentElementRef(from: self)
             element.prism = prism
@@ -98,7 +100,7 @@ extension PrismElement {
         }
     }
 
-    func setParentElementRef(from element: PrismElement) {
+    internal func setParentElementRef(from element: PrismElement) {
         guard
             let self = self as? HasElementRef,
             let element = element as? HasElementRef
@@ -108,12 +110,12 @@ extension PrismElement {
         self.elementRef.parentElementRef = element.elementRef
     }
 
-    func _isEqual(_ other: PrismElement) -> Bool {
+    internal func _isEqual(_ other: PrismElement) -> Bool {
         controlSequence == other.controlSequence &&
         nestedElements._isEqual(other.nestedElements)
     }
 
-    func _hash(_ hasher: inout Hasher) {
+    internal func _hash(_ hasher: inout Hasher) {
         hasher.combine(controlSequence)
         nestedElements._hash(&hasher)
     }
@@ -121,7 +123,7 @@ extension PrismElement {
 
 // MARK: Array Helpers
 extension Array where Element == PrismElement {
-    func _isEqual(_ other: [PrismElement]) -> Bool {
+    internal func _isEqual(_ other: [PrismElement]) -> Bool {
         guard endIndex == other.endIndex else {
             return false
         }
@@ -130,7 +132,7 @@ extension Array where Element == PrismElement {
         }
     }
 
-    func _hash(_ hasher: inout Hasher) {
+    internal func _hash(_ hasher: inout Hasher) {
         for element in self {
             element._hash(&hasher)
         }
@@ -139,7 +141,7 @@ extension Array where Element == PrismElement {
 
 // MARK: Test Helpers
 extension PrismElement {
-    var testableDescription: String {
+    internal var testableDescription: String {
         controlSequence.base.reduce("") { $0 + $1.rawValue }
     }
 }

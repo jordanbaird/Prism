@@ -9,12 +9,12 @@
 /// A prism element that adds a single space or tab to a
 /// control sequence.
 public struct Spacer: SpacerElement, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
-    let type: SpacerType
+    internal let type: SpacerType
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(type: SpacerType = .space) {
@@ -27,12 +27,12 @@ public struct Spacer: SpacerElement, HasElementRef {
 /// A prism element that adds a single line break to a
 /// control sequence.
 public struct LineBreak: SpacerElement, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
-    let type: LineBreakType
+    internal let type: LineBreakType
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(type: LineBreakType = .newline) {
@@ -44,7 +44,7 @@ public struct LineBreak: SpacerElement, HasElementRef {
 
 /// A prism element that resets the entire sequence.
 public struct Reset: PrismElement, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue = ""
 
@@ -75,26 +75,26 @@ public struct Reset: PrismElement, HasElementRef {
 /// }
 /// ```
 public struct Standard: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
+        self.rawValue = string
         self.nestedElements = nestedElements
     }
 
-    init(element: PrismElement) {
+    internal init(element: PrismElement) {
         let nestedElements = element.nestedElements.map {
             Self(element: $0)
         }
         self.init(element.rawValue, nestedElements: nestedElements)
-        prism = element.prism
-        spacing = element.spacing
+        self.prism = element.prism
+        self.spacing = element.spacing
     }
 }
 
@@ -102,18 +102,18 @@ public struct Standard: Attribute, HasElementRef {
 
 /// A prism element that renders its text in a bold font.
 public struct Bold: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .boldOn, off: .boldOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .boldOn, off: .boldOff)
     }
 }
 
@@ -121,18 +121,18 @@ public struct Bold: Attribute, HasElementRef {
 
 /// A prism element that renders its text in a dim color.
 public struct Dim: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .dimOn, off: .dimOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .dimOn, off: .dimOff)
     }
 }
 
@@ -140,18 +140,18 @@ public struct Dim: Attribute, HasElementRef {
 
 /// A prism element that renders its text in italics.
 public struct Italic: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .italicOn, off: .italicOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .italicOn, off: .italicOff)
     }
 }
 
@@ -159,18 +159,18 @@ public struct Italic: Attribute, HasElementRef {
 
 /// A prism element that renders its text with an underline.
 public struct Underline: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .underlineOn, off: .underlineOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .underlineOn, off: .underlineOff)
     }
 }
 
@@ -178,18 +178,18 @@ public struct Underline: Attribute, HasElementRef {
 
 /// A prism element that renders its text with an overline.
 public struct Overline: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .overlineOn, off: .overlineOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .overlineOn, off: .overlineOff)
     }
 }
 
@@ -197,18 +197,18 @@ public struct Overline: Attribute, HasElementRef {
 
 /// A prism element that causes the text it renders to blink.
 public struct Blink: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .blinkOn, off: .blinkOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .blinkOn, off: .blinkOff)
     }
 }
 
@@ -217,18 +217,18 @@ public struct Blink: Attribute, HasElementRef {
 /// A prism element that swaps the foreground and background
 /// colors of its text.
 public struct Swap: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .swapOn, off: .swapOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .swapOn, off: .swapOff)
     }
 }
 
@@ -236,18 +236,18 @@ public struct Swap: Attribute, HasElementRef {
 
 /// A prism element that hides its text.
 public struct Hide: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .hideOn, off: .hideOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .hideOn, off: .hideOff)
     }
 }
 
@@ -255,18 +255,18 @@ public struct Hide: Attribute, HasElementRef {
 
 /// A prism element that renders its text with a strikethrough.
 public struct Strikethrough: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .strikethroughOn, off: .strikethroughOff)
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .strikethroughOn, off: .strikethroughOff)
     }
 }
 
@@ -274,20 +274,20 @@ public struct Strikethrough: Attribute, HasElementRef {
 
 /// A prism element that renders its text with a given color.
 public struct ForegroundColor: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     /// Creates an attribute with the given color, string, and
     /// nested elements.
     public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .foregroundColor(color), off: .foregroundColor(.default))
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .foregroundColor(color), off: .foregroundColor(.default))
     }
 
     /// Creates an attribute with the given color, string, and
@@ -313,20 +313,20 @@ public struct ForegroundColor: Attribute, HasElementRef {
 /// A prism element that renders the background of its text
 /// with a given color.
 public struct BackgroundColor: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     /// Creates an attribute with the given color, string, and
     /// nested elements.
     public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
-        setSequences(on: .backgroundColor(color), off: .backgroundColor(.default))
+        self.rawValue = string
         self.nestedElements = nestedElements
+        self.setSequences(on: .backgroundColor(color), off: .backgroundColor(.default))
     }
 
     /// Creates an attribute with the given color, string,
@@ -352,12 +352,12 @@ public struct BackgroundColor: Attribute, HasElementRef {
 /// A prism element that removes all formatting from any
 /// elements nested inside it.
 public struct IgnoreFormatting: Attribute, HasElementRef {
-    let elementRef = ElementRef()
+    internal let elementRef = ElementRef()
 
     public let rawValue: String
 
     public var controlSequence: ControlSequence {
-        .init(for: self)
+        ControlSequence(for: self)
     }
 
     public var onSequence: ControlSequence {
@@ -381,7 +381,7 @@ public struct IgnoreFormatting: Attribute, HasElementRef {
     }
 
     public init(_ string: String, nestedElements: [PrismElement] = []) {
-        rawValue = string
+        self.rawValue = string
         self.nestedElements = nestedElements
     }
 }

@@ -4,6 +4,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+// MARK: - Attribute
+
 /// A type that modifies a string for display in a terminal.
 public protocol Attribute: PrismElement {
     /// The control sequence that indicates the start of the attribute.

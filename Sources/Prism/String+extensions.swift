@@ -1,13 +1,11 @@
 //===----------------------------------------------------------------------===//
 //
-// String+extension.swift
+// String+extensions.swift
 //
 //===----------------------------------------------------------------------===//
 
+// MARK: String Properties
 extension String {
-
-    // MARK: Properties
-
     /// A version of the string whose text will be bolded when
     /// displayed in a terminal.
     public var bold: Self {
@@ -55,9 +53,10 @@ extension String {
     public var strikethrough: Self {
         Strikethrough(self).string()
     }
+}
 
-    // MARK: Methods
-
+// MARK: String Methods
+extension String {
     /// Returns a version of the string whose text will be rendered with
     /// the given foreground color when displayed in a terminal.
     public func foregroundColor(_ color: Color) -> Self {
@@ -68,5 +67,12 @@ extension String {
     /// the given background color when displayed in a terminal.
     public func backgroundColor(_ color: Color) -> Self {
         BackgroundColor(color, self).string()
+    }
+}
+
+// MARK: String: PrismElementConvertible
+extension String: PrismElementConvertible {
+    public var prismElement: PrismElement {
+        Standard(self)
     }
 }

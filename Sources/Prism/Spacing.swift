@@ -58,35 +58,35 @@ extension Prism {
         ///
         /// This constant is equivalent to the ``managed(_:)`` case with
         /// the ``ElementType/spaces`` element type.
-        public static let spaces = Self.managed(.spaces)
+        public static let spaces = managed(.spaces)
 
         /// Elements are automatically separated by ``Spacer/SpacerType/tab``
         /// `("\t")` characters.
         ///
         /// This constant is equivalent to the ``managed(_:)`` case with
         /// the ``ElementType/tabs`` element type.
-        public static let tabs = Self.managed(.tabs)
+        public static let tabs = managed(.tabs)
 
         /// Elements are automatically separated by ``LineBreak/LineBreakType/newline``
         /// `("\n")` characters.
         ///
         /// This constant is equivalent to the ``managed(_:)`` case with
         /// the ``ElementType/newlines`` element type.
-        public static let newlines = Self.managed(.newlines)
+        public static let newlines = managed(.newlines)
 
         /// Elements are automatically separated by ``LineBreak/LineBreakType/return``
         /// `("\r")` characters.
         ///
         /// This constant is equivalent to the ``managed(_:)`` case with
         /// the ``ElementType/returns`` element type.
-        public static let returns = Self.managed(.returns)
+        public static let returns = managed(.returns)
     }
 }
 
-// MARK: Spacing Equatable
+// MARK: Spacing: Equatable
 extension Prism.Spacing: Equatable { }
 
-// MARK: Spacing Hashable
+// MARK: Spacing: Hashable
 extension Prism.Spacing: Hashable { }
 
 // MARK: - Spacing ElementType
@@ -112,8 +112,8 @@ extension Prism.Spacing {
     }
 }
 
-// MARK: ElementType Equatable
+// MARK: ElementType: Equatable
 extension Prism.Spacing.ElementType: Equatable { }
 
-// MARK: ElementType Hashable
+// MARK: ElementType: Hashable
 extension Prism.Spacing.ElementType: Hashable { }
