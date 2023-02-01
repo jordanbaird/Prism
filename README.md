@@ -53,7 +53,7 @@ let text = Prism(spacing: .newlines) {
         BackgroundColor(.cyan) {
             Underline {
                 "This text is bold, underlined, and has a cyan background."
-                IgnoreFormatting("This text has no formatting.")
+                Unformatted("This text has no formatting.")
                 "Back to bold and underlined, with a cyan background."
             }
         }

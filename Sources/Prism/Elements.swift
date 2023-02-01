@@ -358,11 +358,11 @@ public struct BackgroundColor: Attribute, ReferencingAttribute {
     }
 }
 
-// MARK: - IgnoreFormatting
+// MARK: - Unformatted
 
 /// A prism element that removes all formatting from any
 /// elements nested inside it.
-public struct IgnoreFormatting: Attribute, ReferencingAttribute {
+public struct Unformatted: Attribute, ReferencingAttribute {
     internal let ref = AttributeRef()
 
     public let rawValue: String
@@ -400,3 +400,10 @@ public struct IgnoreFormatting: Attribute, ReferencingAttribute {
         self.nestedElements = nestedElements
     }
 }
+
+// MARK: - IgnoreFormatting
+
+/// A prism element that removes all formatting from any
+/// elements nested inside it.
+@available(*, deprecated, renamed: "Unformatted", message: "renamed to 'Unformatted'")
+public typealias IgnoreFormatting = Unformatted

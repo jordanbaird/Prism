@@ -144,11 +144,11 @@ final class ElementTests: XCTestCase {
         )
     }
 
-    func testIgnoreFormatting() {
+    func testUnformatted() {
         let p = Prism(spacing: .custom) {
             Bold {
                 "Bold"
-                IgnoreFormatting("Not bold")
+                Unformatted("Not bold")
             }
         }
         XCTAssertEqual(
