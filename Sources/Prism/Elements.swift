@@ -58,10 +58,10 @@ public struct Reset: PrismElement, ReferencingElement {
 
 /// A prism element that does not alter its contents.
 ///
-/// If you are working within the context of an ``ElementBuilder``, like,
-/// for example, when initializing a prism, you don't need to use this type
-/// directly. Simply passing in a string will automatically produce a
-/// result of this type.
+/// If you are working within the context of an ``ElementBuilder``,
+/// for example, when initializing a ``Prism/Prism``, you don't need
+/// to use this type directly. Simply passing in a string will
+/// automatically produce a result of this type.
 ///
 /// In the following example, the two prisms are semantically identical:
 ///
@@ -200,7 +200,7 @@ public struct Overline: Attribute, ReferencingAttribute {
 
 // MARK: - Blink
 
-/// A prism element that causes the text it renders to blink.
+/// A prism element that causes its text to blink.
 public struct Blink: Attribute, ReferencingAttribute {
     internal let ref = AttributeRef()
 
