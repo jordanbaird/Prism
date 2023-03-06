@@ -29,7 +29,7 @@ let text = Prism(spacing: .newlines) {
         BackgroundColor(.cyan) {
             Underline {
                 "This text is bold, underlined, and has a cyan background."
-                Unformatted("This text has no formatting.")
+                IgnoreFormatting("This text has no formatting.")
                 "Back to bold and underlined, with a cyan background."
             }
         }
@@ -96,7 +96,7 @@ Note that some terminal clients may display certain elements differently than ot
 - ``Strikethrough``
 - ``ForegroundColor``
 - ``BackgroundColor``
-- ``Unformatted``
+- ``IgnoreFormatting``
 
 ### Other Elements
 
