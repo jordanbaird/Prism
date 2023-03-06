@@ -16,32 +16,24 @@ extension Numeric where Self: Comparable {
     }
 }
 
-// MARK: - StringProtocol
+// MARK: - RangeReplaceableCollection
 
-extension StringProtocol {
-    private init<C: Collection>(_collection: C) where C.Element == Character {
-        self = String(_collection).withCString { Self(cString: $0) }
+extension RangeReplaceableCollection {
+    func trim(while predicate: (Element) throws -> Bool) rethrows -> Self {
+        try Self(drop(while: predicate).reversed().drop(while: predicate).reversed())
     }
 
-    private func dropReverse(while predicate: (Character) throws -> Bool) rethrows -> Self {
-        try .init(_collection: drop(while: predicate).reversed())
-    }
-
-    func trim(while predicate: (Character) throws -> Bool) rethrows -> Self {
-        try dropReverse(while: predicate).dropReverse(while: predicate)
-    }
-
-    func replacing(_ oldString: String, with newString: String) -> Self {
-        guard !oldString.isEmpty else {
+    func replacing(_ old: Self, with new: Self) -> Self where Self: Equatable {
+        guard !old.isEmpty else {
             return self
         }
-        let string = reduce(into: "") { string, char in
-            string.append(char)
-            let suffix = string.suffix(oldString.count)
-            if suffix == oldString {
-                string = string.prefix(upTo: suffix.startIndex) + newString
+        let result = reduce(into: Self()) { collection, element in
+            collection.append(element)
+            let suffix = collection.suffix(old.count)
+            if Self(suffix) == old {
+                collection = collection.prefix(upTo: suffix.startIndex) + new
             }
         }
-        return Self(_collection: string)
+        return result
     }
 }
