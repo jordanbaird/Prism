@@ -6,7 +6,7 @@
 
 // MARK: - SpacerElement
 
-internal protocol SpacerElement: PrismElement {
+protocol SpacerElement: PrismElement {
     /// The type of the spacer associated with the element.
     associatedtype SpacerType: SpacerElementType
 
@@ -30,7 +30,7 @@ extension SpacerElement {
 
 // MARK: - SpacerElementType
 
-internal protocol SpacerElementType {
+protocol SpacerElementType {
     var rawValue: String { get }
 }
 

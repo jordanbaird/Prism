@@ -8,25 +8,25 @@
 
 /// A sequence of components that make up the underlying value of a prism.
 public struct ControlSequence {
-    internal let components: [Component]
+    let components: [Component]
 
-    internal var reduced: String {
+    var reduced: String {
         components.reduce("") { $0 + $1.rawValue }
     }
 
-    internal init(components: [Component]) {
+    init(components: [Component]) {
         self.components = components
     }
 
-    internal init() {
+    init() {
         self.init(components: [])
     }
 
-    internal init(withComponentValue value: Any) {
+    init(withComponentValue value: Any) {
         self.init(components: [.introducer, Component(value: value), .closer])
     }
 
-    internal init(for element: PrismElement) {
+    init(for element: PrismElement) {
         if element.nestedElements.isEmpty {
             if let element = element as? Attribute {
                 self = element.onSequence + .string(element.rawValue) + element.offSequence
@@ -48,47 +48,47 @@ public struct ControlSequence {
 
 // MARK: ControlSequence Static Constants
 extension ControlSequence {
-    internal static let reset = Self(withComponentValue: 0)
+    static let reset = Self(withComponentValue: 0)
 
-    internal static let boldOn = Self(withComponentValue: 1)
-    internal static let boldOff = Self(withComponentValue: 22)
+    static let boldOn = Self(withComponentValue: 1)
+    static let boldOff = Self(withComponentValue: 22)
 
-    internal static let dimOn = Self(withComponentValue: 2)
-    internal static let dimOff = Self(withComponentValue: 22)
+    static let dimOn = Self(withComponentValue: 2)
+    static let dimOff = Self(withComponentValue: 22)
 
-    internal static let italicOn = Self(withComponentValue: 3)
-    internal static let italicOff = Self(withComponentValue: 23)
+    static let italicOn = Self(withComponentValue: 3)
+    static let italicOff = Self(withComponentValue: 23)
 
-    internal static let underlineOn = Self(withComponentValue: 4)
-    internal static let underlineOff = Self(withComponentValue: 24)
+    static let underlineOn = Self(withComponentValue: 4)
+    static let underlineOff = Self(withComponentValue: 24)
 
-    internal static let overlineOn = Self(withComponentValue: 53)
-    internal static let overlineOff = Self(withComponentValue: 55)
+    static let overlineOn = Self(withComponentValue: 53)
+    static let overlineOff = Self(withComponentValue: 55)
 
-    internal static let blinkOn = Self(withComponentValue: 5)
-    internal static let blinkOff = Self(withComponentValue: 25)
+    static let blinkOn = Self(withComponentValue: 5)
+    static let blinkOff = Self(withComponentValue: 25)
 
-    internal static let swapOn = Self(withComponentValue: 7)
-    internal static let swapOff = Self(withComponentValue: 27)
+    static let swapOn = Self(withComponentValue: 7)
+    static let swapOff = Self(withComponentValue: 27)
 
-    internal static let hideOn = Self(withComponentValue: 8)
-    internal static let hideOff = Self(withComponentValue: 28)
+    static let hideOn = Self(withComponentValue: 8)
+    static let hideOff = Self(withComponentValue: 28)
 
-    internal static let strikethroughOn = Self(withComponentValue: 9)
-    internal static let strikethroughOff = Self(withComponentValue: 29)
+    static let strikethroughOn = Self(withComponentValue: 9)
+    static let strikethroughOff = Self(withComponentValue: 29)
 }
 
 // MARK: ControlSequence Static Methods
 extension ControlSequence {
-    internal static func foregroundColor(_ color: Color) -> Self {
+    static func foregroundColor(_ color: Color) -> Self {
         Self(withComponentValue: color.foregroundCode)
     }
 
-    internal static func backgroundColor(_ color: Color) -> Self {
+    static func backgroundColor(_ color: Color) -> Self {
         Self(withComponentValue: color.backgroundCode)
     }
 
-    internal static func string(_ string: String) -> Self {
+    static func string(_ string: String) -> Self {
         Self(components: [Component(rawValue: string)])
     }
 }
@@ -140,7 +140,7 @@ extension ControlSequence: Hashable { }
 // MARK: - ControlSequence Component
 
 extension ControlSequence {
-    internal struct Component {
+    struct Component {
         let rawValue: String
 
         var escapedDescription: String {

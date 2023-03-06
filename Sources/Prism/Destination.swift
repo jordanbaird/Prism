@@ -4,7 +4,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-internal enum Destination {
+enum Destination {
     case formattingCompatible
     case formattingIncompatible
     case unknown

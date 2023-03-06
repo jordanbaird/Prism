@@ -17,15 +17,15 @@ public protocol ECMACode: Equatable, Hashable {
 public struct EightBit: ECMACode {
     public let numericCode: UInt8
 
-    internal var rawColorCode: String {
+    var rawColorCode: String {
         "5;\(numericCode)"
     }
 
-    internal var foregroundCode: String {
+    var foregroundCode: String {
         "38;\(rawColorCode)"
     }
 
-    internal var backgroundCode: String {
+    var backgroundCode: String {
         "48;\(rawColorCode)"
     }
 
@@ -200,7 +200,7 @@ extension EightBit {
     public struct AnySubcode: ECMACode {
         public let numericCode: UInt8
 
-        internal init(numericCode: UInt8) {
+        init(numericCode: UInt8) {
             self.numericCode = numericCode
         }
 

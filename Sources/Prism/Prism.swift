@@ -205,7 +205,7 @@ extension Prism: Hashable {
 
 // MARK: Prism Test Helpers
 extension Prism {
-    internal var testableDescription: String {
+    var testableDescription: String {
         elements.reduce("") { $0 + $1.testableDescription }
     }
 }

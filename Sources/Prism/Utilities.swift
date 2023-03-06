@@ -6,12 +6,12 @@
 
 // MARK: - Transformer
 
-internal typealias Transformer<From, To> = (From) -> To
+typealias Transformer<From, To> = (From) -> To
 
 // MARK: - Numeric (Self: Comparable)
 
 extension Numeric where Self: Comparable {
-    internal func clamped(to range: ClosedRange<Self>) -> Self {
+    func clamped(to range: ClosedRange<Self>) -> Self {
         max(min(self, range.upperBound), range.lowerBound)
     }
 }
@@ -27,11 +27,11 @@ extension StringProtocol {
         try .init(_collection: drop(while: predicate).reversed())
     }
 
-    internal func trim(while predicate: (Character) throws -> Bool) rethrows -> Self {
+    func trim(while predicate: (Character) throws -> Bool) rethrows -> Self {
         try dropReverse(while: predicate).dropReverse(while: predicate)
     }
 
-    internal func replacing(_ oldString: String, with newString: String) -> Self {
+    func replacing(_ oldString: String, with newString: String) -> Self {
         guard !oldString.isEmpty else {
             return self
         }

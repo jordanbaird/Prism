@@ -19,15 +19,15 @@ public struct RGBCode {
     /// The blue component of the code.
     public let blue: Double
 
-    internal var rawColorCode: String {
+    var rawColorCode: String {
         "2;\(Int(red * 255));\(Int(green * 255));\(Int(blue * 255))"
     }
 
-    internal var foregroundCode: String {
+    var foregroundCode: String {
         "38;\(rawColorCode)"
     }
 
-    internal var backgroundCode: String {
+    var backgroundCode: String {
         "48;\(rawColorCode)"
     }
 

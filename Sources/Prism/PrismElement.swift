@@ -77,7 +77,7 @@ extension PrismElement {
 
 // MARK: PrismElement Helpers
 extension PrismElement {
-    internal func maybePrependSpacer() -> [PrismElement] {
+    func maybePrependSpacer() -> [PrismElement] {
         switch spacing {
         case .managed(.spaces):
             return [Spacer(type: .space), self]
@@ -92,7 +92,7 @@ extension PrismElement {
         }
     }
 
-    internal func updateNestedElements() {
+    func updateNestedElements() {
         for element in nestedElements {
             element.setParent(from: self)
             element.setPrism(from: self)
@@ -100,15 +100,15 @@ extension PrismElement {
         }
     }
 
-    internal func setPrism(to prism: Prism?) {
+    func setPrism(to prism: Prism?) {
         (self as? any ReferencingElement)?.prism = prism
     }
 
-    internal func setPrism(from element: PrismElement) {
+    func setPrism(from element: PrismElement) {
         setPrism(to: element.prism)
     }
 
-    internal func setParent(from element: PrismElement) {
+    func setParent(from element: PrismElement) {
         guard
             let self = self as? any ReferencingElement,
             let element = element as? any ReferencingElement
@@ -118,12 +118,12 @@ extension PrismElement {
         self.ref.parent = element.ref
     }
 
-    internal func _isEqual(_ other: PrismElement) -> Bool {
+    func _isEqual(_ other: PrismElement) -> Bool {
         controlSequence == other.controlSequence &&
         nestedElements._isEqual(other.nestedElements)
     }
 
-    internal func _hash(_ hasher: inout Hasher) {
+    func _hash(_ hasher: inout Hasher) {
         hasher.combine(controlSequence)
         nestedElements._hash(&hasher)
     }
@@ -131,7 +131,7 @@ extension PrismElement {
 
 // MARK: Array Helpers
 extension Array where Element == PrismElement {
-    internal func _isEqual(_ other: [PrismElement]) -> Bool {
+    func _isEqual(_ other: [PrismElement]) -> Bool {
         guard endIndex == other.endIndex else {
             return false
         }
@@ -140,7 +140,7 @@ extension Array where Element == PrismElement {
         }
     }
 
-    internal func _hash(_ hasher: inout Hasher) {
+    func _hash(_ hasher: inout Hasher) {
         for element in self {
             element._hash(&hasher)
         }
@@ -149,7 +149,7 @@ extension Array where Element == PrismElement {
 
 // MARK: Test Helpers
 extension PrismElement {
-    internal var testableDescription: String {
+    var testableDescription: String {
         controlSequence.components.reduce("") { $0 + $1.rawValue }
     }
 }

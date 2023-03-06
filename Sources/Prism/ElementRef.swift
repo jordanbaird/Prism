@@ -6,7 +6,7 @@
 
 // MARK: - ElementRef
 
-internal class ElementRef {
+class ElementRef {
     weak var parent: ElementRef?
 
     private var _nestedElements = [PrismElement]()
@@ -44,7 +44,7 @@ internal class ElementRef {
 
 // MARK: - ReferencingElement
 
-internal protocol ReferencingElement: PrismElement {
+protocol ReferencingElement: PrismElement {
     associatedtype RefType: ElementRef
     var ref: RefType { get }
 }
@@ -78,14 +78,14 @@ extension ReferencingElement {
 
 // MARK: - AttributeRef
 
-internal class AttributeRef: ElementRef {
+class AttributeRef: ElementRef {
     var onSequence = ControlSequence()
     var offSequence = ControlSequence()
 }
 
 // MARK: - ReferencingAttribute
 
-internal protocol ReferencingAttribute: ReferencingElement, Attribute where RefType == AttributeRef { }
+protocol ReferencingAttribute: ReferencingElement, Attribute where RefType == AttributeRef { }
 
 // MARK: ReferencingAttribute Default Implementation
 extension ReferencingAttribute {

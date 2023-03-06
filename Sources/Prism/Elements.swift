@@ -9,9 +9,9 @@
 /// A prism element that adds a single space or tab to a
 /// control sequence.
 public struct Spacer: SpacerElement, ReferencingElement {
-    internal let ref = ElementRef()
+    let ref = ElementRef()
 
-    internal let type: SpacerType
+    let type: SpacerType
 
     public var controlSequence: ControlSequence {
         ControlSequence(for: self)
@@ -27,9 +27,9 @@ public struct Spacer: SpacerElement, ReferencingElement {
 /// A prism element that adds a single line break to a
 /// control sequence.
 public struct LineBreak: SpacerElement, ReferencingElement {
-    internal let ref = ElementRef()
+    let ref = ElementRef()
 
-    internal let type: LineBreakType
+    let type: LineBreakType
 
     public var controlSequence: ControlSequence {
         ControlSequence(for: self)
@@ -44,7 +44,7 @@ public struct LineBreak: SpacerElement, ReferencingElement {
 
 /// A prism element that resets the entire sequence.
 public struct Reset: PrismElement, ReferencingElement {
-    internal let ref = ElementRef()
+    let ref = ElementRef()
 
     public let rawValue = ""
 
@@ -75,7 +75,7 @@ public struct Reset: PrismElement, ReferencingElement {
 /// }
 /// ```
 public struct Standard: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -88,7 +88,7 @@ public struct Standard: Attribute, ReferencingAttribute {
         self.nestedElements = nestedElements
     }
 
-    internal init(element: PrismElement) {
+    init(element: PrismElement) {
         let nestedElements = element.nestedElements.map {
             Self(element: $0)
         }
@@ -102,7 +102,7 @@ public struct Standard: Attribute, ReferencingAttribute {
 
 /// A prism element that renders its text in a bold font.
 public struct Bold: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -122,7 +122,7 @@ public struct Bold: Attribute, ReferencingAttribute {
 
 /// A prism element that renders its text in a dim color.
 public struct Dim: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -142,7 +142,7 @@ public struct Dim: Attribute, ReferencingAttribute {
 
 /// A prism element that renders its text in italics.
 public struct Italic: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -162,7 +162,7 @@ public struct Italic: Attribute, ReferencingAttribute {
 
 /// A prism element that renders its text with an underline.
 public struct Underline: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -182,7 +182,7 @@ public struct Underline: Attribute, ReferencingAttribute {
 
 /// A prism element that renders its text with an overline.
 public struct Overline: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -202,7 +202,7 @@ public struct Overline: Attribute, ReferencingAttribute {
 
 /// A prism element that causes its text to blink.
 public struct Blink: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -223,7 +223,7 @@ public struct Blink: Attribute, ReferencingAttribute {
 /// A prism element that swaps the foreground and background
 /// colors of its text.
 public struct Swap: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -243,7 +243,7 @@ public struct Swap: Attribute, ReferencingAttribute {
 
 /// A prism element that hides its text.
 public struct Hide: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -263,7 +263,7 @@ public struct Hide: Attribute, ReferencingAttribute {
 
 /// A prism element that renders its text with a strikethrough.
 public struct Strikethrough: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -283,7 +283,7 @@ public struct Strikethrough: Attribute, ReferencingAttribute {
 
 /// A prism element that renders its text with a given color.
 public struct ForegroundColor: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -323,7 +323,7 @@ public struct ForegroundColor: Attribute, ReferencingAttribute {
 /// A prism element that renders the background of its text
 /// with a given color.
 public struct BackgroundColor: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 
@@ -363,7 +363,7 @@ public struct BackgroundColor: Attribute, ReferencingAttribute {
 /// A prism element that removes all formatting from any
 /// elements nested inside it.
 public struct Unformatted: Attribute, ReferencingAttribute {
-    internal let ref = AttributeRef()
+    let ref = AttributeRef()
 
     public let rawValue: String
 

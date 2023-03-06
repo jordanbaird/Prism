@@ -12,18 +12,18 @@ public struct Color {
 
     // MARK: Properties
 
-    internal let foregroundCode: String
+    let foregroundCode: String
 
-    internal let backgroundCode: String
+    let backgroundCode: String
 
     // MARK: Initializers
 
-    internal init(foregroundCode: String, backgroundCode: String) {
+    init(foregroundCode: String, backgroundCode: String) {
         self.foregroundCode = foregroundCode
         self.backgroundCode = backgroundCode
     }
 
-    internal init(rawValue: Int, style: Style) {
+    init(rawValue: Int, style: Style) {
         self.init(
             foregroundCode: "\(rawValue + style.foregroundCode)",
             backgroundCode: "\(rawValue + style.backgroundCode)"
@@ -207,7 +207,7 @@ extension Color {
         /// The color will be rendered in a brighter style.
         case bright
 
-        internal var foregroundCode: Int {
+        var foregroundCode: Int {
             switch self {
             case .default:
                 return 30
@@ -216,7 +216,7 @@ extension Color {
             }
         }
 
-        internal var backgroundCode: Int {
+        var backgroundCode: Int {
             switch self {
             case .default:
                 return 40
