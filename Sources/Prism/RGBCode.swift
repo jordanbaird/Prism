@@ -1,8 +1,7 @@
-//===----------------------------------------------------------------------===//
 //
 // RGBCode.swift
+// Prism
 //
-//===----------------------------------------------------------------------===//
 
 /// A type that contains a red, green, and blue component
 /// that can be used to construct a ``Color`` instance.
