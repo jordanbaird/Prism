@@ -3,8 +3,8 @@
 // Prism
 //
 
-/// A type that contains a red, green, and blue component
-/// that can be used to construct a ``Color`` instance.
+/// A type that contains a red, green, and blue component that can be used to
+/// construct a ``Color`` instance.
 public struct RGBCode {
 
     // MARK: Properties
@@ -32,38 +32,30 @@ public struct RGBCode {
 
     // MARK: Initializers
 
-    /// Creates a code with the given red, green, and blue floating
-    /// point components.
+    /// Creates a code with the given red, green, and blue floating point components.
     ///
-    /// Valid values are those between 0.0 and 1.0. If a value is
-    /// outside of this range, it will be clamped.
+    /// Valid values are those between 0.0 and 1.0. Values outside of this range are
+    /// clamped.
     ///
     /// - Parameters:
-    ///   - red: A floating point value representing the red component
-    ///     of the code.
-    ///   - green: A floating point value representing the green component
-    ///     of the code.
-    ///   - blue: A floating point value representing the blue component
-    ///     of the code.
+    ///   - red: A floating point value representing the red component of the code.
+    ///   - green: A floating point value representing the green component of the code.
+    ///   - blue: A floating point value representing the blue component of the code.
     public init(red: Double, green: Double, blue: Double) {
         self.red = red.clamped(to: 0...1)
         self.green = green.clamped(to: 0...1)
         self.blue = blue.clamped(to: 0...1)
     }
 
-    /// Creates a code with the given red, green, and blue integer
-    /// components.
+    /// Creates a code with the given red, green, and blue integer components.
     ///
-    /// Valid values are those between 0 and 255. If a value is
-    /// outside of this range, it will be clamped.
+    /// Valid values are those between 0 and 255. Values outside of this range are
+    /// clamped.
     ///
     /// - Parameters:
-    ///   - red: An integer value representing the red component
-    ///     of the code.
-    ///   - green: An integer value representing the green component
-    ///     of the code.
-    ///   - blue: An integer value representing the blue component
-    ///     of the code.
+    ///   - red: An integer value representing the red component of the code.
+    ///   - green: An integer value representing the green component of the code.
+    ///   - blue: An integer value representing the blue component of the code.
     public init(red: Int, green: Int, blue: Int) {
         self.init(
             red: Double(red) / 255,
@@ -72,11 +64,10 @@ public struct RGBCode {
         )
     }
 
-    /// Creates a code from a string consisting of red, green, and
-    /// blue component values.
-    ///
+    /// Creates a code from a string consisting of red, green, and blue component values.
     ///
     /// Examples of valid strings include:
+    ///
     /// ```swift
     /// // Strings including 'rgb(' and ')':
     /// "rgb(127,52,200)"
@@ -89,23 +80,21 @@ public struct RGBCode {
     /// "10%,33%,98%"
     /// ```
     ///
-    /// The valid value ranges are 0-100 for percentages, 0-255 for
-    /// integers, and 0-1 for floating point values. Values outside
-    /// of these ranges will be clamped.
+    /// The valid value ranges are 0-100 for percentages, 0-255 for integers, and 0-1 for
+    /// floating point values. Values outside of these ranges are clamped.
     ///
     /// - Parameter string: A string that is used to create the code.
     public init(string: String) {
         // Lowercase for easier parsing.
         var string = string.lowercased()
 
-        // Iterating through the prefixes like this also handles the
-        // case where string.hasPrefix("rgb(").
+        // Iterating through the prefixes like this also handles the case where string.hasPrefix("rgb(").
         for prefix in ["rgb", "("] where string.hasPrefix(prefix) {
             string.removeFirst(prefix.count)
         }
 
-        // We _could_ be more strict here, and require that the string
-        // has a closing parenthesis, but it seems kind of unnecessary.
+        // We _could_ be more strict here, and require that the string has a closing parenthesis,
+        // but it seems kind of unnecessary.
         if string.hasSuffix(")") {
             string.removeLast()
         }
@@ -122,14 +111,12 @@ public struct RGBCode {
             $0.trim { $0.isWhitespace }
         }
 
-        // ECMA-48 RGB mode doesn't support alpha values, so limit the
-        // number of substrings to 3.
+        // ECMA-48 RGB mode doesn't support alpha values, so limit the number of substrings to 3.
         if split.count == 3 {
             let transformer: Transformer<Substring, Double>
 
-            // If one substring has a percentage suffix, they _all_ must
-            // have one. Remove the suffix and clamp the result to range
-            // 0...100. Divide by 100 to calculate the percentage.
+            // If one substring has a percentage suffix, they _all_ must have one. Remove the suffix
+            // and clamp the result to range 0...100. Divide by 100 to calculate the percentage.
             if split.contains(where: { $0.hasSuffix("%") }) {
                 transformer = {
                     guard $0.hasSuffix("%") else {
@@ -141,9 +128,8 @@ public struct RGBCode {
                     return 0
                 }
             } else if split.contains(where: { $0.contains(".") }) {
-                // If one substring contains a dot, then every substring
-                // must produce a valid double, which is then clamped to
-                // fall between 0 and 1.
+                // If one substring contains a dot, then every substring must produce a valid double,
+                // which is then clamped to fall between 0 and 1.
                 transformer = {
                     guard let number = Double($0) else {
                         return 0
@@ -151,10 +137,9 @@ public struct RGBCode {
                     return number.clamped(to: 0...1)
                 }
             } else {
-                // Otherwise, assume that every substring should produce
-                // an integer. Convert the result to a double, clamp it to
-                // range 0...255, and divide the final result by 255 to
-                // produce the correct fractional value.
+                // Otherwise, assume that every substring should produce an integer. Convert the result
+                // to a double, clamp it to range 0...255, and divide the final result by 255 to produce
+                // the correct fractional value.
                 //
                 // If a substring does not produce an integer, return 0.
                 transformer = {
@@ -165,8 +150,8 @@ public struct RGBCode {
                 }
             }
 
-            // Use the produced transformer to create an array of doubles
-            // with each value falling between 0 and 1.
+            // Use the produced transformer to create an array of doubles with each value
+            // falling between 0 and 1.
             let numbers = split.map(transformer)
 
             self.init(red: numbers[0], green: numbers[1], blue: numbers[2])

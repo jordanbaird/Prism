@@ -18,9 +18,8 @@ public struct EnvironmentVariable {
 
     /// The value of the environment variable.
     ///
-    /// If the environment variable has not been set, `nil` is returned.
-    /// Likewise, setting this property to `nil` unsets the environment
-    /// variable.
+    /// If the environment variable has not been set, `nil` is returned. Likewise,
+    /// setting this property to `nil` unsets the environment variable.
     public var value: String? {
         get {
             guard let raw = getenv(name) else {
@@ -37,8 +36,8 @@ public struct EnvironmentVariable {
         }
     }
 
-    /// The current status of the environment variable, that is, whether
-    /// it is set or unset.
+    /// The current status of the environment variable, that is, whether it is set
+    /// or unset.
     public var status: Status {
         value == nil ? .unset : .set
     }
@@ -72,15 +71,15 @@ extension EnvironmentVariable {
 
 // MARK: EnvironmentVariable: Equatable
 extension EnvironmentVariable: Equatable {
-    /// Returns a Boolean value indicating whether the given environment
-    /// variables have the same name and value.
+    /// Returns a Boolean value indicating whether the given environment variables have
+    /// the same name and value.
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.name == rhs.name &&
         lhs.value == rhs.value
     }
 
-    /// Returns a Boolean value indiciating whether the given environment
-    /// variable's value and the given string are equal.
+    /// Returns a Boolean value indiciating whether the given environment variable's value
+    /// and the given string are equal.
     public static func == (lhs: Self, rhs: String) -> Bool {
         lhs.value == rhs
     }
@@ -97,8 +96,8 @@ extension EnvironmentVariable: Hashable {
 // MARK: - EnvironmentVariable Status
 
 extension EnvironmentVariable {
-    /// Constants that represent the status of an environment variable,
-    /// that is, whether the variable is set or unset.
+    /// Constants that represent the status of an environment variable, that is, whether the
+    /// variable is set or unset.
     public enum Status {
         /// The environment variable is set.
         case set

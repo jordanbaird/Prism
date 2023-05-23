@@ -5,8 +5,7 @@
 
 // MARK: - Spacer
 
-/// A prism element that adds a single space or tab to a
-/// control sequence.
+/// A prism element that adds a single space or tab to a control sequence.
 public struct Spacer: SpacerElement, ReferencingElement {
     let ref = ElementRef()
 
@@ -23,8 +22,7 @@ public struct Spacer: SpacerElement, ReferencingElement {
 
 // MARK: - LineBreak
 
-/// A prism element that adds a single line break to a
-/// control sequence.
+/// A prism element that adds a single line break to a control sequence.
 public struct LineBreak: SpacerElement, ReferencingElement {
     let ref = ElementRef()
 
@@ -57,10 +55,9 @@ public struct Reset: PrismElement, ReferencingElement {
 
 /// A prism element that does not alter its contents.
 ///
-/// If you are working within the context of an ``ElementBuilder``,
-/// for example, when initializing a ``Prism/Prism``, you don't need
-/// to use this type directly. Simply passing in a string will
-/// automatically produce a result of this type.
+/// If you are working within the context of an ``ElementBuilder``, for example, when
+/// initializing a ``Prism/Prism``, you don't need to use this type directly. Simply
+/// passing in a string will automatically produce a result of this type.
 ///
 /// In the following example, the two prisms are semantically identical:
 ///
@@ -219,8 +216,7 @@ public struct Blink: Attribute, ReferencingAttribute {
 
 // MARK: - Swap
 
-/// A prism element that swaps the foreground and background
-/// colors of its text.
+/// A prism element that swaps the foreground and background colors of its text.
 public struct Swap: Attribute, ReferencingAttribute {
     let ref = AttributeRef()
 
@@ -290,8 +286,7 @@ public struct ForegroundColor: Attribute, ReferencingAttribute {
         ControlSequence(for: self)
     }
 
-    /// Creates an attribute with the given color, string, and
-    /// nested elements.
+    /// Creates an attribute with the given color, string, and nested elements.
     public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
         self.rawValue = string
         self.nestedElements = nestedElements
@@ -299,14 +294,12 @@ public struct ForegroundColor: Attribute, ReferencingAttribute {
         self.offSequence = .foregroundColor(.default)
     }
 
-    /// Creates an attribute with the given color, string, and
-    /// nested elements.
+    /// Creates an attribute with the given color, string, and nested elements.
     public init(_ color: Color, _ string: String, @ElementBuilder nestedElements: () -> [PrismElement]) {
         self.init(color, string, nestedElements: nestedElements())
     }
 
-    /// Creates an attribute with the given color and nested
-    /// elements.
+    /// Creates an attribute with the given color and nested elements.
     public init(_ color: Color, @ElementBuilder nestedElements: () -> [PrismElement]) {
         self.init(color, "", nestedElements: nestedElements())
     }
@@ -319,8 +312,7 @@ public struct ForegroundColor: Attribute, ReferencingAttribute {
 
 // MARK: - BackgroundColor
 
-/// A prism element that renders the background of its text
-/// with a given color.
+/// A prism element that renders the background of its text with a given color.
 public struct BackgroundColor: Attribute, ReferencingAttribute {
     let ref = AttributeRef()
 
@@ -330,8 +322,7 @@ public struct BackgroundColor: Attribute, ReferencingAttribute {
         ControlSequence(for: self)
     }
 
-    /// Creates an attribute with the given color, string, and
-    /// nested elements.
+    /// Creates an attribute with the given color, string, and nested elements.
     public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
         self.rawValue = string
         self.nestedElements = nestedElements
@@ -339,14 +330,12 @@ public struct BackgroundColor: Attribute, ReferencingAttribute {
         self.offSequence = .backgroundColor(.default)
     }
 
-    /// Creates an attribute with the given color, string,
-    /// and nested elements.
+    /// Creates an attribute with the given color, string, and nested elements.
     public init(_ color: Color, _ string: String, @ElementBuilder nestedElements: () -> [PrismElement]) {
         self.init(color, string, nestedElements: nestedElements())
     }
 
-    /// Creates an attribute with the given color and nested
-    /// elements.
+    /// Creates an attribute with the given color and nested elements.
     public init(_ color: Color, @ElementBuilder nestedElements: () -> [PrismElement]) {
         self.init(color, "", nestedElements: nestedElements())
     }
@@ -359,8 +348,7 @@ public struct BackgroundColor: Attribute, ReferencingAttribute {
 
 // MARK: - IgnoreFormatting
 
-/// A prism element that removes all formatting from any
-/// elements nested inside it.
+/// A prism element that removes all formatting from any elements nested inside it.
 public struct IgnoreFormatting: Attribute, ReferencingAttribute {
     let ref = AttributeRef()
 
@@ -402,7 +390,6 @@ public struct IgnoreFormatting: Attribute, ReferencingAttribute {
 
 // MARK: - Unformatted
 
-/// A prism element that removes all formatting from any
-/// elements nested inside it.
+/// A prism element that removes all formatting from any elements nested inside it.
 @available(*, deprecated, renamed: "IgnoreFormatting", message: "renamed to 'IgnoreFormatting'")
 public typealias Unformatted = IgnoreFormatting

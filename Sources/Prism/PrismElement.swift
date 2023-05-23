@@ -5,8 +5,7 @@
 
 // MARK: - PrismElement
 
-/// A type that can be combined with other elements to make up
-/// a ``Prism/Prism``.
+/// A type that can be combined with other elements to make up a ``Prism/Prism``.
 public protocol PrismElement: CustomStringConvertible, CustomDebugStringConvertible {
     /// The control sequence at the base of this element.
     var controlSequence: ControlSequence { get }
@@ -19,9 +18,8 @@ public protocol PrismElement: CustomStringConvertible, CustomDebugStringConverti
 
     /// The spacing of the element.
     ///
-    /// Unless otherwise specified, this value is the same as the
-    /// ``Prism/Prism/spacing-swift.property`` of the element's
-    /// enclosing ``Prism/Prism``.
+    /// Unless otherwise specified, this value is the same as the ``Prism/Prism/spacing-swift.property``
+    /// of the element's enclosing ``Prism/Prism``.
     var spacing: Prism.Spacing { get set }
 
     /// The raw value of this element.
@@ -30,29 +28,24 @@ public protocol PrismElement: CustomStringConvertible, CustomDebugStringConverti
 
 // MARK: PrismElement Default Implementation
 extension PrismElement {
-    /// A textual representation of the element.
     public var description: String {
         string(formatted: Destination.current == .formattingCompatible)
     }
 
-    /// A textual representation of the element that is suitable
-    /// for debugging.
     public var debugDescription: String {
         "\(Self.self)(controlSequence: \(controlSequence.debugDescription))"
     }
 
-    /// A textual representation of the element that shows its
-    /// control characters.
+    /// A textual representation of the element that shows its control characters.
     public var escapedDescription: String {
         controlSequence.components.reduce("") { $0 + $1.escapedDescription }
     }
 
-    /// Returns the string value of the attribute in either a
-    /// formatted or unformatted representation.
+    /// Returns the string value of the attribute in either a formatted or unformatted
+    /// representation.
     ///
-    /// Passing `true` into the `formatted` parameter returns the
-    /// attribute's ``description`` property. Passing `false` returns
-    /// an unformatted version of the attribute's string.
+    /// Passing `true` into the `formatted` parameter returns the attribute's ``description``
+    /// property. Passing `false` returns an unformatted version of the attribute's string.
     public func string(formatted: Bool = true) -> String {
         if formatted {
             return controlSequence.reduced

@@ -136,8 +136,7 @@ extension ControlSequence: Equatable { }
 // MARK: ControlSequence: Hashable
 extension ControlSequence: Hashable { }
 
-// MARK: - ControlSequence Component
-
+// MARK: ControlSequence Component
 extension ControlSequence {
     struct Component {
         let rawValue: String
@@ -183,10 +182,7 @@ extension ControlSequence.Component: Codable { }
 // MARK: Component: CustomDebugStringConvertible
 extension ControlSequence.Component: CustomDebugStringConvertible {
     var debugDescription: String {
-        "\(Self.self)"
-        + "("
-        + "rawValue: \"\(escapedDescription)\""
-        + ")"
+        "\(Self.self)(rawValue: \"\(escapedDescription)\")"
     }
 }
 

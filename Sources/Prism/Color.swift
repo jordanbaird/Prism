@@ -5,8 +5,8 @@
 
 // MARK: - Color
 
-/// A type that represents the color that text will be rendered with
-/// when displayed in a terminal.
+/// A type that represents the color that text will be rendered with when displayed
+/// in a terminal.
 public struct Color {
 
     // MARK: Properties
@@ -30,6 +30,7 @@ public struct Color {
     }
 
     /// Creates a color from the given color.
+    @available(*, deprecated, message: "Equivalent to assigning `self` to `color`.")
     public init(color: Self) {
         self = color
     }
@@ -52,21 +53,20 @@ public struct Color {
 
     /// Creates a color with the given hexadecimal code.
     ///
-    /// The hexadecimal code will be validated before the color is created. A
-    /// valid hexadecimal string consists of 6 characters. Valid characters are
-    /// number 0-9 and letters A-F. The string may be prefixed with a pound sign
-    /// (`#`). Whitespace is ignored, as are additional pound signs.
+    /// The hexadecimal code is validated before the color is created. A valid hexadecimal
+    /// string consists of 6 characters. Valid characters are number 0-9 and letters A-F.
+    /// The string may be prefixed with a pound sign (`#`). Whitespace is ignored, as are
+    /// additional pound signs.
     ///
-    /// If the code is not valid, the color will be initialized to the ``default``
-    /// value.
+    /// If the code is not valid, the color will be initialized to the ``default`` value.
     public init(hexadecimal: Hexadecimal) {
-        self.init(color: hexadecimal.color)
+        self = hexadecimal.color
     }
 
     /// Creates a color from the given string.
     ///
-    /// The string provided can either be a valid hexadecimal value,
-    /// or an RGB-formatted string.
+    /// The string provided can either be a valid hexadecimal value, or an
+    /// RGB-formatted string.
     ///
     /// ```swift
     /// let color = Color(string: "26AB2A") // Valid
@@ -106,8 +106,8 @@ extension Color {
 
     /// The ANSI gray color.
     ///
-    /// > Note: This color is equivalent to calling ``black(style:)`` and
-    ///   passing in the ``Style/bright`` style.
+    /// This color is equivalent to calling ``black(style:)`` and passing in the
+    /// ``Style/bright`` style.
     public static let gray = black(style: .bright)
 
     /// The ANSI red color.
@@ -130,9 +130,8 @@ extension Color {
 
     /// The ANSI white color.
     ///
-    /// > Note: Most terminals will actually render this color as light gray.
-    ///   For a pure white color, use the ``white(style:)`` method and pass in
-    ///   the ``Style/bright`` style.
+    /// Most terminals will actually render this color as light gray. For a pure white
+    /// color, use the ``white(style:)`` method and pass in the ``Style/bright`` style.
     public static let white = white(style: .default)
 
     /// The default text color of the terminal.
@@ -143,8 +142,8 @@ extension Color {
 extension Color {
     /// The ANSI black color, in either a default or bright style.
     ///
-    /// > Note: In most terminals, passing the ``Style/bright`` style into
-    ///   this method produces a color equivalent to ``gray``.
+    /// In most terminals, passing the ``Style/bright`` style into this method produces
+    /// a color equivalent to ``gray``.
     public static func black(style: Style = .default) -> Self {
         Self(rawValue: 0, style: style)
     }
@@ -181,9 +180,8 @@ extension Color {
 
     /// The ANSI white color, in either a default or bright style.
     ///
-    /// > Note: In most terminals, passing the ``Style/default`` style into
-    ///   this method produces a light gray color, while the ``Style/bright``
-    ///   style produces pure white.
+    /// In most terminals, passing the ``Style/default`` style into this method produces
+    /// a light gray color, while the ``Style/bright`` style produces pure white.
     public static func white(style: Style = .default) -> Self {
         Self(rawValue: 7, style: style)
     }
@@ -195,15 +193,14 @@ extension Color: Equatable { }
 // MARK: Color: Hashable
 extension Color: Hashable { }
 
-// MARK: - Color Style
-
+// MARK: Color.Style
 extension Color {
-    /// Styles that impact how a ``Color`` will be rendered.
+    /// Styles that impact how a ``Color`` is displayed.
     public enum Style {
-        /// The color will be rendered in a default style.
+        /// The color is displayed with the default style.
         case `default`
 
-        /// The color will be rendered in a brighter style.
+        /// The color is displayed with a bright style.
         case bright
 
         var foregroundCode: Int {

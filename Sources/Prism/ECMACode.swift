@@ -29,32 +29,36 @@ public struct EightBit: ECMACode {
     }
 
     /// Creates an 8-bit color from the given numeric value.
+    ///
     /// - Parameter numericCode: A numeric value between 0 and 255.
     public init(numericCode: UInt8) {
         self.numericCode = numericCode
     }
 
     /// Creates an 8-bit color from the given subcode.
+    ///
     /// - Parameter subcode: A subcode that produces a color value.
     public init<C: ECMACode>(subcode: C) {
         self.init(numericCode: subcode.numericCode)
     }
 
     /// Creates an 8-bit color from the given grayscale subcode.
+    ///
     /// - Parameter subcode: A subcode that produces a grayscale value.
     public init(grayscale subcode: Grayscale) {
         self.init(subcode: subcode)
     }
 
     /// Creates an 8-bit color from the given standard subcode.
+    ///
     /// - Parameter subcode: A subcode that produces a standard color value.
     public init(standard subcode: StandardColor) {
         self.init(subcode: subcode)
     }
 
     /// Creates an 8-bit color from the given subcode.
-    /// - Parameter subcode: A type-erased subcode that produces a
-    ///   color value.
+    ///
+    /// - Parameter subcode: A type-erased subcode that produces a color value.
     @available(*, deprecated, message: "AnySubcode is no longer in use")
     public init(subcode: AnySubcode) {
         self.init(numericCode: subcode.numericCode)
@@ -64,32 +68,31 @@ public struct EightBit: ECMACode {
 // MARK: EightBit Static Methods
 extension EightBit {
     /// Returns an 8-bit code that produces a grayscale color.
+    ///
     /// - Parameter subcode: A subcode that produces a grayscale value.
     public static func grayscale(_ subcode: Grayscale) -> Self {
         Self(grayscale: subcode)
     }
 
     /// Returns an 8-bit code that produces one of sixteen standard colors.
+    ///
     /// - Parameter subcode: A subcode that produces a standard color value.
     public static func standardColor(_ subcode: StandardColor) -> Self {
         Self(standard: subcode)
     }
 }
 
-// MARK: - EightBit StandardColor
-
+// MARK: EightBit.StandardColor
 extension EightBit {
     /// An ECMA-48 compliant code that produces one of sixteen standard colors.
     public struct StandardColor: ECMACode {
         /// The raw value associated with the code.
         ///
-        /// The possible values of this property are unsigned integers between 0
-        /// and 15. Codes 0 through 7 produce standard-intensity colors, while
-        /// codes 8 through 15 produce high-intensity colors. Each code matches
-        /// one of ``Prism/EightBit/StandardColor``'s static constants.
+        /// The possible values of this property are unsigned integers between 0 and 15.
+        /// Codes 0—7 produce standard-intensity colors. Codes 8—15 produce high-intensity
+        /// colors. Each code matches one of ``EightBit/StandardColor``'s static constants.
         public let numericCode: UInt8
 
-        /// Creates a standard color code with the given numeric code.
         private init(_ numericCode: UInt8) {
             assert(numericCode >= 0, "Numeric code cannot be less than 0")
             assert(numericCode <= 15, "Numeric code cannot be greater than 15")
@@ -156,19 +159,17 @@ extension EightBit {
     public struct Grayscale: ECMACode {
         /// The raw value associated with the code.
         ///
-        /// The possible values of this property are unsigned integers between 232
-        /// and 255, with 232 producing a near-black color, and 255 producing a
-        /// near-white color.
+        /// The possible values of this property are unsigned integers between 232 and 255,
+        /// with 232 producing a near-black color, and 255 producing a near-white color.
         public let numericCode: UInt8
 
         /// Creates a grayscale ECMA code with the given intensity.
         ///
-        /// The provided value must be between 0 and 1. Values outside this range
-        /// will be clamped.
+        /// The provided value must be between 0 and 1. Values outside this range are clamped.
         ///
-        /// - Parameter intensity: A value between 0 and 1 that dictates how bright
-        ///   the color will be. Values closer to 0 will produce darker colors, while
-        ///   values closer to 1 will produce lighter colors.
+        /// - Parameter intensity: A value between 0 and 1 that indicates how bright the color
+        ///   should be. Values closer to 0 produce darker colors, while values closer to 1
+        ///   produce lighter colors.
         public init(intensity: Double) {
             let intensity = intensity.clamped(to: 0...1)
             let remappedIntensity = (intensity * 23) + 232
@@ -179,12 +180,10 @@ extension EightBit {
 
 // MARK: Grayscale: ExpressibleByFloatLiteral
 extension EightBit.Grayscale: ExpressibleByFloatLiteral {
-    /// Creates a grayscale ECMA code with the given intensity, using a
-    /// floating point literal.
+    /// Creates a grayscale ECMA code with the given intensity, using a floating point literal.
     ///
-    /// The provided value must be between 0 and 1. Values outside this range
-    /// will be clamped. Values closer to 0 will produce darker colors, while
-    /// values closer to 1 will produce lighter colors.
+    /// The provided value must be between 0 and 1. Values outside this range are clamped. Values
+    /// closer to 0 produce darker colors, while values closer to 1 produce lighter colors.
     public init(floatLiteral value: Double) {
         self.init(intensity: value)
     }
@@ -193,8 +192,7 @@ extension EightBit.Grayscale: ExpressibleByFloatLiteral {
 // MARK: EightBit AnySubcode
 
 extension EightBit {
-    /// An ECMA-48 compliant code that performs type-erasure on
-    /// another ECMA-48 compliant code.
+    /// An ECMA-48 compliant code that performs type-erasure on another ECMA-48 compliant code.
     @available(*, deprecated, message: "AnySubcode is no longer in use")
     public struct AnySubcode: ECMACode {
         public let numericCode: UInt8

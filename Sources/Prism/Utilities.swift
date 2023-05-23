@@ -7,7 +7,7 @@
 
 typealias Transformer<From, To> = (From) -> To
 
-// MARK: - Numeric (Self: Comparable)
+// MARK: - Numeric where Self: Comparable
 
 extension Numeric where Self: Comparable {
     func clamped(to range: ClosedRange<Self>) -> Self {

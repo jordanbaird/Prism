@@ -37,8 +37,8 @@ extension Attribute {
     /// }
     /// ```
     ///
-    /// This initializer causes the attribute to override the spacing
-    /// of its enclosing prism.
+    /// This initializer causes the attribute to override the spacing of its
+    /// enclosing prism.
     public init(
         spacing: Prism.Spacing,
         @ElementBuilder _ nestedElements: () -> [PrismElement]
@@ -62,8 +62,8 @@ extension Attribute {
     /// }
     /// ```
     ///
-    /// This initializer causes the attribute to inherit the spacing of
-    /// its enclosing prism.
+    /// This initializer causes the attribute to inherit the spacing of its
+    /// enclosing prism.
     public init(@ElementBuilder _ nestedElements: () -> [PrismElement]) {
         self.init("", nestedElements: nestedElements())
     }

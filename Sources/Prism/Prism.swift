@@ -5,14 +5,14 @@
 
 // MARK: - Prism
 
-/// A type that contains multiple elements that will be combined
-/// into a final formatted string for display in a terminal.
+/// A type that contains multiple elements that will be combined into a final
+/// formatted string for display in a terminal.
 public struct Prism {
 
     // MARK: Properties
 
-    /// A value that describes how the prism's elements should
-    /// be spaced when displayed in a terminal.
+    /// A value that describes how the prism's elements should be spaced when
+    /// displayed in a terminal.
     public let spacing: Spacing
 
     private var _elements: [PrismElement]
@@ -25,18 +25,15 @@ public struct Prism {
         }
     }
 
-    /// A textual representation of the prism that shows its
-    /// control characters.
+    /// A textual representation of the prism that shows its control characters.
     public var escapedDescription: String {
         elements.reduce("") { $0 + $1.escapedDescription }
     }
 
-    /// A version of the prism whose elements produce an unformatted
-    /// string.
+    /// A version of the prism whose elements produce an unformatted string.
     ///
-    /// Use this property if, for example, you need to send the results
-    /// of the prism to a log file, or if you need to save or view the
-    /// text in some other format.
+    /// Use this property if, for example, you need to send the results of the prism
+    /// to a log file, or if you need to save or view the text in some other format.
     ///
     /// ```swift
     /// let text = Prism(spacing: .spaces) {
@@ -103,13 +100,12 @@ public struct Prism {
 
     // MARK: Methods
 
-    /// Returns the string value of the prism in either a formatted
-    /// or unformatted representation.
+    /// Returns the string value of the prism in either a formatted or unformatted
+    /// representation.
     ///
-    /// Passing `true` into the `formatted` parameter returns the
-    /// prism's ``description`` property. Passing `false` returns
-    /// the ``description`` property of the prism that is returned
-    /// from the ``unformatted`` property.
+    /// Passing `true` into the `formatted` parameter returns the prism's ``description``
+    /// property. Passing `false` returns the ``description`` property of the prism that
+    /// is returned from the ``unformatted`` property.
     ///
     /// ```swift
     /// let text = Prism(spacing: .spaces) {
@@ -171,8 +167,6 @@ extension Prism {
 
 // MARK: Prism: CustomDebugStringConvertible
 extension Prism: CustomDebugStringConvertible {
-    /// A textual representation of this prism that is suitable
-    /// for debugging.
     public var debugDescription: String {
         elements
             .map { $0.debugDescription }
@@ -182,7 +176,6 @@ extension Prism: CustomDebugStringConvertible {
 
 // MARK: Prism: CustomStringConvertible {
 extension Prism: CustomStringConvertible {
-    /// A textual representation of this prism.
     public var description: String {
         elements.reduce("") { $0 + $1.description }
     }
