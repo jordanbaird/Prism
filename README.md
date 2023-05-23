@@ -80,7 +80,7 @@ print(formatted1 == formatted2)
 // Prints: "true"
 ```
 
-The `Prism` type conforms to the `CustomStringConvertible` protocol, allowing its formatted contents to be printed directly to `stdout`. If the output destination (i.e. terminal or console) does not support formatted text, the unformatted version will be automatically printed instead.
+The `Prism` type conforms to the `CustomStringConvertible` protocol, allowing its formatted contents to be printed directly to `stdout`.
 
 ```swift
 let wonderfulWorld = Prism {
@@ -98,6 +98,12 @@ print(wonderfulWorld)
 
 <div align='center'>
     <img src='Sources/Prism/Documentation.docc/Resources/output-example.png', style='width:75%'>
+</div>
+
+If the output destination (i.e. terminal or console) does not support formatted text, the unformatted version of the text will be automatically printed instead. For example, here's what the above code prints in Xcode's console:
+
+<div align='center'>
+    <img src='Sources/Prism/Documentation.docc/Resources/console-output-example.png', style='width:75%'>
 </div>
 
 Note that some terminal clients may display certain elements differently than others. `Prism` simply provides the terminal with a set of control codes for each attribute. It is up to the terminal to determine how it will display the control codes that `Prism` provides it.
