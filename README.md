@@ -33,7 +33,7 @@ Add the following dependency to your `Package.swift` file:
 Start by creating an instance of the `Prism` type. Its initializer accepts a closure, which you populate with various attributes.
 
 ```swift
-let text = Prism(spacing: .spaces) {
+let formatted = Prism(spacing: .spaces) {
     ForegroundColor(.green, "This text's color is green.")
     Bold("This text is bold.")
     Italic("This text is italic.")
@@ -45,7 +45,7 @@ let text = Prism(spacing: .spaces) {
 Attributes behave similarly to `Prism` itself, giving you the ability to nest other elements inside them. 
 
 ```swift
-let text = Prism(spacing: .newlines) {
+let formatted = Prism(spacing: .newlines) {
     Bold {
         "This text is bold."
         Italic("This text is bold and italic.")
@@ -61,29 +61,29 @@ let text = Prism(spacing: .newlines) {
 }
 ```
 
-The DSL's `ElementBuilder` implicitly wraps strings inside a special, non-modifying `Standard` attribute, allowing instances of the `String` type — including string literals — to be used inline with other elements and attributes. In the following example, the two `Prism` blocks are semantically identical.
+The DSL's `ElementBuilder` implicitly wraps strings inside a special, non-modifying `Standard` attribute, allowing instances of the `String` type — including string literals — to be used inline with other elements and attributes. In the following example, the two `Prism` blocks are semantically identical:
 
 ```swift
-let text1 = Prism {
+let formatted1 = Prism {
     Bold("Some bold text.")
     Standard("Just regular old text.")
     Italic("Some italic text.")
 }
 
-let text2 = Prism {
+let formatted2 = Prism {
     Bold("Some bold text.")
     "Just regular old text."
     Italic("Some italic text.")
 }
 
-print(text1 == text2)
+print(formatted1 == formatted2)
 // Prints: "true"
 ```
 
 The `Prism` type conforms to the `CustomStringConvertible` protocol, allowing its formatted contents to be printed directly to `stdout`. If the output destination (i.e. terminal or console) does not support formatted text, the unformatted version will be automatically printed instead.
 
 ```swift
-let text = Prism {
+let wonderfulWorld = Prism {
     "I see"
     ForegroundColor(.blue) {
         "skies that are blue."
@@ -93,7 +93,7 @@ let text = Prism {
     }
 }
 
-print(text)
+print(wonderfulWorld)
 ```
 
 <div align='center'>
