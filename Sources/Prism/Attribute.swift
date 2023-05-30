@@ -3,8 +3,6 @@
 // Prism
 //
 
-// MARK: - Attribute
-
 /// A type that modifies a string for display in a terminal.
 public protocol Attribute: PrismElement {
     /// The control sequence that indicates the start of the attribute.
@@ -17,7 +15,6 @@ public protocol Attribute: PrismElement {
     init(_ string: String, nestedElements: [PrismElement])
 }
 
-// MARK: Default Implementation
 extension Attribute {
     /// Creates an attribute with the given spacing and nested elements.
     ///
