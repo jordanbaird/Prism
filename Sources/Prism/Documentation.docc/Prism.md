@@ -106,7 +106,7 @@ Note that some terminal clients may display certain elements differently than ot
 
 ### Colors
 
-- ``Color``
-- ``Color/RGBCode``
-- ``Color/Hexadecimal``
-- ``Color/EightBit``
+- ``PrismColor``
+- ``PrismColor/RGBCode``
+- ``PrismColor/Hexadecimal``
+- ``PrismColor/EightBit``

@@ -54,13 +54,13 @@ extension String {
 extension String {
     /// Returns a version of the string whose text will be rendered with the given foreground
     /// color when displayed in a terminal.
-    public func foregroundColor(_ color: Color) -> Self {
+    public func foregroundColor(_ color: PrismColor) -> Self {
         ForegroundColor(color, self).string()
     }
 
     /// Returns a version of the string whose text will be rendered with the given background
     /// color when displayed in a terminal.
-    public func backgroundColor(_ color: Color) -> Self {
+    public func backgroundColor(_ color: PrismColor) -> Self {
         BackgroundColor(color, self).string()
     }
 }

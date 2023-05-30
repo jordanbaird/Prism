@@ -1,4 +1,4 @@
-# ``Prism/Color/EightBit``
+# ``Prism/PrismColor/EightBit``
 
 A color code that produces one of the ECMA-48 standard's 256 8-bit colors.
 

@@ -79,11 +79,11 @@ extension ControlSequence {
 
 // MARK: ControlSequence Static Methods
 extension ControlSequence {
-    static func foregroundColor(_ color: Color) -> Self {
+    static func foregroundColor(_ color: PrismColor) -> Self {
         Self(withComponentValue: color.foregroundCode)
     }
 
-    static func backgroundColor(_ color: Color) -> Self {
+    static func backgroundColor(_ color: PrismColor) -> Self {
         Self(withComponentValue: color.backgroundCode)
     }
 

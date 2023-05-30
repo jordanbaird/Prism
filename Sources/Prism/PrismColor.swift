@@ -1,13 +1,13 @@
 //
-// Color.swift
+// PrismColor.swift
 // Prism
 //
 
-// MARK: - Color
+// MARK: - PrismColor
 
-/// A type that represents the color that text will be rendered with when displayed
+/// A type that represents a color that text will be rendered with when displayed
 /// in a terminal.
-public struct Color {
+public struct PrismColor {
 
     // MARK: Properties
 
@@ -27,12 +27,6 @@ public struct Color {
             foregroundCode: "\(rawValue + style.foregroundCode)",
             backgroundCode: "\(rawValue + style.backgroundCode)"
         )
-    }
-
-    /// Creates a color from the given color.
-    @available(*, deprecated, message: "Equivalent to assigning `self` to `color`.")
-    public init(color: Self) {
-        self = color
     }
 
     /// Creates a color with the given RGB code.
@@ -69,11 +63,11 @@ public struct Color {
     /// RGB-formatted string.
     ///
     /// ```swift
-    /// let color = Color(string: "26AB2A") // Valid
-    /// let color = Color(string: "#9B69B9") // Valid
-    /// let color = Color(string: "rgb(5 88 247)") // Valid
-    /// let color = Color(string: "rgb(30% 77% 14%)") // Valid
-    /// let color = Color(string: "rgb(109,34,232)") // Valid
+    /// let color = PrismColor(string: "26AB2A") // Valid
+    /// let color = PrismColor(string: "#9B69B9") // Valid
+    /// let color = PrismColor(string: "rgb(5 88 247)") // Valid
+    /// let color = PrismColor(string: "rgb(30% 77% 14%)") // Valid
+    /// let color = PrismColor(string: "rgb(109,34,232)") // Valid
     /// ```
     public init(string: String) {
         let hexadecimal = Hexadecimal(string: string)
@@ -99,47 +93,8 @@ public struct Color {
     }
 }
 
-// MARK: Color Static Constants
-extension Color {
-    /// The ANSI black color.
-    public static let black = black(style: .default)
-
-    /// The ANSI gray color.
-    ///
-    /// This color is equivalent to calling ``black(style:)`` and passing in the
-    /// ``Style/bright`` style.
-    public static let gray = black(style: .bright)
-
-    /// The ANSI red color.
-    public static let red = red(style: .default)
-
-    /// The ANSI green color.
-    public static let green = green(style: .default)
-
-    /// The ANSI yellow color.
-    public static let yellow = yellow(style: .default)
-
-    /// The ANSI blue color.
-    public static let blue = blue(style: .default)
-
-    /// The ANSI magenta color.
-    public static let magenta = magenta(style: .default)
-
-    /// The ANSI cyan color.
-    public static let cyan = cyan(style: .default)
-
-    /// The ANSI white color.
-    ///
-    /// Most terminals will actually render this color as light gray. For a pure white
-    /// color, use the ``white(style:)`` method and pass in the ``Style/bright`` style.
-    public static let white = white(style: .default)
-
-    /// The default text color of the terminal.
-    public static let `default` = Self(rawValue: 9, style: .default)
-}
-
-// MARK: Color Static Methods
-extension Color {
+// MARK: PrismColor Static Methods
+extension PrismColor {
     /// The ANSI black color, in either a default or bright style.
     ///
     /// In most terminals, passing the ``Style/bright`` style into this method produces
@@ -187,15 +142,54 @@ extension Color {
     }
 }
 
-// MARK: Color: Equatable
-extension Color: Equatable { }
+// MARK: PrismColor Static Constants
+extension PrismColor {
+    /// The ANSI black color.
+    public static let black = black(style: .default)
 
-// MARK: Color: Hashable
-extension Color: Hashable { }
+    /// The ANSI gray color.
+    ///
+    /// This color is equivalent to calling ``black(style:)`` and passing in the
+    /// ``Style/bright`` style.
+    public static let gray = black(style: .bright)
 
-// MARK: Color.Style
-extension Color {
-    /// Styles that impact how a ``Color`` is displayed.
+    /// The ANSI red color.
+    public static let red = red(style: .default)
+
+    /// The ANSI green color.
+    public static let green = green(style: .default)
+
+    /// The ANSI yellow color.
+    public static let yellow = yellow(style: .default)
+
+    /// The ANSI blue color.
+    public static let blue = blue(style: .default)
+
+    /// The ANSI magenta color.
+    public static let magenta = magenta(style: .default)
+
+    /// The ANSI cyan color.
+    public static let cyan = cyan(style: .default)
+
+    /// The ANSI white color.
+    ///
+    /// Most terminals will actually render this color as light gray. For a pure white
+    /// color, use the ``white(style:)`` method and pass in the ``Style/bright`` style.
+    public static let white = white(style: .default)
+
+    /// The default text color of the terminal.
+    public static let `default` = Self(rawValue: 9, style: .default)
+}
+
+// MARK: PrismColor: Equatable
+extension PrismColor: Equatable { }
+
+// MARK: PrismColor: Hashable
+extension PrismColor: Hashable { }
+
+// MARK: PrismColor.Style
+extension PrismColor {
+    /// Styles that impact how a ``PrismColor`` is displayed.
     public enum Style {
         /// The color is displayed with the default style.
         case `default`
@@ -225,6 +219,9 @@ extension Color {
 
 // MARK: - Compatibility
 
+@available(*, deprecated, renamed: "PrismColor")
+public typealias Color = PrismColor
+
 public typealias _EightBit = EightBit
 
 public typealias _Hexadecimal = Hexadecimal
@@ -234,7 +231,7 @@ public typealias _RGBCode = RGBCode
 @available(*, deprecated, renamed: "EightBit")
 public typealias ECMA256 = EightBit
 
-extension Color {
+extension PrismColor {
     public typealias EightBit = _EightBit
 
     public typealias Hexadecimal = _Hexadecimal
@@ -248,5 +245,11 @@ extension Color {
     @available(*, deprecated, renamed: "init(eightBit:)")
     public init(ecma256: ECMA256) {
         self.init(eightBit: ecma256)
+    }
+
+    /// Creates a color from the given color.
+    @available(*, deprecated, message: "Equivalent to assigning `self` to `color`.")
+    public init(color: Self) {
+        self = color
     }
 }

@@ -9,14 +9,14 @@
 public struct Hexadecimal {
     private let stringCandidate: String
 
-    /// A ``Color`` instance that is constructed once the instance's string has
+    /// A ``PrismColor`` instance that is constructed once the instance's string has
     /// been validated.
     ///
-    /// If the validation of the string fails, ``Color/default`` will be used as
+    /// If the validation of the string fails, ``PrismColor/default`` will be used as
     /// a fallback.
-    public var color: Color {
+    public var color: PrismColor {
         if let rgbCode = rgbCodeFromString() {
-            return Color(rgbCode: rgbCode)
+            return PrismColor(rgbCode: rgbCode)
         }
         return .default
     }

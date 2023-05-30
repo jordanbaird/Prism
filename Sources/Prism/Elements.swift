@@ -287,7 +287,7 @@ public struct ForegroundColor: Attribute, ReferencingAttribute {
     }
 
     /// Creates an attribute with the given color, string, and nested elements.
-    public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
+    public init(_ color: PrismColor, _ string: String, nestedElements: [PrismElement] = []) {
         self.rawValue = string
         self.nestedElements = nestedElements
         self.onSequence = .foregroundColor(color)
@@ -295,12 +295,12 @@ public struct ForegroundColor: Attribute, ReferencingAttribute {
     }
 
     /// Creates an attribute with the given color, string, and nested elements.
-    public init(_ color: Color, _ string: String, @ElementBuilder nestedElements: () -> [PrismElement]) {
+    public init(_ color: PrismColor, _ string: String, @ElementBuilder nestedElements: () -> [PrismElement]) {
         self.init(color, string, nestedElements: nestedElements())
     }
 
     /// Creates an attribute with the given color and nested elements.
-    public init(_ color: Color, @ElementBuilder nestedElements: () -> [PrismElement]) {
+    public init(_ color: PrismColor, @ElementBuilder nestedElements: () -> [PrismElement]) {
         self.init(color, "", nestedElements: nestedElements())
     }
 
@@ -323,7 +323,7 @@ public struct BackgroundColor: Attribute, ReferencingAttribute {
     }
 
     /// Creates an attribute with the given color, string, and nested elements.
-    public init(_ color: Color, _ string: String, nestedElements: [PrismElement] = []) {
+    public init(_ color: PrismColor, _ string: String, nestedElements: [PrismElement] = []) {
         self.rawValue = string
         self.nestedElements = nestedElements
         self.onSequence = .backgroundColor(color)
@@ -331,12 +331,12 @@ public struct BackgroundColor: Attribute, ReferencingAttribute {
     }
 
     /// Creates an attribute with the given color, string, and nested elements.
-    public init(_ color: Color, _ string: String, @ElementBuilder nestedElements: () -> [PrismElement]) {
+    public init(_ color: PrismColor, _ string: String, @ElementBuilder nestedElements: () -> [PrismElement]) {
         self.init(color, string, nestedElements: nestedElements())
     }
 
     /// Creates an attribute with the given color and nested elements.
-    public init(_ color: Color, @ElementBuilder nestedElements: () -> [PrismElement]) {
+    public init(_ color: PrismColor, @ElementBuilder nestedElements: () -> [PrismElement]) {
         self.init(color, "", nestedElements: nestedElements())
     }
 
